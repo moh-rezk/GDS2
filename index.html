@@ -1,1158 +1,1402 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlTag">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Al-Mosafer Amendment Tool GDS v15</title>
-    <style>
-        :root {
-            --primary: #003580; --secondary: #00b1ff; --bg: #f4f7f6;
-            --card: #ffffff; --text-dark: #2d3436; --success: #2ecc71;
-            --warning: #f1c40f; --danger: #e74c3c;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amendment Tool v21 — Al-Mosafer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--bg); color: var(--text-dark); margin: 0; padding: 20px; transition: all 0.3s; }
-        .container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 450px 1fr; gap: 20px; }
-        @media (max-width: 1100px) { .container { grid-template-columns: 1fr; } }
+:root {
+  --slate:     #0f172a;
+  --slate-mid: #1e293b;
+  --slate-sub: #334155;
+  --emerald:   #10b981;
+  --emerald-d: #059669;
+  --emerald-x: rgba(16,185,129,0.12);
+  --emerald-b: rgba(16,185,129,0.28);
+  --sky:       #38bdf8;
+  --amber:     #f59e0b;
+  --red:       #ef4444;
+  --bg:        #f0f4f8;
+  --white:     #ffffff;
+  --card:      #ffffff;
+  --border:    rgba(0,0,0,0.07);
+  --border-s:  rgba(0,0,0,0.12);
+  --text:      #0f172a;
+  --muted:     #64748b;
+  --faint:     #94a3b8;
+  --radius:    12px;
+  --radius-sm: 8px;
+  --shadow:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+}
 
-        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: var(--primary); padding: 10px 20px; border-radius: 12px; color: white; }
-        
-        /* Language Toggle */
-        .lang-toggle { display: flex; align-items: center; gap: 8px; }
-        .lang-btn { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.4); color: white; padding: 5px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; font-weight: bold; }
-        .lang-btn.active { background: white; color: var(--primary); }
-        
-        .card { background: var(--card); border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); margin-bottom: 20px; }
-        h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        label { display: block; font-weight: 600; margin: 10px 0 5px; font-size: 0.8rem; color: #636e72; }
+body {
+  font-family: 'IBM Plex Sans Arabic','Segoe UI',Tahoma,sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
 
-        textarea, input[type=text], input[type=number] { width: 100%; border: 1px solid #dfe6e9; border-radius: 8px; padding: 12px; font-size: 0.9rem; box-sizing: border-box; }
-        textarea { height: 80px; font-family: monospace; background: #fafafa; }
-        #rawSeg { height: 110px; font-size: 0.82rem; letter-spacing: 0.02em; }
+/* ══ APP SHELL: icon sidebar + main ══ */
+.app-shell {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  min-height: 100vh;
+}
+@media(max-width:768px){
+  .app-shell{grid-template-columns:1fr;}
+  .icon-sidebar{display:none;}
+}
 
-        .alert-red-input { background-color: #fff2f2 !important; border: 2px solid #ff4d4d !important; }
+/* ══ ICON SIDEBAR ══ */
+.icon-sidebar {
+  background: var(--slate);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 0;
+  gap: 4px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 20;
+}
+.sb-logo {
+  width: 36px; height: 36px;
+  background: var(--emerald);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+.sb-logo svg { width: 20px; height: 20px; fill: var(--slate); }
+.sb-nav {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 2px; width: 100%;
+}
+.sb-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: #475569; font-size: 18px; cursor: pointer;
+  transition: .18s; position: relative;
+}
+.sb-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.sb-icon:hover { background: rgba(255,255,255,0.06); color: #94a3b8; }
+.sb-icon.active { background: var(--emerald-x); color: var(--emerald); }
+.sb-icon[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%; transform: translateY(-50%);
+  background: var(--slate-mid);
+  color: #e2e8f0; font-size: 11px; padding: 4px 8px;
+  border-radius: 6px; white-space: nowrap; pointer-events: none;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+html[lang=en] .sb-icon[data-tip-en]:hover::after { content: attr(data-tip-en); }
+.sb-spacer { flex: 1; }
+.sb-version {
+  font-size: 9px; color: #334155;
+  writing-mode: vertical-rl; letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
 
-        .preview-card { background: white; border-radius: 12px; min-height: 850px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 20px; padding: 20px; }
-        .preview-header { padding: 10px 0; font-weight: bold; border-bottom: 2px solid var(--secondary); margin-bottom: 20px; display: flex; justify-content: space-between; }
+/* ══ MAIN PANEL ══ */
+.main-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
 
-        .internal-view { background: #fff9db; border-right: 5px solid var(--warning); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; display: none; }
-        
-        .msg-box { background: #f8f9fa; border: 1px solid #ddd; padding: 15px; border-radius: 10px; margin-bottom: 10px; white-space: pre-wrap; font-size: 0.85rem; line-height: 1.6; position: relative; color: #000; }
-        .msg-box::before { content: attr(data-lang); position: absolute; top: -10px; left: 15px; background: var(--secondary); color: white; padding: 2px 10px; border-radius: 5px; font-size: 0.7rem; }
-        
-        /* Segment preview */
-        .seg-preview { background: #eaf6ff; border: 1px solid #b3dff7; border-radius: 8px; padding: 12px; margin-top: 10px; font-size: 0.82rem; line-height: 1.7; display: none; }
-        .seg-preview .seg-item { margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px dashed #c0dcee; }
-        .seg-preview .seg-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .seg-tag { display: inline-block; background: var(--primary); color: white; padding: 1px 7px; border-radius: 4px; font-size: 0.72rem; margin-bottom: 4px; }
-        
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 5px; }
-        .btn-main { background: var(--primary); color: white; }
-        .btn-success { background: var(--success); color: white; }
-        .btn-gds { background: #273c75; color: white; }
-        
-        .copy-btns-wrapper { display: flex; gap: 10px; margin-bottom: 20px; }
-        .copy-btns-wrapper .btn { margin-top: 0; flex: 1; padding: 10px; font-size: 0.85rem; }
+/* ══ PROGRESS BAR ══ */
+.progress-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+.progress-steps {
+  display: flex; align-items: center; gap: 0;
+  flex: 1; overflow-x: auto;
+}
+.progress-steps::-webkit-scrollbar { display: none; }
+.prog-step {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border-radius: var(--radius-sm);
+  transition: .18s; cursor: default;
+  white-space: nowrap;
+}
+.prog-step-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; flex-shrink: 0;
+  transition: .2s;
+}
+.prog-step-lbl { font-size: 12px; font-weight: 500; }
+.prog-arrow {
+  color: var(--faint); font-size: 16px; margin: 0 2px; flex-shrink: 0;
+}
+html[dir=rtl] .prog-arrow { transform: scaleX(-1); }
 
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: white; padding: 25px; border-radius: 15px; width: 380px; }
+/* done */
+.prog-step.done .prog-step-dot { background: var(--emerald); color: #fff; }
+.prog-step.done .prog-step-lbl { color: var(--muted); }
+/* active */
+.prog-step.active .prog-step-dot { background: var(--slate); color: #fff; }
+.prog-step.active .prog-step-lbl { color: var(--text); }
+/* idle */
+.prog-step.idle .prog-step-dot { background: #e2e8f0; color: var(--faint); }
+.prog-step.idle .prog-step-lbl { color: var(--faint); }
 
-        /* Step flow */
-        #flightStep .card { border-top-color: var(--secondary); animation: slideDown 0.3s ease; }
-        #bagCard, #namesCard { animation: slideDown 0.25s ease; }
-        #analyzeStep { animation: slideDown 0.25s ease; }
-        @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
-        .step-badge { display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; background:var(--secondary); color:white; border-radius:50%; font-size:0.72rem; font-weight:bold; margin-left:6px; margin-right:6px; }
+.pb-right {
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.lang-toggle {
+  display: flex; background: var(--bg); border-radius: 8px;
+  padding: 3px; gap: 2px;
+}
+.lang-btn {
+  padding: 4px 12px; border-radius: 6px; border: none;
+  font-family: inherit; font-size: 12px; cursor: pointer;
+  background: transparent; color: var(--muted); font-weight: 500;
+  transition: .15s;
+}
+.lang-btn.active { background: var(--white); color: var(--text); box-shadow: var(--shadow); }
+.cur-pill {
+  background: var(--emerald-x); border: 1px solid var(--emerald-b);
+  color: var(--emerald-d); padding: 4px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+}
 
-        /* i18n hidden classes */
-        [data-ar], [data-en] { transition: opacity 0.2s; }
-        html[lang="en"] [data-ar] { display: none !important; }
-        html[lang="ar"] [data-en] { display: none !important; }
-    </style>
+/* ══ BODY: two column ══ */
+.body-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  flex: 1;
+  min-height: 0;
+}
+@media(max-width:900px){
+  .body-layout{grid-template-columns:1fr;}
+  .input-panel{max-height:none;}
+}
+
+/* ══ INPUT PANEL (left) ══ */
+.input-panel {
+  background: var(--white);
+  border-left: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 54px);
+  position: sticky;
+  top: 54px;
+}
+.ip-section {
+  border-bottom: 1px solid var(--border);
+  padding: 16px;
+}
+.ip-section:last-child { border-bottom: none; flex: 1; }
+.ip-title {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.ip-title-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+}
+.ip-label {
+  font-size: 11px; color: var(--muted); display: block;
+  margin-bottom: 4px; margin-top: 10px;
+}
+.ip-label:first-of-type { margin-top: 0; }
+.ip-textarea {
+  width: 100%; min-height: 56px;
+  background: #f8fafc; border: 1px solid var(--border-s);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; line-height: 1.6;
+  padding: 8px 10px; resize: vertical;
+  transition: .15s;
+}
+.ip-textarea:focus { outline: none; border-color: var(--emerald); background: #fff; box-shadow: 0 0 0 3px var(--emerald-x); }
+.ip-textarea::placeholder { color: var(--faint); }
+.ip-input {
+  width: 100%; background: #f8fafc;
+  border: 1px solid var(--border-s); border-radius: var(--radius-sm);
+  color: var(--text); font-family: inherit; font-size: 12px;
+  padding: 8px 10px; transition: .15s;
+}
+.ip-input:focus { outline: none; border-color: var(--emerald); background: #fff; box-shadow: 0 0 0 3px var(--emerald-x); }
+.ip-input::placeholder { color: var(--faint); }
+.ip-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* detect badge in panel */
+.detect-badge {
+  display: none; border-radius: 8px; padding: 8px 10px;
+  font-size: 11px; margin-bottom: 10px; border: 1px solid; font-weight: 500;
+}
+.detect-badge.ok { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+.detect-badge.warn { background: #fffbeb; border-color: #fde68a; color: #92400e; }
+
+/* noshow banner */
+.noshow-banner {
+  display: none; background: #eff6ff; border: 1px solid #bfdbfe;
+  border-radius: 8px; padding: 8px 10px; font-size: 11px;
+  color: #1e40af; margin-bottom: 10px; line-height: 1.5;
+}
+
+/* seg preview */
+.seg-preview {
+  display: none; background: var(--emerald-x); border: 1px solid var(--emerald-b);
+  border-radius: 8px; padding: 8px 10px; margin-top: 8px;
+  font-size: 11px; line-height: 1.65; color: #065f46;
+}
+.seg-item { margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px solid var(--emerald-b); }
+.seg-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.seg-tag {
+  display: inline-block; background: var(--emerald); color: #fff;
+  padding: 1px 7px; border-radius: 4px; font-size: 10px; font-weight: 600; margin-bottom: 3px;
+}
+
+/* pax names */
+.pax-raw-input {
+  width: 100%; min-height: 58px;
+  background: #f8fafc; border: 1px solid var(--border-s);
+  border-radius: var(--radius-sm); color: var(--text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px; line-height: 1.6; padding: 8px 10px; resize: vertical;
+}
+.pax-raw-input:focus { outline: none; border-color: var(--emerald); background: #fff; box-shadow: 0 0 0 3px var(--emerald-x); }
+.pax-raw-input.has-content { border-color: var(--emerald); }
+.pax-raw-input::placeholder { color: var(--faint); }
+.pax-parsed-section { display: none; margin-top: 8px; }
+.pax-count-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--emerald-x); border: 1px solid var(--emerald-b);
+  border-radius: 20px; padding: 3px 10px; font-size: 11px; color: var(--emerald-d);
+  margin-bottom: 7px;
+}
+.pax-list { display: flex; flex-direction: column; gap: 5px; }
+.pax-item {
+  display: flex; align-items: center; gap: 8px;
+  background: #f8fafc; border: 1px solid var(--border-s);
+  border-radius: 8px; padding: 6px 10px;
+  animation: fadeUp .2s ease;
+}
+@keyframes fadeUp { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+.pax-num {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--emerald); color: #fff;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.pax-name-text { flex: 1; font-size: 12px; font-weight: 500; color: var(--text); }
+.pax-edit-btn { background: none; border: none; cursor: pointer; color: var(--faint); font-size: 13px; padding: 2px 4px; border-radius: 4px; }
+.pax-edit-btn:hover { background: #f1f5f9; color: var(--muted); }
+.pax-hint { font-size: 10px; color: var(--faint); margin-top: 6px; line-height: 1.5; }
+
+/* Buttons */
+.btn-analyze {
+  width: 100%; padding: 11px; background: var(--emerald);
+  border: none; border-radius: 10px; color: #fff;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: .18s;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.btn-analyze:hover { background: var(--emerald-d); }
+.btn-reset {
+  width: 100%; padding: 9px; background: #f1f5f9;
+  border: 1px solid var(--border-s); border-radius: 10px;
+  color: var(--muted); font-size: 12px; cursor: pointer;
+  margin-top: 8px; font-family: inherit;
+}
+.btn-reset:hover { background: #e2e8f0; }
+
+/* alert */
+.alert-red-input { border-color: #fca5a5 !important; background: #fff5f5 !important; }
+
+/* ══ OUTPUT PANEL (right) ══ */
+.output-panel {
+  padding: 20px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+  overflow-y: auto;
+  background: var(--bg);
+}
+
+/* Stats strip */
+.stats-strip {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
+}
+@media(max-width:700px){ .stats-strip{grid-template-columns:1fr 1fr;} }
+.stat-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.stat-lbl { font-size: 11px; color: var(--muted); margin-bottom: 6px; }
+.stat-val { font-size: 22px; font-weight: 600; color: var(--text); }
+.stat-val .cur { font-size: 11px; font-weight: 400; color: var(--faint); margin-inline-end: 3px; }
+.stat-card.total { border-color: var(--emerald-b); background: #f0fdf4; }
+.stat-card.total .stat-val { color: var(--emerald-d); }
+
+/* Quote card */
+.quote-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+}
+.quote-card-hdr {
+  padding: 10px 16px; background: #f8fafc;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.quote-card-title {
+  font-size: 12px; font-weight: 500; color: var(--muted);
+  display: flex; align-items: center; gap: 7px;
+}
+.lang-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.copy-btn {
+  padding: 5px 13px; background: transparent;
+  border: 1px solid var(--border-s); border-radius: 7px;
+  font-size: 11px; cursor: pointer; color: var(--muted);
+  font-family: inherit; transition: .15s;
+}
+.copy-btn:hover { background: #f1f5f9; color: var(--text); }
+.copy-btn.primary { background: var(--slate); color: #fff; border-color: var(--slate); }
+.copy-btn.primary:hover { background: var(--slate-mid); }
+.msg-box {
+  padding: 16px 18px; font-size: 13px;
+  line-height: 1.9; white-space: pre-wrap; color: var(--text);
+}
+.msg-placeholder {
+  padding: 52px 20px; text-align: center; color: var(--faint);
+}
+.msg-placeholder-icon { font-size: 2.4rem; margin-bottom: 12px; }
+.msg-placeholder-title { font-size: 15px; font-weight: 500; color: var(--muted); margin-bottom: 8px; }
+.msg-placeholder-sub { font-size: 12px; line-height: 1.7; }
+.internal-view {
+  background: #fffbea; border-radius: 8px; padding: 10px 14px;
+  font-size: 12px; border: 1px solid #fde68a; display: none; color: #78350f;
+}
+
+/* Actions */
+.action-row {
+  display: flex; gap: 10px;
+}
+.btn-accept {
+  flex: 1; padding: 12px; background: #166534;
+  border: none; border-radius: 10px; color: #fff;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: .18s;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+}
+.btn-accept:hover { background: #14532d; }
+.btn-gds {
+  padding: 12px 16px; background: var(--white);
+  border: 1px solid var(--border-s); border-radius: 10px;
+  color: var(--text); font-size: 12px; font-weight: 500;
+  cursor: pointer; font-family: inherit; transition: .15s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.btn-gds:hover { background: #f8fafc; }
+
+/* Confirm section */
+.confirm-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+}
+.confirm-hdr {
+  padding: 10px 16px; background: #f0fdf4;
+  border-bottom: 1px solid #bbf7d0;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 500; color: #166534;
+}
+.confirm-split {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+@media(max-width:680px){ .confirm-split{grid-template-columns:1fr;} }
+.confirm-col { padding: 14px 16px; }
+.confirm-col:first-child { border-left: 1px solid var(--border); }
+.confirm-col-hdr {
+  font-size: 10px; font-weight: 600; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.07em;
+  margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
+}
+.copy-btns { display: flex; gap: 8px; padding: 14px 16px; }
+
+/* ══ MODAL ══ */
+.modal {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
+  justify-content: center; align-items: center; z-index: 100;
+}
+.modal-box {
+  background: var(--white); border-radius: 16px;
+  width: 460px; max-width: 95vw;
+  overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+  animation: modalIn .22s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:scale(.96) translateY(8px)} to{opacity:1;transform:none} }
+.modal-hdr {
+  background: var(--slate); padding: 20px 24px; color: #fff;
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+.modal-hdr-title { font-size: 15px; font-weight: 600; }
+.modal-hdr-sub { font-size: 11px; opacity: .55; margin-top: 3px; }
+.modal-close {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: rgba(255,255,255,.12); border: none; color: #fff;
+  cursor: pointer; font-size: 16px; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+.modal-body { padding: 20px 24px; background: #f8fafc; display: flex; flex-direction: column; gap: 12px; }
+.modal-section {
+  background: var(--white); border-radius: 12px;
+  padding: 14px 16px; border: 1px solid var(--border);
+}
+.modal-section-lbl {
+  font-size: 10px; font-weight: 600; color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 10px;
+}
+.pax-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
+.pax-counter { text-align: center; }
+.pax-counter-lbl { font-size: 10px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.pax-counter-lbl span { display: block; font-size: 9px; color: var(--faint); font-weight: 400; margin-top: 1px; }
+.pax-counter-ctrl { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.pax-btn { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border-s); background: #f1f5f9; cursor: pointer; font-size: 16px; line-height: 1; }
+.pax-btn.plus { background: var(--slate); color: #fff; border-color: var(--slate); }
+.pax-inp { width: 36px; text-align: center; font-weight: 600; font-size: 14px; border: 1px solid var(--border-s); border-radius: 7px; padding: 3px 2px; }
+.ft-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ft-btn {
+  padding: 10px; border-radius: 9px; border: 1px solid var(--border-s);
+  background: #f8fafc; cursor: pointer; font-size: 13px; font-weight: 500;
+  transition: .18s; font-family: inherit;
+}
+.ft-btn-sub { font-size: 10px; color: var(--muted); font-weight: 400; margin-top: 3px; }
+.noshow-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.noshow-rule-note { font-size: 12px; color: #b45309; font-weight: 500; }
+.noshow-inp { width: 70px; text-align: center; font-size: 16px; font-weight: 600; color: var(--slate); border: 1.5px solid var(--border-s); border-radius: 8px; padding: 7px; }
+.airline-summary { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.airline-logo {
+  width: 38px; height: 38px; background: var(--slate); border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-weight: 700; font-size: 13px;
+}
+.airline-name { font-size: 14px; font-weight: 600; color: var(--text); }
+.airline-route { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.ft-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.modal-confirm-btn {
+  width: 100%; padding: 13px; background: var(--slate);
+  border: none; border-radius: 10px; color: #fff;
+  font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: .15s;
+}
+.modal-confirm-btn:hover { background: var(--slate-mid); }
+
+/* i18n */
+html[lang=en] [data-ar] { display: none !important; }
+html[lang=ar] [data-en] { display: none !important; }
+
+/* Scroll */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+</style>
 </head>
 <body>
 
-<div class="top-bar">
-    <span>Al-Mosafer Amendment Tool v15.0</span>
-    <div class="lang-toggle">
-        <button class="lang-btn active" id="btnAr" onclick="setLang('ar')">عربي</button>
-        <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+<div class="app-shell">
+
+  <!-- ══ ICON SIDEBAR ══ -->
+  <aside class="icon-sidebar">
+    <div class="sb-logo">
+      <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
     </div>
-</div>
+    <div class="sb-nav">
+      <div class="sb-icon active" data-tip="التعديل" data-tip-en="Amendment">
+        <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      </div>
+      <div class="sb-icon" data-tip="السجل" data-tip-en="History">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="sb-icon" data-tip="المسافرون" data-tip-en="Passengers">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+    </div>
+    <div class="sb-spacer"></div>
+    <div class="sb-icon" data-tip="الإعدادات" data-tip-en="Settings">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
+    </div>
+    <div class="sb-version">v21.0</div>
+  </aside>
 
-<div class="container">
-    <div class="sidebar">
-        <!-- STEP 1: Mask Data -->
-        <div class="card">
-            <h3>
-                <span data-ar>١. بيانات التسعير</span>
-                <span data-en>1. Pricing Data</span>
-            </h3>
-            <label><span data-ar>ماسك البالغين (ADT)</span><span data-en>Adult Mask (ADT)</span></label>
-            <textarea id="maskA" placeholder="Paste ADT mask here..." oninput="onMaskInput()"></textarea>
-            <div id="noShowBanner" style="display:none; background:linear-gradient(135deg,#e8f4fd,#f0f9ff); border:1px solid #b3d7f0; border-radius:8px; padding:10px 14px; margin-top:8px; font-size:0.85rem;"></div>
-            <label><span data-ar>ماسك الأطفال (CHD)</span><span data-en>Child Mask (CHD)</span></label>
-            <textarea id="maskC"></textarea>
-            <label><span data-ar>ماسك الرضع (INF)</span><span data-en>Infant Mask (INF)</span></label>
-            <textarea id="maskI"></textarea>
+  <!-- ══ MAIN PANEL ══ -->
+  <div class="main-panel">
+
+    <!-- ══ PROGRESS BAR ══ -->
+    <header class="progress-bar">
+      <div class="progress-steps">
+        <div class="prog-step active" id="ps1">
+          <div class="prog-step-dot" id="ps1dot">1</div>
+          <div class="prog-step-lbl"><span data-ar>بيانات التسعير</span><span data-en>Pricing Data</span></div>
+        </div>
+        <span class="prog-arrow">›</span>
+        <div class="prog-step idle" id="ps2">
+          <div class="prog-step-dot" id="ps2dot">2</div>
+          <div class="prog-step-lbl"><span data-ar>الرحلة</span><span data-en>Flight</span></div>
+        </div>
+        <span class="prog-arrow">›</span>
+        <div class="prog-step idle" id="ps3">
+          <div class="prog-step-dot" id="ps3dot">3</div>
+          <div class="prog-step-lbl"><span data-ar>التحليل</span><span data-en>Analyze</span></div>
+        </div>
+        <span class="prog-arrow">›</span>
+        <div class="prog-step idle" id="ps4">
+          <div class="prog-step-dot" id="ps4dot">4</div>
+          <div class="prog-step-lbl"><span data-ar>الأمتعة والأسماء</span><span data-en>Baggage & Names</span></div>
+        </div>
+        <span class="prog-arrow">›</span>
+        <div class="prog-step idle" id="ps5">
+          <div class="prog-step-dot" id="ps5dot">5</div>
+          <div class="prog-step-lbl"><span data-ar>التأكيد</span><span data-en>Confirm</span></div>
+        </div>
+      </div>
+      <div class="pb-right">
+        <div class="lang-toggle">
+          <button class="lang-btn active" id="btnAr" onclick="setLang('ar')">عربي</button>
+          <button class="lang-btn" id="btnEn" onclick="setLang('en')">English</button>
+        </div>
+        <div class="cur-pill" id="curDisplay">SAR</div>
+      </div>
+    </header>
+
+    <!-- ══ BODY ══ -->
+    <div class="body-layout">
+
+      <!-- ══ INPUT PANEL ══ -->
+      <div class="input-panel">
+
+        <!-- Section: Masks -->
+        <div class="ip-section">
+          <div class="ip-title">
+            <div class="ip-title-dot" style="background:var(--emerald)"></div>
+            <span data-ar>ماسك التسعير</span><span data-en>Pricing Mask</span>
+          </div>
+          <div id="noShowBanner" class="noshow-banner"></div>
+          <div id="maskDetectBadge" class="detect-badge"></div>
+          <label class="ip-label"><span data-ar>ماسك البالغين (ADT)</span><span data-en>Adult Mask (ADT)</span></label>
+          <textarea id="maskA" class="ip-textarea" placeholder="Paste ADT mask here..." oninput="onMaskInput()"></textarea>
+          <label class="ip-label"><span data-ar>ماسك الأطفال (CHD)</span><span data-en>Child Mask (CHD)</span></label>
+          <textarea id="maskC" class="ip-textarea"></textarea>
+          <label class="ip-label"><span data-ar>ماسك الرضع (INF)</span><span data-en>Infant Mask (INF)</span></label>
+          <textarea id="maskI" class="ip-textarea"></textarea>
         </div>
 
-        <!-- Mask detection status badge -->
-        <div id="maskDetectBadge" style="display:none; margin-bottom:12px; border-radius:10px; padding:10px 14px; font-size:0.82rem; font-weight:600;"></div>
-
-        <!-- STEP 2: Flight Translator — shown only when mask missing airline OR flight type -->
-        <div id="flightStep" style="display:none;">
-            <div class="card" style="border-top-color:#00b1ff;">
-                <h3 style="color:#00b1ff;">
-                    <span data-ar>٢. محول الرحلة (Amadeus)</span>
-                    <span data-en>2. Flight Translator (Amadeus)</span>
-                </h3>
-                <div id="flightStepPrompt" style="background:#fff3cd; border:1px solid #ffc107; border-radius:8px; padding:10px 14px; margin-bottom:12px; font-size:0.85rem; color:#856404;"></div>
-                <label>
-                    <span data-ar>الصق السيجمنت بصيغة Amadeus:</span>
-                    <span data-en>Paste Amadeus segment(s):</span>
-                </label>
-                <textarea id="rawSeg" dir="ltr" placeholder="SV1395 B 29APR 3 RUHAJF DK2 0600 0740 29APR E&#10;SV1394 Q 05MAY 2 AJFRUH DK2 0835 1015 05MAY E" oninput="onSegmentInput()"></textarea>
-                <div id="segPreview" class="seg-preview"></div>
-            </div>
+        <!-- Section: Flight Translator -->
+        <div class="ip-section" id="flightStep" style="display:none;">
+          <div class="ip-title">
+            <div class="ip-title-dot" style="background:var(--sky)"></div>
+            <span data-ar>محول الرحلة</span><span data-en>Flight Translator</span>
+          </div>
+          <div id="flightStepPrompt" style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 10px;margin-bottom:10px;font-size:11px;color:#92400e;display:none;"></div>
+          <label class="ip-label"><span data-ar>السيجمنت (Amadeus)</span><span data-en>Amadeus Segment(s)</span></label>
+          <textarea id="rawSeg" class="ip-textarea" style="min-height:68px;" dir="ltr"
+            placeholder="SV1395 B 29APR 3 RUHAJF DK2 0600 0740 29APR E" oninput="onSegmentInput()"></textarea>
+          <div id="segPreview" class="seg-preview"></div>
         </div>
 
-        <!-- STEP 3: Analyze button — shown once airline + flight type are both known -->
-        <div id="analyzeStep" style="display:none;">
-            <button class="btn btn-main" onclick="openPaxModal()" style="font-size:1rem; padding:14px;">
-                <span data-ar>🧮 تحليل المبالغ وعرض الرسوم</span>
-                <span data-en>🧮 Analyze Amounts & Show Fees</span>
-            </button>
-            <button class="btn" style="background:#b2bec3; color:white; margin-top:8px;" onclick="location.reload()">
-                <span data-ar>إعادة ضبط</span>
-                <span data-en>Reset</span>
-            </button>
+        <!-- Analyze button -->
+        <div class="ip-section" id="analyzeStep" style="display:none;">
+          <button class="btn-analyze" onclick="openPaxModal()">
+            <span data-ar>🧮 تحليل المبالغ وعرض الرسوم</span>
+            <span data-en>🧮 Analyze Amounts & Show Fees</span>
+          </button>
         </div>
 
-        <!-- POST-ACCEPT: Flight Translator (if not already filled) + Baggage + Names -->
-        <!-- Shown only AFTER client accepts fees -->
+        <!-- Reset -->
+        <div class="ip-section" id="resetOnlyStep">
+          <button class="btn-reset" onclick="location.reload()">
+            <span data-ar>↺ إعادة ضبط</span>
+            <span data-en>↺ Reset</span>
+          </button>
+        </div>
+
+        <!-- Post-accept -->
         <div id="postAcceptStep" style="display:none;">
-            <!-- Segment card — shown only if rawSeg was NOT already filled before accept -->
-            <div class="card" id="segCardPost" style="border-top-color:#00b1ff;">
-                <h3 style="color:#00b1ff;">
-                    <span data-ar>✈️ محول الرحلة (Amadeus)</span>
-                    <span data-en>✈️ Flight Translator (Amadeus)</span>
-                </h3>
-                <label>
-                    <span data-ar>الصق السيجمنت بصيغة Amadeus:</span>
-                    <span data-en>Paste Amadeus segment(s):</span>
-                </label>
-                <textarea id="rawSegPost" dir="ltr" placeholder="SV1395 B 29APR 3 RUHAJF DK2 0600 0740 29APR E&#10;SV1394 Q 05MAY 2 AJFRUH DK2 0835 1015 05MAY E" oninput="onSegmentPostInput()"></textarea>
-                <div id="segPreviewPost" class="seg-preview"></div>
+          <!-- Segment post -->
+          <div id="segCardPost" class="ip-section" style="display:none;">
+            <div class="ip-title">
+              <div class="ip-title-dot" style="background:var(--sky)"></div>
+              <span data-ar>محول الرحلة</span><span data-en>Flight Translator</span>
             </div>
-
-            <!-- Baggage -->
-            <div class="card" id="bagCard">
-                <h3>
-                    <span data-ar>🧳 الأمتعة</span>
-                    <span data-en>🧳 Baggage</span>
-                </h3>
-                <label><span data-ar>وزن اليد (Hand)</span><span data-en>Hand Baggage</span></label>
-                <input type="text" id="bHand" placeholder="e.g. 7KG" oninput="processAll()">
-                <label><span data-ar>وزن المشحونة (Checked)</span><span data-en>Checked Baggage</span></label>
-                <input type="text" id="bCheck" placeholder="e.g. 30KG" oninput="processAll()">
+            <textarea id="rawSegPost" class="ip-textarea" style="min-height:68px;" dir="ltr"
+              placeholder="SV1395 B 29APR 3 RUHAJF DK2 0600 0740 29APR E" oninput="onSegmentPostInput()"></textarea>
+            <div id="segPreviewPost" class="seg-preview"></div>
+          </div>
+          <!-- Baggage -->
+          <div class="ip-section" id="bagCard">
+            <div class="ip-title">
+              <div class="ip-title-dot" style="background:var(--amber)"></div>
+              <span data-ar>الأمتعة</span><span data-en>Baggage</span>
             </div>
-
-            <!-- Passenger Names -->
-            <div class="card" id="namesCard">
-                <h3>
-                    <span data-ar>👤 أسماء المسافرين</span>
-                    <span data-en>👤 Passenger Names</span>
-                </h3>
-                <textarea id="paxNames" oninput="processAll()" placeholder="Enter passenger names..."></textarea>
+            <div class="ip-grid2">
+              <div>
+                <label class="ip-label"><span data-ar>اليد</span><span data-en>Hand</span></label>
+                <input type="text" id="bHand" class="ip-input" placeholder="7KG" oninput="processAll()">
+              </div>
+              <div>
+                <label class="ip-label"><span data-ar>الشحن</span><span data-en>Checked</span></label>
+                <input type="text" id="bCheck" class="ip-input" placeholder="30KG" oninput="processAll()">
+              </div>
             </div>
+          </div>
+          <!-- Pax names -->
+          <div class="ip-section" id="namesCard">
+            <div class="ip-title">
+              <div class="ip-title-dot" style="background:#8b5cf6"></div>
+              <span data-ar>أسماء المسافرين</span><span data-en>Passenger Names</span>
+            </div>
+            <label class="ip-label"><span data-ar>الصق الأسماء (كل اسم في سطر)</span><span data-en>Paste names (one per line)</span></label>
+            <textarea id="paxNamesRaw" class="pax-raw-input"
+              placeholder="KHALID/AHMED MR ADT&#10;SARA/ALI MRS ADT"
+              oninput="onPaxNamesInput()"></textarea>
+            <div id="paxParsedSection" class="pax-parsed-section">
+              <div id="paxCountBadge" class="pax-count-badge">👥 <span id="paxCountText"></span></div>
+              <div id="paxParsedList" class="pax-list"></div>
+              <p class="pax-hint"><span data-ar>✏️ اضغط لتعديل الاسم</span><span data-en>✏️ Tap to edit name</span></p>
+            </div>
+            <input type="hidden" id="paxNames">
+          </div>
         </div>
 
-        <!-- Always-visible reset when no analyze step shown -->
-        <div id="resetOnlyStep">
-            <button class="btn" style="background:#b2bec3; color:white; margin-top:8px;" onclick="location.reload()">
-                <span data-ar>إعادة ضبط</span>
-                <span data-en>Reset</span>
+        <!-- Footer -->
+        <div style="padding:12px 16px;font-size:10px;color:var(--faint);border-top:1px solid var(--border);margin-top:auto;">⚡ Powered by <strong style="color:var(--muted);">Mohamed Rezk</strong> · Al-Mosafer</div>
+      </div>
+
+      <!-- ══ OUTPUT PANEL ══ -->
+      <div class="output-panel">
+
+        <!-- Stats strip -->
+        <div id="breakdownStrip" style="display:none;" class="stats-strip">
+          <div class="stat-card">
+            <div class="stat-lbl"><span data-ar>رسوم الطيران</span><span data-en>Airline Fees</span></div>
+            <div class="stat-val" id="bdAirline">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-lbl"><span data-ar>فارق السعر</span><span data-en>Fare Difference</span></div>
+            <div class="stat-val" id="bdFare">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-lbl"><span data-ar>رسوم المسافر</span><span data-en>Almosafer Fees</span></div>
+            <div class="stat-val" id="bdMos">—</div>
+          </div>
+          <div class="stat-card total">
+            <div class="stat-lbl"><span data-ar>الإجمالي</span><span data-en>Total</span></div>
+            <div class="stat-val" id="bdTotal">—</div>
+          </div>
+        </div>
+
+        <!-- Internal note -->
+        <div id="internalPreview" class="internal-view">
+          <strong>[Internal]</strong> <span id="breakdownText"></span>
+        </div>
+
+        <!-- Quote output card -->
+        <div class="quote-card">
+          <div class="quote-card-hdr">
+            <div class="quote-card-title">
+              <span class="lang-dot" style="background:#003580;"></span>
+              <span data-ar>العرض النهائي</span>
+              <span data-en>Quote Output</span>
+            </div>
+            <button class="copy-btn" id="hdrCopyBtn" onclick="copyText('msgOutputText')" style="display:none;">
+              <span data-ar>📋 نسخ</span><span data-en>📋 Copy</span>
             </button>
+          </div>
+          <div id="msgOutput">
+            <div id="msgPlaceholder" class="msg-placeholder">
+              <div class="msg-placeholder-icon">✈️</div>
+              <div class="msg-placeholder-title">
+                <span data-ar>الرجاء إدخال بيانات الماسك للبدء</span>
+                <span data-en>Please enter mask data to begin</span>
+              </div>
+              <div class="msg-placeholder-sub">
+                <span data-ar>١. الصق الماسك ← ٢. أدخل السيجمنت ← ٣. تحليل المبالغ</span>
+                <span data-en>1. Paste mask → 2. Enter segment → 3. Analyze amounts</span>
+              </div>
+            </div>
+            <div id="msgOutputText" class="msg-box" style="display:none;"></div>
+          </div>
         </div>
-    </div>
 
-    <div class="content">
-        <div class="preview-card">
-            <div class="preview-header">
-                <span>
-                    <span data-ar>المعاينات النهائية</span>
-                    <span data-en>Final Previews</span>
-                </span>
-                <span id="curDisplay" style="color:var(--secondary);">Currency: --</span>
-            </div>
-
-            <div id="internalPreview" class="internal-view">
-                <strong>[Internal Only]</strong>
-                <div id="breakdownText"></div>
-            </div>
-
-            <div id="msgOutput" class="msg-box" data-lang="Quote Output">
-                <div id="msgPlaceholder" style="text-align:center; padding:30px 10px; color:#b2bec3;">
-                    <div style="font-size:2.5rem; margin-bottom:12px;">✈️</div>
-                    <div style="font-weight:bold; font-size:1rem; margin-bottom:6px;">
-                        <span data-ar>الرجاء إدخال بيانات الماسك وتفاصيل الرحلة للبدء</span>
-                        <span data-en>Please enter mask data and flight details to begin</span>
-                    </div>
-                    <div style="font-size:0.82rem;">
-                        <span data-ar>١. الصق الماسك ← ٢. أدخل السيجمنت ← ٣. تحليل المبالغ</span>
-                        <span data-en>1. Paste mask → 2. Enter segment → 3. Analyze amounts</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="actionPanel" style="display:none; gap:10px; display: flex;">
-                <button class="btn btn-success" onclick="handleAccept()">
-                    <span data-ar>وافق العميل</span>
-                    <span data-en>Client Accepted</span>
-                </button>
-                <button class="btn btn-gds" onclick="copyGdsNote()">
-                    <span data-ar>نسخ GDS Note</span>
-                    <span data-en>Copy GDS Note</span>
-                </button>
-            </div>
-
-            <div id="confirmSection" style="display:none; margin-top: 20px;">
-                <div id="confirmAr" class="msg-box" data-lang="العربية" dir="rtl"></div>
-                <div id="confirmEn" class="msg-box" data-lang="English" dir="ltr"></div>
-                
-                <div class="copy-btns-wrapper">
-                    <button class="btn btn-success" onclick="copyText('confirmAr')">
-                        <span data-ar>نسخ الرسالة العربية</span>
-                        <span data-en>Copy Arabic Message</span>
-                    </button>
-                    <button class="btn btn-main" onclick="copyText('confirmEn')">
-                        <span data-ar>نسخ الرسالة الإنجليزية</span>
-                        <span data-en>Copy English Message</span>
-                    </button>
-                </div>
-            </div>
+        <!-- Action row -->
+        <div id="actionPanel" style="display:none;" class="action-row">
+          <button class="btn-accept" onclick="handleAccept()">
+            <span data-ar>✅ وافق العميل</span>
+            <span data-en>✅ Client Accepted</span>
+          </button>
+          <button class="btn-gds" onclick="copyGdsNote()">
+            <span data-ar>📋 نسخ GDS Note</span>
+            <span data-en>📋 Copy GDS Note</span>
+          </button>
         </div>
-    </div>
-</div>
 
-<!-- ══ Passenger Settings Modal (Professional Redesign) ══ -->
+        <!-- Confirm section -->
+        <div id="confirmSection" style="display:none;">
+          <div class="confirm-card">
+            <div class="confirm-hdr">
+              ✅
+              <span data-ar>رسائل التأكيد</span>
+              <span data-en>Confirmation Messages</span>
+            </div>
+            <div class="confirm-split">
+              <div class="confirm-col">
+                <div class="confirm-col-hdr">
+                  <span class="lang-dot" style="background:#166534;"></span>
+                  <span data-ar>عربي</span><span data-en>Arabic</span>
+                </div>
+                <div id="confirmAr" class="msg-box" dir="rtl" style="font-size:12px;padding:0;line-height:1.8;"></div>
+              </div>
+              <div class="confirm-col">
+                <div class="confirm-col-hdr">
+                  <span class="lang-dot" style="background:#1d4ed8;"></span>
+                  <span data-ar>إنجليزي</span><span data-en>English</span>
+                </div>
+                <div id="confirmEn" class="msg-box" dir="ltr" style="font-size:12px;padding:0;line-height:1.8;"></div>
+              </div>
+            </div>
+            <div class="copy-btns">
+              <button class="copy-btn primary" onclick="copyText('confirmAr')">
+                <span data-ar>نسخ العربية</span><span data-en>Copy Arabic</span>
+              </button>
+              <button class="copy-btn" onclick="copyText('confirmEn')">
+                <span data-ar>نسخ الإنجليزية</span><span data-en>Copy English</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end output-panel -->
+    </div><!-- end body-layout -->
+  </div><!-- end main-panel -->
+</div><!-- end app-shell -->
+
+<!-- ══ MODAL ══ -->
 <div id="paxModal" class="modal">
-    <div class="modal-content" style="width:460px; max-width:95vw; padding:0; border-radius:18px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.25);">
-
-        <!-- Header -->
-        <div style="background:linear-gradient(135deg,#003580,#0055b3); padding:20px 24px; color:white;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div>
-                    <div style="font-size:1.15rem; font-weight:700; letter-spacing:0.02em;">
-                        <span data-ar>⚙️ إعدادات الركاب</span>
-                        <span data-en>⚙️ Passenger Settings</span>
-                    </div>
-                    <div style="font-size:0.78rem; opacity:0.8; margin-top:3px;">
-                        <span data-ar>راجع البيانات المُعبَّأة تلقائياً قبل المتابعة</span>
-                        <span data-en>Review the auto-filled data before continuing</span>
-                    </div>
-                </div>
-                <button onclick="document.getElementById('paxModal').style.display='none'" style="background:rgba(255,255,255,0.15); border:none; color:white; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center;">✕</button>
-            </div>
-        </div>
-
-        <div style="padding:20px 24px; background:#f8fafc;">
-
-            <!-- Airline + Route Summary Card -->
-            <div id="paxAirlineSummary" style="background:white; border-radius:12px; padding:14px 16px; margin-bottom:16px; border:1px solid #e2e8f0; display:none;">
-                <div style="font-size:0.7rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:8px;">
-                    <span data-ar>بيانات الرحلة المكتشفة</span>
-                    <span data-en>Detected Flight Info</span>
-                </div>
-                <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
-                    <div id="paxAirlineLogo" style="width:40px; height:40px; background:linear-gradient(135deg,#003580,#0055b3); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-weight:800; font-size:0.85rem; flex-shrink:0;"></div>
-                    <div style="flex:1; min-width:0;">
-                        <div id="paxAirlineName" style="font-weight:700; color:#1e293b; font-size:0.95rem;"></div>
-                        <div id="paxRouteInfo" style="font-size:0.78rem; color:#64748b; margin-top:2px;"></div>
-                    </div>
-                    <div id="paxFlightTypeBadge" style="padding:4px 12px; border-radius:20px; font-size:0.72rem; font-weight:700; flex-shrink:0;"></div>
-                </div>
-            </div>
-
-            <!-- No-Show Time Row -->
-            <div style="background:white; border-radius:12px; padding:14px 16px; margin-bottom:16px; border:1px solid #e2e8f0;">
-                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
-                    <div>
-                        <div style="font-size:0.7rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">
-                            <span data-ar>وقت النو شو</span>
-                            <span data-en>No-Show Window</span>
-                        </div>
-                        <div id="noShowRuleNote" style="font-size:0.82rem; color:#e17055; font-weight:600;"></div>
-                    </div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <input type="number" id="noShowHr" min="0" style="width:80px; text-align:center; font-size:1.1rem; font-weight:700; color:#003580; border:2px solid #e2e8f0; border-radius:8px; padding:8px 6px;">
-                        <span style="font-size:0.8rem; color:#64748b;">
-                            <span data-ar>ساعة</span>
-                            <span data-en>hrs</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Passenger Count -->
-            <div style="background:white; border-radius:12px; padding:14px 16px; margin-bottom:16px; border:1px solid #e2e8f0;">
-                <div style="font-size:0.7rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;">
-                    <span data-ar>عدد المسافرين</span>
-                    <span data-en>Passenger Count</span>
-                </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
-                    <div style="text-align:center;">
-                        <div style="font-size:0.72rem; font-weight:700; color:#64748b; margin-bottom:6px;">
-                            <span data-ar>بالغ</span><span data-en>Adult</span><br>
-                            <span style="font-size:0.65rem; color:#94a3b8;">ADT</span>
-                        </div>
-                        <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
-                            <button onclick="stepPax('cA',-1)" style="width:28px;height:28px;border-radius:50%;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-size:1rem;line-height:1;">−</button>
-                            <input type="number" id="cA" value="1" min="0" style="width:40px;text-align:center;font-weight:700;font-size:1rem;border:2px solid #e2e8f0;border-radius:8px;padding:4px 2px;">
-                            <button onclick="stepPax('cA',+1)" style="width:28px;height:28px;border-radius:50%;border:none;background:#003580;color:white;cursor:pointer;font-size:1rem;line-height:1;">+</button>
-                        </div>
-                    </div>
-                    <div style="text-align:center;">
-                        <div style="font-size:0.72rem; font-weight:700; color:#64748b; margin-bottom:6px;">
-                            <span data-ar>طفل</span><span data-en>Child</span><br>
-                            <span style="font-size:0.65rem; color:#94a3b8;">CHD</span>
-                        </div>
-                        <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
-                            <button onclick="stepPax('cC',-1)" style="width:28px;height:28px;border-radius:50%;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-size:1rem;line-height:1;">−</button>
-                            <input type="number" id="cC" value="0" min="0" style="width:40px;text-align:center;font-weight:700;font-size:1rem;border:2px solid #e2e8f0;border-radius:8px;padding:4px 2px;">
-                            <button onclick="stepPax('cC',+1)" style="width:28px;height:28px;border-radius:50%;border:none;background:#003580;color:white;cursor:pointer;font-size:1rem;line-height:1;">+</button>
-                        </div>
-                    </div>
-                    <div style="text-align:center;">
-                        <div style="font-size:0.72rem; font-weight:700; color:#64748b; margin-bottom:6px;">
-                            <span data-ar>رضيع</span><span data-en>Infant</span><br>
-                            <span style="font-size:0.65rem; color:#94a3b8;">INF</span>
-                        </div>
-                        <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
-                            <button onclick="stepPax('cI',-1)" style="width:28px;height:28px;border-radius:50%;border:1px solid #e2e8f0;background:#f8fafc;cursor:pointer;font-size:1rem;line-height:1;">−</button>
-                            <input type="number" id="cI" value="0" min="0" style="width:40px;text-align:center;font-weight:700;font-size:1rem;border:2px solid #e2e8f0;border-radius:8px;padding:4px 2px;">
-                            <button onclick="stepPax('cI',+1)" style="width:28px;height:28px;border-radius:50%;border:none;background:#003580;color:white;cursor:pointer;font-size:1rem;line-height:1;">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Flight Type (SAR only) — auto-detected, can override -->
-            <div id="flightTypeSection" style="background:white; border-radius:12px; padding:14px 16px; margin-bottom:16px; border:1px solid #e2e8f0; display:none;">
-                <div style="font-size:0.7rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px;">
-                    <span data-ar>نوع الرحلة (SAR)</span>
-                    <span data-en>Flight Type (SAR)</span>
-                </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;" id="flightTypeGrid">
-                    <button id="btnDomestic" onclick="selectFlightType('domestic')"
-                        style="padding:10px; border-radius:10px; border:2px solid #e2e8f0; background:#f8fafc; cursor:pointer; transition:0.2s; font-weight:600; font-size:0.85rem;">
-                        🏠 <span data-ar>داخلية</span><span data-en>Domestic</span>
-                        <div style="font-size:0.7rem; color:#64748b; font-weight:400; margin-top:2px;">40.25 SAR</div>
-                    </button>
-                    <button id="btnInternational" onclick="selectFlightType('international')"
-                        style="padding:10px; border-radius:10px; border:2px solid #e2e8f0; background:#f8fafc; cursor:pointer; transition:0.2s; font-weight:600; font-size:0.85rem;">
-                        🌍 <span data-ar>دولية</span><span data-en>International</span>
-                        <div style="font-size:0.7rem; color:#64748b; font-weight:400; margin-top:2px;">50.00 SAR</div>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Confirm Button -->
-            <button class="btn btn-main" onclick="checkCurrency()" style="border-radius:10px; padding:14px; font-size:1rem; letter-spacing:0.02em; background:linear-gradient(135deg,#003580,#0055b3); box-shadow:0 4px 14px rgba(0,53,128,0.3);">
-                <span data-ar>✅ تأكيد وحساب الرسوم</span>
-                <span data-en>✅ Confirm & Calculate Fees</span>
-            </button>
-        </div>
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div>
+        <div class="modal-hdr-title"><span data-ar>⚙️ إعدادات الركاب</span><span data-en>⚙️ Passenger Settings</span></div>
+        <div class="modal-hdr-sub"><span data-ar>راجع البيانات قبل المتابعة</span><span data-en>Review data before continuing</span></div>
+      </div>
+      <button class="modal-close" onclick="document.getElementById('paxModal').style.display='none'">✕</button>
     </div>
-</div>
-
-<div style="text-align:center; margin-top:30px; padding:15px; color:#b2bec3; font-size:0.8rem; letter-spacing:0.05em;">
-    ⚡ Powered by <strong style="color:#003580;">Mohamed Rezk</strong>
+    <div class="modal-body">
+      <div id="paxAirlineSummary" class="modal-section" style="display:none;">
+        <div class="modal-section-lbl"><span data-ar>بيانات الرحلة المكتشفة</span><span data-en>Detected Flight Info</span></div>
+        <div class="airline-summary">
+          <div id="paxAirlineLogo" class="airline-logo"></div>
+          <div style="flex:1;min-width:0;">
+            <div id="paxAirlineName" class="airline-name"></div>
+            <div id="paxRouteInfo" class="airline-route"></div>
+          </div>
+          <div id="paxFlightTypeBadge" class="ft-badge"></div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-lbl"><span data-ar>وقت النو شو</span><span data-en>No-Show Window</span></div>
+        <div class="noshow-row">
+          <div id="noShowRuleNote" class="noshow-rule-note"></div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <input type="number" id="noShowHr" min="0" class="noshow-inp">
+            <span style="font-size:12px;color:var(--muted);"><span data-ar>ساعة</span><span data-en>hrs</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-lbl"><span data-ar>عدد المسافرين</span><span data-en>Passenger Count</span></div>
+        <div class="pax-grid">
+          <div class="pax-counter">
+            <div class="pax-counter-lbl"><span data-ar>بالغ</span><span data-en>Adult</span><span>ADT</span></div>
+            <div class="pax-counter-ctrl">
+              <button class="pax-btn" onclick="stepPax('cA',-1)">−</button>
+              <input type="number" id="cA" value="1" min="0" class="pax-inp">
+              <button class="pax-btn plus" onclick="stepPax('cA',+1)">+</button>
+            </div>
+          </div>
+          <div class="pax-counter">
+            <div class="pax-counter-lbl"><span data-ar>طفل</span><span data-en>Child</span><span>CHD</span></div>
+            <div class="pax-counter-ctrl">
+              <button class="pax-btn" onclick="stepPax('cC',-1)">−</button>
+              <input type="number" id="cC" value="0" min="0" class="pax-inp">
+              <button class="pax-btn plus" onclick="stepPax('cC',+1)">+</button>
+            </div>
+          </div>
+          <div class="pax-counter">
+            <div class="pax-counter-lbl"><span data-ar>رضيع</span><span data-en>Infant</span><span>INF</span></div>
+            <div class="pax-counter-ctrl">
+              <button class="pax-btn" onclick="stepPax('cI',-1)">−</button>
+              <input type="number" id="cI" value="0" min="0" class="pax-inp">
+              <button class="pax-btn plus" onclick="stepPax('cI',+1)">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="flightTypeSection" class="modal-section" style="display:none;">
+        <div class="modal-section-lbl"><span data-ar>نوع الرحلة (SAR)</span><span data-en>Flight Type (SAR)</span></div>
+        <div class="ft-grid">
+          <button id="btnDomestic" class="ft-btn" onclick="selectFlightType('domestic')">
+            🏠 <span data-ar>داخلية</span><span data-en>Domestic</span>
+            <div class="ft-btn-sub">40.25 SAR</div>
+          </button>
+          <button id="btnInternational" class="ft-btn" onclick="selectFlightType('international')">
+            🌍 <span data-ar>دولية</span><span data-en>International</span>
+            <div class="ft-btn-sub">50.00 SAR</div>
+          </button>
+        </div>
+      </div>
+      <button class="modal-confirm-btn" onclick="checkCurrency()">
+        <span data-ar>✅ تأكيد وحساب الرسوم</span>
+        <span data-en>✅ Confirm & Calculate Fees</span>
+      </button>
+    </div>
+  </div>
 </div>
 
 <script>
-    let d = {}, cur = 'SAR';
-    let uiLang = 'ar';
+let d = {}, cur = 'SAR', uiLang = 'ar';
 
-    // ── No-Show Rules by airline code ────────────────────────────────
-    const noShowRules = [
-      ["A3","4"],["AH","3"],["AC","2"],["AI","24"],["MK","24"],
-      ["SM","24"],["AZ","3"],["UJ","24"],["GP","148 or 48 or 4 Check Rules"],
-      ["UH","24"],["OS","24"],["J2","1"],["BA","6"],["SN","24"],
-      ["CX","24"],["DL","Check Rules"],["MS","24"],["EK","1"],
-      ["ET","24"],["EY","1"],["FZ","24"],["XY","4"],["GA","3"],
-      ["GF","24"],["R5","24"],["RQ","24"],["KQ","24"],["AF","1"],
-      ["KL","1"],["KU","3"],["LH","1"],["MH","3"],
-      ["ME","24 or 48 or 1 Check Rules"],["NE","24 or 48 Check Rules"],
-      ["NP","24 or 48 or 72 Check Rules"],["BJ","24"],["WY","3"],
-      ["PK","4"],["PC","2"],["PR","4 or 24 Check Rules"],["QR","3"],
-      ["AT","24"],["RJ","4 for Economy / 18 for business"],["SV","Departure time"],
-      ["TR","24"],["ER","24"],["SQ","24"],["UL","24"],["LX","24"],
-      ["TG","Check Rules"],["TK","3"],["UA","1"],
-      ["F3","90 Mins \"Update the template\" / Non refundable"],["FT","24"],
-      ["6E","4"],["G9","Updated on Ticket Copy"],["E5","24"],
-      ["3L","Updated on Ticket Copy"],["3O","Updated on Ticket Copy"],
-      ["IX","Before 96 - before 24 - less than 24 Check rules"],["J5","Departure time"],
-      ["J9","8 for Reissue / 24 for Refund"],["FR","2 for reissue / Non refundable"],
-      ["OV","24"],["G8","8"]
-    ];
-    const noShowMap = Object.fromEntries(noShowRules);
+const noShowRules = [
+  ["A3","4"],["AH","3"],["AC","2"],["AI","24"],["MK","24"],["SM","24"],["AZ","3"],["UJ","24"],
+  ["GP","148 or 48 or 4 Check Rules"],["UH","24"],["OS","24"],["J2","1"],["BA","6"],["SN","24"],
+  ["CX","24"],["DL","Check Rules"],["MS","24"],["EK","1"],["ET","24"],["EY","1"],["FZ","24"],
+  ["XY","4"],["GA","3"],["GF","24"],["R5","24"],["RQ","24"],["KQ","24"],["AF","1"],["KL","1"],
+  ["KU","3"],["LH","1"],["MH","3"],["ME","24 or 48 or 1 Check Rules"],["NE","24 or 48 Check Rules"],
+  ["NP","24 or 48 or 72 Check Rules"],["BJ","24"],["WY","3"],["PK","4"],["PC","2"],
+  ["PR","4 or 24 Check Rules"],["QR","3"],["AT","24"],["RJ","4 for Economy / 18 for business"],
+  ["SV","Departure time"],["TR","24"],["ER","24"],["SQ","24"],["UL","24"],["LX","24"],
+  ["TG","Check Rules"],["TK","3"],["UA","1"],["F3","90 Mins / Non refundable"],["FT","24"],
+  ["6E","4"],["G9","Updated on Ticket Copy"],["E5","24"],["3L","Updated on Ticket Copy"],
+  ["3O","Updated on Ticket Copy"],["IX","Before 96 - before 24 - less than 24 Check rules"],
+  ["J5","Departure time"],["J9","8 for Reissue / 24 for Refund"],["FR","2 for reissue / Non refundable"],
+  ["OV","24"],["G8","8"]
+];
+const noShowMap = Object.fromEntries(noShowRules);
 
-    // ── Saudi airport codes (domestic detection) ──────────────────────
-    const SAUDI_AIRPORTS = new Set([
-        'RUH','JED','DMM','MED','AJF','TUU','GIZ','HOF','ELQ','RAE',
-        'ABT','TIF','SHW','WAE','URY','BHH','KMX','AHB','SLF','HMB',
-        'TUI','AQI','HAS','EAM','MHD','RAH','GNI','ULH','DWD','YNB',
-        'AKH','HOF','ABH','SHO','ZUL','KMC','HEA'
-    ]);
+const SAUDI_AIRPORTS = new Set([
+  'RUH','JED','DMM','MED','AJF','TUU','GIZ','HOF','ELQ','RAE','ABT','TIF','SHW','WAE',
+  'URY','BHH','KMX','AHB','SLF','HMB','TUI','AQI','HAS','EAM','MHD','RAH','GNI','ULH',
+  'DWD','YNB','AKH','ABH','SHO','ZUL','KMC','HEA'
+]);
 
-    let _selectedFlightType = null; // 'domestic' | 'international' | null
+let _selectedFlightType = null, _maskAirlineCode = null, _maskFlightType = null;
+let _parsedPaxNames = [];
 
-    function isSaudiAirport(code) { return SAUDI_AIRPORTS.has(code.toUpperCase()); }
+function isSaudiAirport(c) { return SAUDI_AIRPORTS.has(c.toUpperCase()); }
 
-    function detectFlightType(segs) {
-        // Domestic = all segments have both origin AND dest within KSA
-        if (!segs || !segs.length) return null;
-        const allDomestic = segs.every(s => isSaudiAirport(s.origin) && isSaudiAirport(s.dest));
-        return allDomestic ? 'domestic' : 'international';
+function detectFlightType(segs) {
+  if (!segs||!segs.length) return null;
+  return segs.every(s=>isSaudiAirport(s.origin)&&isSaudiAirport(s.dest)) ? 'domestic' : 'international';
+}
+
+function selectFlightType(type) {
+  _selectedFlightType = type;
+  const d1 = document.getElementById('btnDomestic');
+  const d2 = document.getElementById('btnInternational');
+  if (type==='domestic') {
+    d1.style.cssText='background:#f0fdf4;color:#166534;border-color:#bbf7d0;font-family:inherit;';
+    d2.style.cssText='background:#f8fafc;color:inherit;border-color:var(--border-s);font-family:inherit;';
+  } else {
+    d2.style.cssText='background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;font-family:inherit;';
+    d1.style.cssText='background:#f8fafc;color:inherit;border-color:var(--border-s);font-family:inherit;';
+  }
+}
+
+function stepPax(id, delta) {
+  const el = document.getElementById(id);
+  el.value = Math.max(0,(parseInt(el.value)||0)+delta);
+}
+
+function getAirlineCodeFromMask(t) {
+  const patterns=[/\b([A-Z]{2})\d{3,4}\b/,/^([A-Z0-9]{2})\d{3,4}/im];
+  for (const re of patterns) { const m=t.match(re); if(m) return m[1].toUpperCase(); }
+  return null;
+}
+
+function getFlightTypeFromMask(t) {
+  const skip = new Set(['ADT','CHD','INF','SAR','AED','KWD','USD','EUR','GBP','ADD','COLL','TOT','MKP','PEN','ALTY','END','TAX','FEE','NVB','NVA','OWE','OWC','RTW','RTE','SEG','PAX','DK','HK','SS','NN','TK','GK']);
+  const allCodes = new Set((t.match(/\b([A-Z]{3})\b/g)||[]).filter(c=>!skip.has(c)));
+  if (allCodes.size<2) return null;
+  const codes=[...allCodes];
+  const allSaudi=codes.every(c=>SAUDI_AIRPORTS.has(c));
+  const anySaudi=codes.some(c=>SAUDI_AIRPORTS.has(c));
+  if (allSaudi) return 'domestic';
+  if (anySaudi) return 'international';
+  if (codes.length>=2) return 'international';
+  return null;
+}
+
+function getAirlineCodeFromSegment(t) {
+  for (const line of t.trim().split('\n')) {
+    const tok=line.trim().toUpperCase().split(/\s+/);
+    if (tok.length>=5&&tok[0].match(/^[A-Z0-9]{2,3}\d+$/)) return tok[0].replace(/\d+/g,'');
+  }
+  return null;
+}
+
+function updateNoShowBanner(code) {
+  const b=document.getElementById('noShowBanner');
+  if (!code) {b.style.display='none';return;}
+  const rule=noShowMap[code];
+  if (!rule) {b.style.display='none';return;}
+  const ai=aiDatabase.airlines[code]||{};
+  const nm=uiLang==='ar'?(ai.ar?`${ai.ar} (${code})`:code):(ai.en?`${ai.en} (${code})`:code);
+  b.style.display='block';
+  b.innerHTML=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <span style="font-size:1.2rem;">✈️</span>
+    <div>
+      <div style="font-weight:600;">${nm}</div>
+      <div style="margin-top:2px;font-size:11px;color:#1e40af;">
+        <span data-ar>وقت النو شو: </span><span data-en>No-Show: </span>
+        <strong style="color:#dc2626;">${rule}</strong>
+        <span data-ar> ساعة</span><span data-en> hr(s)</span>
+      </div>
+    </div>
+  </div>`;
+  applyLangVisibility();
+}
+
+function updateMaskDetectBadge(airlineCode, flightType) {
+  const badge=document.getElementById('maskDetectBadge');
+  if (!airlineCode&&!flightType) {badge.style.display='none';return;}
+  const ai=airlineCode?(aiDatabase.airlines[airlineCode]||{}):{};
+  const ad=airlineCode?(uiLang==='ar'?(ai.ar||airlineCode):(ai.en||airlineCode)):(uiLang==='ar'?'❓ غير معروف':'❓ Unknown');
+  const fd=flightType?(flightType==='domestic'?(uiLang==='ar'?'🏠 داخلية':'🏠 Domestic'):(uiLang==='ar'?'🌍 دولية':'🌍 International')):(uiLang==='ar'?'❓ غير محدد':'❓ Not detected');
+  const ok=airlineCode&&flightType;
+  badge.className='detect-badge '+(ok?'ok':'warn');
+  badge.style.display='block';
+  badge.innerHTML=`<div style="font-size:10px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;">${uiLang==='ar'?'تم اكتشافه':'Detected'} ${ok?'✅':'⚠️'}</div><div style="display:flex;gap:14px;flex-wrap:wrap;"><span>✈️ ${ad}</span><span>📍 ${fd}</span></div>`;
+}
+
+function applyLangVisibility() {
+  const lang=uiLang;
+  document.querySelectorAll('[data-ar]').forEach(el=>el.style.display=(lang==='en'?'none':''));
+  document.querySelectorAll('[data-en]').forEach(el=>el.style.display=(lang==='ar'?'none':''));
+  const badge=document.getElementById('paxCountText');
+  if (badge&&_parsedPaxNames.length>0) {
+    const n=_parsedPaxNames.length;
+    badge.textContent=lang==='ar'?(n===1?'مسافر واحد':`${n} مسافرين`):(n===1?'1 Passenger':`${n} Passengers`);
+  }
+}
+
+function setLang(lang) {
+  uiLang=lang;
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+  document.getElementById('btnAr').classList.toggle('active',lang==='ar');
+  document.getElementById('btnEn').classList.toggle('active',lang==='en');
+  applyLangVisibility();
+  if (d.grand) renderOutput();
+  if (document.getElementById('confirmSection').style.display!=='none') processAll();
+}
+
+function setStep(n) {
+  const steps=['ps1','ps2','ps3','ps4','ps5'];
+  steps.forEach((id,i)=>{
+    const el=document.getElementById(id);
+    if (!el) return;
+    if (i+1<n) el.className='prog-step done';
+    else if (i+1===n) el.className='prog-step active';
+    else el.className='prog-step idle';
+  });
+}
+
+function onMaskInput() {
+  const t=document.getElementById('maskA').value.trim();
+  if (!t) {
+    document.getElementById('flightStep').style.display='none';
+    document.getElementById('analyzeStep').style.display='none';
+    document.getElementById('maskDetectBadge').style.display='none';
+    document.getElementById('resetOnlyStep').style.display='block';
+    document.getElementById('noShowBanner').style.display='none';
+    _maskAirlineCode=null;_maskFlightType=null;
+    setStep(1); return;
+  }
+  document.getElementById('resetOnlyStep').style.display='none';
+  _maskAirlineCode=getAirlineCodeFromMask(t);
+  _maskFlightType=getFlightTypeFromMask(t);
+  updateNoShowBanner(_maskAirlineCode);
+  updateMaskDetectBadge(_maskAirlineCode,_maskFlightType);
+  if (_maskAirlineCode&&_maskFlightType) {
+    document.getElementById('flightStep').style.display='none';
+    document.getElementById('analyzeStep').style.display='block';
+    setStep(3);
+  } else {
+    document.getElementById('flightStep').style.display='block';
+    document.getElementById('analyzeStep').style.display='none';
+    const p=document.getElementById('flightStepPrompt');
+    p.innerHTML=uiLang==='ar'?'⚠️ لم يتم اكتشاف شركة الطيران أو نوع الرحلة. يرجى إدخال السيجمنت.':'⚠️ Airline or flight type not detected. Please enter the segment.';
+    p.style.display='block';
+    setStep(2);
+  }
+}
+
+function onSegmentInput() {
+  const t=document.getElementById('rawSeg').value.trim();
+  const segs=t.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment);
+  const valid=segs.filter(Boolean);
+  renderSegPreview(segs,'segPreview');
+  if (valid.length>0) {
+    const sc=getAirlineCodeFromSegment(t);
+    if (sc&&!_maskAirlineCode) _maskAirlineCode=sc;
+    if (sc) updateNoShowBanner(sc);
+    if (!_maskFlightType) _maskFlightType=detectFlightType(valid);
+    updateMaskDetectBadge(_maskAirlineCode,_maskFlightType);
+    if (_maskAirlineCode&&_maskFlightType) {
+      document.getElementById('flightStepPrompt').style.display='none';
+      document.getElementById('analyzeStep').style.display='block';
+      setStep(3);
     }
+  } else {
+    document.getElementById('analyzeStep').style.display='none';
+    if (t) document.getElementById('flightStepPrompt').style.display='block';
+  }
+}
 
-    function selectFlightType(type) {
-        _selectedFlightType = type;
-        const btnD = document.getElementById('btnDomestic');
-        const btnI = document.getElementById('btnInternational');
-        const activeStyle = 'background:#003580; color:white; border-color:#003580;';
-        const inactiveStyle = 'background:#f8fafc; color:inherit; border-color:#e2e8f0;';
-        btnD.style.cssText = btnD.style.cssText.replace(/background:[^;]+;|color:[^;]+;|border-color:[^;]+;/g,'');
-        btnI.style.cssText = btnI.style.cssText.replace(/background:[^;]+;|color:[^;]+;|border-color:[^;]+;/g,'');
-        if (type === 'domestic') {
-            btnD.style.background='#003580'; btnD.style.color='white'; btnD.style.borderColor='#003580';
-            btnI.style.background='#f8fafc'; btnI.style.color=''; btnI.style.borderColor='#e2e8f0';
-        } else {
-            btnI.style.background='#0055b3'; btnI.style.color='white'; btnI.style.borderColor='#0055b3';
-            btnD.style.background='#f8fafc'; btnD.style.color=''; btnD.style.borderColor='#e2e8f0';
-        }
+function onSegmentPostInput() {
+  const t=document.getElementById('rawSegPost').value.trim();
+  renderSegPreview(t.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment),'segPreviewPost');
+  processAll();
+}
+
+function renderSegPreview(segs, boxId) {
+  const box=document.getElementById(boxId);
+  if (!segs.length){box.style.display='none';return;}
+  box.style.display='block';
+  box.innerHTML=segs.map((s,i)=>{
+    if(!s) return `<div class="seg-item" style="color:#dc2626">⚠️ Invalid format line ${i+1}</div>`;
+    const from=translateCity(s.origin,uiLang), to=translateCity(s.dest,uiLang);
+    const dep=fmtT(s.depTime,uiLang), arr=fmtT(s.arrTime,uiLang);
+    const date=formatDate(s.dayNum,s.monthAb,uiLang);
+    const air=formatAirline(s.airCode,uiLang);
+    return `<div class="seg-item"><span class="seg-tag">${s.flightNum}</span> <strong>${from} → ${to}</strong><br>🛫 ${dep} · 🛬 ${arr} · ${date}<br>✈️ ${air} · ${uiLang==='ar'?'درجة':'Class'}: ${s.cabinClass}</div>`;
+  }).join('');
+}
+
+const aiDatabase = {
+  cities: {
+    'RUH':{ar:'الرياض',en:'Riyadh'},'DXB':{ar:'دبي',en:'Dubai'},'JED':{ar:'جدة',en:'Jeddah'},
+    'CAI':{ar:'القاهرة',en:'Cairo'},'DMM':{ar:'الدمام',en:'Dammam'},'HMB':{ar:'سوهاج',en:'Sohag'},
+    'MED':{ar:'المدينة المنورة',en:'Medina'},'HBE':{ar:'الإسكندرية',en:'Alexandria'},
+    'AJF':{ar:'الجوف',en:'Jouf'},'TUU':{ar:'تبوك',en:'Tabuk'},'GIZ':{ar:'جيزان',en:'Jazan'},
+    'HOF':{ar:'الأحساء',en:'Al-Ahsa'},'ELQ':{ar:'القصيم',en:'Qassim'},'RAE':{ar:'عرعر',en:'Arar'},
+    'ABT':{ar:'الباحة',en:'Al-Baha'},'TIF':{ar:'الطائف',en:'Taif'},'SHW':{ar:'شرورة',en:'Sharurah'},
+    'BAH':{ar:'البحرين',en:'Bahrain'},'KWI':{ar:'الكويت',en:'Kuwait'},'DOH':{ar:'الدوحة',en:'Doha'},
+    'MCT':{ar:'مسقط',en:'Muscat'},'AUH':{ar:'أبوظبي',en:'Abu Dhabi'},'SHJ':{ar:'الشارقة',en:'Sharjah'},
+    'AMM':{ar:'عمان',en:'Amman'},'BEY':{ar:'بيروت',en:'Beirut'},'IST':{ar:'إسطنبول',en:'Istanbul'},
+    'LHR':{ar:'لندن',en:'London'},'CDG':{ar:'باريس',en:'Paris'},'FRA':{ar:'فرانكفورت',en:'Frankfurt'},
+    'JFK':{ar:'نيويورك',en:'New York'},'LAX':{ar:'لوس أنجلوس',en:'Los Angeles'},
+    'WAE':{ar:'وادي الدواسر',en:'Wadi Al-Dawaser'},'KMX':{ar:'خميس مشيط',en:'Khamis Mushait'},
+    'AHB':{ar:'أبها',en:'Abha'},'YNB':{ar:'ينبع',en:'Yanbu'},
+  },
+  airlines: {
+    'SV':{ar:'الخطوط السعودية',en:'Saudia'},'XY':{ar:'طيران ناس',en:'flynas'},
+    'SM':{ar:'إير كايرو',en:'Air Cairo'},'F3':{ar:'طيران أديل',en:'flyadeal'},
+    'MS':{ar:'مصر للطيران',en:'EgyptAir'},'NP':{ar:'النيل للطيران',en:'Nile Air'},
+    'FZ':{ar:'فلاي دبي',en:'flydubai'},'EK':{ar:'طيران الإمارات',en:'Emirates'},
+    'GF':{ar:'الخليج',en:'Gulf Air'},'WY':{ar:'عُمان إير',en:'Oman Air'},
+    'QR':{ar:'القطرية',en:'Qatar Airways'},'KU':{ar:'الكويتية',en:'Kuwait Airways'},
+    'RJ':{ar:'الملكية الأردنية',en:'Royal Jordanian'},'TK':{ar:'التركية',en:'Turkish Airlines'},
+    'LH':{ar:'لوفتهانزا',en:'Lufthansa'},'BA':{ar:'بريتيش إيرويز',en:'British Airways'},
+  }
+};
+
+const translateCity=(code,lang)=>{const c=aiDatabase.cities[code.toUpperCase()];return c?`${c[lang]} (${code.toUpperCase()})`:code;};
+const formatAirline=(code,lang)=>{const a=aiDatabase.airlines[code.toUpperCase()];return a?a[lang]:`(${code})`;};
+
+const DAYS_AR=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const DAYS_EN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTHS_AR={JAN:'يناير',FEB:'فبراير',MAR:'مارس',APR:'أبريل',MAY:'مايو',JUN:'يونيو',JUL:'يوليو',AUG:'أغسطس',SEP:'سبتمبر',OCT:'أكتوبر',NOV:'نوفمبر',DEC:'ديسمبر'};
+const MONTHS_NUM={JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
+
+function getDayName(dayNum,monthStr,lang){
+  const month=MONTHS_NUM[monthStr.toUpperCase()];
+  if(month===undefined)return '';
+  const dt=new Date(2026,month,parseInt(dayNum));
+  return lang==='ar'?DAYS_AR[dt.getDay()]:DAYS_EN[dt.getDay()];
+}
+
+function parseAmadeusSegment(line){
+  const tok=line.trim().toUpperCase().split(/\s+/);
+  if(tok.length<8)return null;
+  const flightNum=tok[0],airCode=flightNum.replace(/\d/g,''),cabinClass=tok[1],depDate=tok[2],route=tok[4],depTime=tok[6],arrTime=tok[7],arrDate=tok[8]||tok[2];
+  if(!depDate.match(/^\d{2}[A-Z]{3}$/)||!route.match(/^[A-Z]{6}$/))return null;
+  return{flightNum,airCode,cabinClass,dayNum:depDate.substring(0,2),monthAb:depDate.substring(2,5),origin:route.substring(0,3),dest:route.substring(3,6),depTime,arrTime,arrDayNum:arrDate.substring(0,2),arrMonthAb:arrDate.substring(2,5)};
+}
+
+function fmtT(t,lang){
+  if(!t||t.length<4)return '...';
+  let h=parseInt(t.substring(0,2)),m=t.substring(2,4);
+  let s=h>=12?(lang==='ar'?'م':'PM'):(lang==='ar'?'ص':'AM');
+  return `${h%12||12}:${m} ${s}`;
+}
+
+function formatDate(dayNum,monthAb,lang){
+  const dn=getDayName(dayNum,monthAb,lang);
+  return lang==='ar'?`${dn} ${dayNum} ${MONTHS_AR[monthAb]||monthAb} 2026`:`${dn} ${dayNum} ${monthAb} 2026`;
+}
+
+function buildFlightTextAr(seg){
+  return `من *${translateCity(seg.origin,'ar')}* إلى *${translateCity(seg.dest,'ar')}*\nوقت المغادرة: ${fmtT(seg.depTime,'ar')} *${formatDate(seg.dayNum,seg.monthAb,'ar')}*\nموعد الوصول: ${fmtT(seg.arrTime,'ar')}\n*رحلة مباشرة*\n(${formatAirline(seg.airCode,'ar')})`;
+}
+
+function buildFlightTextEn(seg){
+  return `From *${translateCity(seg.origin,'en')}* to *${translateCity(seg.dest,'en')}*\nDeparture: ${fmtT(seg.depTime,'en')} *${formatDate(seg.dayNum,seg.monthAb,'en')}*\nArrival: ${fmtT(seg.arrTime,'en')}\n*Direct Flight*\n(${formatAirline(seg.airCode,'en')})`;
+}
+
+function openPaxModal(){
+  const segText=document.getElementById('rawSeg').value;
+  const maskText=document.getElementById('maskA').value;
+  const segs=segText.trim().split('\n').filter(l=>l.trim()).map(parseAmadeusSegment).filter(Boolean);
+  const code=_maskAirlineCode||getAirlineCodeFromSegment(segText)||getAirlineCodeFromMask(maskText);
+  const summaryEl=document.getElementById('paxAirlineSummary');
+  if(code){
+    const ai=aiDatabase.airlines[code]||{};
+    document.getElementById('paxAirlineLogo').textContent=code;
+    document.getElementById('paxAirlineName').textContent=uiLang==='ar'?(ai.ar||code):(ai.en||code);
+    if(segs.length){
+      const s=segs[0];
+      document.getElementById('paxRouteInfo').textContent=`${translateCity(s.origin,uiLang)} → ${translateCity(s.dest,uiLang)}${segs.length>1?` (+${segs.length-1})`:''}`;
+    } else {
+      document.getElementById('paxRouteInfo').textContent=uiLang==='ar'?'تم اكتشافه من الماسك':'Detected from mask';
     }
-
-    function stepPax(id, delta) {
-        const el = document.getElementById(id);
-        const val = Math.max(0, (parseInt(el.value)||0) + delta);
-        el.value = val;
+    summaryEl.style.display='block';
+  } else { summaryEl.style.display='none'; }
+  const detectedType=_maskFlightType||detectFlightType(segs);
+  _selectedFlightType=detectedType;
+  const aMask=document.getElementById('maskA').value;
+  const cm=aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
+  const detCur=cm?cm[1].toUpperCase():'SAR';
+  const badgeEl=document.getElementById('paxFlightTypeBadge');
+  const ftSection=document.getElementById('flightTypeSection');
+  if(detCur==='SAR'){
+    ftSection.style.display='block';
+    if(detectedType==='domestic'){
+      badgeEl.textContent=uiLang==='ar'?'🏠 داخلية':'🏠 Domestic';
+      badgeEl.style.cssText='padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0;background:#dcfce7;color:#166534;';
+      selectFlightType('domestic');
+    } else {
+      badgeEl.textContent=uiLang==='ar'?'🌍 دولية':'🌍 International';
+      badgeEl.style.cssText='padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0;background:#dbeafe;color:#1d4ed8;';
+      selectFlightType('international');
     }
-
-    // ── Enhanced mask extraction: airline code + flight type ─────────
-    function getAirlineCodeFromMask(maskText) {
-        // Try to find 2-letter airline code from flight number in mask
-        const patterns = [
-            /PENALTY\s+[A-Z]{3}\s+[\d.]+.*?([A-Z0-9]{2})\d{3,4}/i,
-            /\b([A-Z]{2})\d{3,4}\b/,   // any flight number like SV1395
-            /^([A-Z0-9]{2})\d{3,4}/im
-        ];
-        for (const re of patterns) {
-            const m = maskText.match(re);
-            if (m) return m[1].toUpperCase();
-        }
-        return null;
+  } else {
+    ftSection.style.display='none';
+    badgeEl.textContent=detCur;
+    badgeEl.style.cssText='padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700;flex-shrink:0;background:#f1f5f9;color:#475569;';
+  }
+  const noShowNoteEl=document.getElementById('noShowRuleNote');
+  if(code&&noShowMap[code]){
+    const rule=noShowMap[code];
+    const numOnly=rule.match(/^(\d+)$/);
+    if(numOnly){
+      document.getElementById('noShowHr').value=numOnly[1];
+      noShowNoteEl.textContent=`${rule} ${uiLang==='ar'?'ساعة (تلقائي)':'hr(s) — auto'}`;
+    } else {
+      document.getElementById('noShowHr').value='';
+      document.getElementById('noShowHr').placeholder='?';
+      noShowNoteEl.textContent=rule;
     }
-
-    function getFlightTypeFromMask(maskText) {
-        // Extract all 3-letter IATA airport codes from mask
-        // Common locations: route lines, e.g. "RUH-JED" or "RUHAJF" or "RUH JED"
-        const allCodes = new Set();
-
-        // Pattern: 3-letter all-caps words that look like airport codes
-        const matches = maskText.match(/\b([A-Z]{3})\b/g) || [];
-        matches.forEach(code => {
-            // filter out known non-airport tokens
-            const skip = new Set(['ADT','CHD','INF','SAR','AED','KWD','USD','EUR','GBP',
-                'ADD','COLL','TOT','MKP','PEN','ALTY','END','TAX','FEE','NVB','NVA',
-                'OWE','OWC','RTW','RTE','SEG','PAX','DK','HK','SS','NN','TK','GK']);
-            if (!skip.has(code) && code.length === 3) allCodes.add(code);
-        });
-
-        if (allCodes.size < 2) return null;
-
-        const codes = [...allCodes];
-        const allSaudi  = codes.every(c => SAUDI_AIRPORTS.has(c));
-        const anySaudi  = codes.some(c => SAUDI_AIRPORTS.has(c));
-        const anyForeign = codes.some(c => !SAUDI_AIRPORTS.has(c));
-
-        if (allSaudi) return 'domestic';
-        if (anySaudi && anyForeign) return 'international';
-        // If no saudi airports found at all, it's international
-        if (!anySaudi && codes.length >= 2) return 'international';
-        return null;
-    }
-
-    // State: what we know from mask alone
-    let _maskAirlineCode = null;
-    let _maskFlightType  = null;  // detected from mask airport codes
-
-    function getAirlineCodeFromSegment(segText) {
-        // Extract airline code from first valid segment line
-        const lines = segText.trim().split('\n');
-        for (const line of lines) {
-            const tok = line.trim().toUpperCase().split(/\s+/);
-            if (tok.length >= 5 && tok[0].match(/^[A-Z0-9]{2,3}\d+$/)) {
-                return tok[0].replace(/\d+/g, ''); // e.g. "SV1395" → "SV"
-            }
-        }
-        return null;
-    }
-
-    function updateNoShowBanner(code) {
-        const banner = document.getElementById('noShowBanner');
-        if (!code) { banner.style.display = 'none'; return; }
-        const rule = noShowMap[code];
-        if (!rule) { banner.style.display = 'none'; return; }
-        const airlineName = (aiDatabase.airlines[code] || {});
-        const nameAr = airlineName.ar ? `${airlineName.ar} (${code})` : code;
-        const nameEn = airlineName.en ? `${airlineName.en} (${code})` : code;
-        banner.style.display = 'block';
-        banner.innerHTML = `
-            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-                <span style="font-size:1.4rem;">✈️</span>
-                <div>
-                    <div style="font-weight:700; color:#003580;">
-                        <span data-ar>${nameAr}</span>
-                        <span data-en>${nameEn}</span>
-                    </div>
-                    <div style="margin-top:3px; font-size:0.8rem; color:#636e72;">
-                        <span data-ar>وقت النو شو: </span>
-                        <span data-en>No-Show Time: </span>
-                        <strong style="color:#e17055;">${rule}</strong>
-                        <span data-ar> ساعة</span>
-                        <span data-en> hr(s)</span>
-                    </div>
-                </div>
-            </div>`;
-        // re-apply lang visibility
-        applyLangVisibility();
-    }
-
-    function applyLangVisibility() {
-        const lang = uiLang;
-        document.querySelectorAll('[data-ar]').forEach(el => el.style.display = (lang==='en' ? 'none' : ''));
-        document.querySelectorAll('[data-en]').forEach(el => el.style.display = (lang==='ar' ? 'none' : ''));
-    }
-
-    // Called when ADT mask is typed
-    function onMaskInput() {
-        const maskText = document.getElementById('maskA').value.trim();
-        if (!maskText) {
-            document.getElementById('flightStep').style.display = 'none';
-            document.getElementById('analyzeStep').style.display = 'none';
-            document.getElementById('maskDetectBadge').style.display = 'none';
-            document.getElementById('resetOnlyStep').style.display = 'block';
-            document.getElementById('noShowBanner').style.display = 'none';
-            _maskAirlineCode = null;
-            _maskFlightType  = null;
-            return;
-        }
-
-        document.getElementById('resetOnlyStep').style.display = 'none';
-
-        // Extract airline code
-        _maskAirlineCode = getAirlineCodeFromMask(maskText);
-        // Extract flight type from airport codes in mask
-        _maskFlightType  = getFlightTypeFromMask(maskText);
-
-        updateNoShowBanner(_maskAirlineCode);
-        updateMaskDetectBadge(_maskAirlineCode, _maskFlightType);
-
-        const bothKnown = _maskAirlineCode && _maskFlightType;
-
-        if (bothKnown) {
-            // Skip Flight Translator — go straight to Analyze
-            document.getElementById('flightStep').style.display = 'none';
-            document.getElementById('analyzeStep').style.display = 'block';
-        } else {
-            // Need Flight Translator to fill the gap
-            document.getElementById('flightStep').style.display = 'block';
-            document.getElementById('analyzeStep').style.display = 'none';
-
-            const promptEl = document.getElementById('flightStepPrompt');
-            if (!_maskAirlineCode && !_maskFlightType) {
-                promptEl.innerHTML = uiLang === 'ar'
-                    ? '⚠️ لم يتم اكتشاف شركة الطيران أو نوع الرحلة من الماسك. يرجى إدخال السيجمنت.'
-                    : '⚠️ Airline code and flight type not detected from mask. Please enter the segment.';
-            } else if (!_maskAirlineCode) {
-                promptEl.innerHTML = uiLang === 'ar'
-                    ? '⚠️ لم يتم اكتشاف شركة الطيران. يرجى إدخال السيجمنت لتحديدها.'
-                    : '⚠️ Airline code not detected from mask. Please enter the segment to identify it.';
-            } else {
-                promptEl.innerHTML = uiLang === 'ar'
-                    ? '⚠️ لم يتم اكتشاف نوع الرحلة (داخلية/دولية). يرجى إدخال السيجمنت لتحديده.'
-                    : '⚠️ Flight type (domestic/international) not detected from mask. Please enter the segment.';
-            }
-            promptEl.style.display = 'block';
-        }
-    }
-
-    function updateMaskDetectBadge(airlineCode, flightType) {
-        const badge = document.getElementById('maskDetectBadge');
-        if (!airlineCode && !flightType) {
-            badge.style.display = 'none';
-            return;
-        }
-        const airlineName = airlineCode ? (aiDatabase.airlines[airlineCode] || {}) : {};
-        const airlineDisplay = airlineCode
-            ? (uiLang === 'ar' ? (airlineName.ar || airlineCode) : (airlineName.en || airlineCode))
-            : (uiLang === 'ar' ? '❓ غير معروف' : '❓ Unknown');
-        const ftDisplay = flightType
-            ? (flightType === 'domestic'
-                ? (uiLang === 'ar' ? '🏠 داخلية' : '🏠 Domestic')
-                : (uiLang === 'ar' ? '🌍 دولية' : '🌍 International'))
-            : (uiLang === 'ar' ? '❓ غير محدد' : '❓ Not detected');
-
-        const bothOk = airlineCode && flightType;
-        badge.style.cssText = `display:block; border-radius:10px; padding:10px 14px; font-size:0.82rem; font-weight:600; margin-bottom:12px; border:2px solid ${bothOk ? '#2ecc71' : '#f1c40f'}; background:${bothOk ? '#f0fff4' : '#fffbea'}; color:${bothOk ? '#1a7a4a' : '#856404'};`;
-        badge.innerHTML = `
-            <div style="font-size:0.7rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;">
-                ${uiLang === 'ar' ? 'تم اكتشاف من الماسك' : 'Detected from Mask'}
-                ${bothOk ? ' ✅' : ' ⚠️'}
-            </div>
-            <div style="display:flex; gap:16px; flex-wrap:wrap;">
-                <span>✈️ ${airlineDisplay}</span>
-                <span>📍 ${ftDisplay}</span>
-            </div>`;
-    }
-
-    // Called when segment textarea changes (pre-accept, inside flightStep)
-    function onSegmentInput() {
-        const rawText = document.getElementById('rawSeg').value.trim();
-        const lines = rawText.split('\n').filter(l => l.trim());
-        const segs  = lines.map(parseAmadeusSegment);
-        const validSegs = segs.filter(Boolean);
-
-        renderSegPreview(segs);
-
-        if (validSegs.length > 0) {
-            // Supplement missing mask data with segment data
-            const segCode = getAirlineCodeFromSegment(rawText);
-            if (segCode) {
-                if (!_maskAirlineCode) _maskAirlineCode = segCode;
-                updateNoShowBanner(segCode);
-            }
-            if (!_maskFlightType) {
-                _maskFlightType = detectFlightType(validSegs);
-            }
-
-            updateMaskDetectBadge(_maskAirlineCode, _maskFlightType);
-
-            // If now both are resolved → show Analyze
-            const bothKnown = _maskAirlineCode && _maskFlightType;
-            if (bothKnown) {
-                document.getElementById('flightStepPrompt').style.display = 'none';
-                document.getElementById('analyzeStep').style.display = 'block';
-            }
-        } else {
-            document.getElementById('analyzeStep').style.display = 'none';
-            if (rawText) document.getElementById('flightStepPrompt').style.display = 'block';
-        }
-    }
-
-    // Post-accept segment input (in postAcceptStep)
-    function onSegmentPostInput() {
-        const rawText = document.getElementById('rawSegPost').value.trim();
-        const lines = rawText.split('\n').filter(l => l.trim());
-        const segs  = lines.map(parseAmadeusSegment);
-        renderSegPreviewPost(segs);
-        processAll();
-    }
-
-    function renderSegPreviewPost(segs) {
-        const box = document.getElementById('segPreviewPost');
-        if (!segs.length) { box.style.display='none'; return; }
-        box.style.display = 'block';
-        box.innerHTML = segs.map((s,i) => {
-            if (!s) return `<div class="seg-item" style="color:red">⚠️ Invalid segment format on line ${i+1}</div>`;
-            const from = translateCity(s.origin, uiLang);
-            const to   = translateCity(s.dest,   uiLang);
-            const dep  = fmtT(s.depTime, uiLang);
-            const arr  = fmtT(s.arrTime, uiLang);
-            const date = formatDate(s.dayNum, s.monthAb, uiLang);
-            const air  = formatAirline(s.airCode, uiLang);
-            return `<div class="seg-item">
-                <span class="seg-tag">${s.flightNum}</span>
-                <strong>${from} → ${to}</strong><br>
-                🛫 ${dep} · 🛬 ${arr} · ${date}<br>
-                ✈️ ${air} · ${uiLang==='ar'?'درجة':'Class'}: ${s.cabinClass}
-            </div>`;
-        }).join('');
-    }
-
-    // ── Language toggle ──────────────────────────────────────────────
-    function setLang(lang) {
-        uiLang = lang;
-        document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-        document.getElementById('btnAr').classList.toggle('active', lang === 'ar');
-        document.getElementById('btnEn').classList.toggle('active', lang === 'en');
-        applyLangVisibility();
-        // re-render if data exists
-        if (d.grand) renderOutput();
-        if (document.getElementById('confirmSection').style.display !== 'none') processAll();
-    }
-
-    // ── City / Airline database ───────────────────────────────────────
-    const aiDatabase = {
-        cities: {
-            'RUH': { ar: 'الرياض',          en: 'Riyadh' },
-            'DXB': { ar: 'دبي',             en: 'Dubai' },
-            'JED': { ar: 'جدة',             en: 'Jeddah' },
-            'CAI': { ar: 'القاهرة',         en: 'Cairo' },
-            'DMM': { ar: 'الدمام',          en: 'Dammam' },
-            'HMB': { ar: 'سوهاج',           en: 'Sohag' },
-            'MED': { ar: 'المدينة المنورة', en: 'Medina' },
-            'HBE': { ar: 'الإسكندرية',     en: 'Alexandria' },
-            'AJF': { ar: 'الجوف',           en: 'Jouf' },
-            'TUU': { ar: 'تبوك',            en: 'Tabuk' },
-            'GIZ': { ar: 'جيزان',           en: 'Jazan' },
-            'HOF': { ar: 'الأحساء',         en: 'Al-Ahsa' },
-            'ELQ': { ar: 'القصيم',          en: 'Qassim' },
-            'RAE': { ar: 'عرعر',            en: 'Arar' },
-            'ABT': { ar: 'الباحة',          en: 'Al-Baha' },
-            'TIF': { ar: 'الطائف',          en: 'Taif' },
-            'SHW': { ar: 'شرورة',           en: 'Sharurah' },
-            'WAE': { ar: 'وادي الدواسر',   en: 'Wadi Al-Dawaser' },
-            'URY': { ar: 'القريات',         en: 'Guriat' },
-            'BHH': { ar: 'بيشة',            en: 'Bisha' },
-            'KMX': { ar: 'خميس مشيط',       en: 'Khamis Mushait' },
-            'AHB': { ar: 'أبها',            en: 'Abha' },
-            'SLF': { ar: 'سلوى',            en: 'Sulwa' },
-            'BAH': { ar: 'البحرين',         en: 'Bahrain' },
-            'KWI': { ar: 'الكويت',          en: 'Kuwait' },
-            'DOH': { ar: 'الدوحة',          en: 'Doha' },
-            'MCT': { ar: 'مسقط',            en: 'Muscat' },
-            'AUH': { ar: 'أبوظبي',          en: 'Abu Dhabi' },
-            'SHJ': { ar: 'الشارقة',         en: 'Sharjah' },
-            'AMM': { ar: 'عمان',            en: 'Amman' },
-            'BEY': { ar: 'بيروت',           en: 'Beirut' },
-            'IST': { ar: 'إسطنبول',         en: 'Istanbul' },
-            'LHR': { ar: 'لندن',            en: 'London' },
-            'CDG': { ar: 'باريس',           en: 'Paris' },
-            'FRA': { ar: 'فرانكفورت',       en: 'Frankfurt' },
-            'JFK': { ar: 'نيويورك',         en: 'New York' },
-            'LAX': { ar: 'لوس أنجلوس',      en: 'Los Angeles' },
-        },
-        airlines: {
-            'SV': { ar: 'الخطوط السعودية', en: 'Saudia' },
-            'XY': { ar: 'طيران ناس',        en: 'flynas' },
-            'SM': { ar: 'إير كايرو',        en: 'Air Cairo' },
-            'F3': { ar: 'طيران أديل',       en: 'flyadeal' },
-            'MS': { ar: 'مصر للطيران',      en: 'EgyptAir' },
-            'NP': { ar: 'النيل للطيران',    en: 'Nile Air' },
-            'FZ': { ar: 'فلاي دبي',         en: 'flydubai' },
-            'EK': { ar: 'طيران الإمارات',   en: 'Emirates' },
-            'GF': { ar: 'الخليج',           en: 'Gulf Air' },
-            'WY': { ar: 'عُمان إير',        en: 'Oman Air' },
-            'QR': { ar: 'القطرية',          en: 'Qatar Airways' },
-            'KU': { ar: 'الكويتية',         en: 'Kuwait Airways' },
-            'RJ': { ar: 'الملكية الأردنية', en: 'Royal Jordanian' },
-            'TK': { ar: 'التركية',          en: 'Turkish Airlines' },
-            'LH': { ar: 'لوفتهانزا',        en: 'Lufthansa' },
-            'BA': { ar: 'بريتيش إيرويز',    en: 'British Airways' },
-        }
-    };
-
-    const translateCity = (code, lang) => {
-        const city = aiDatabase.cities[code.toUpperCase()];
-        return city ? `${city[lang]} (${code.toUpperCase()})` : code;
-    };
-
-    const formatAirline = (code, lang) => {
-        const airline = aiDatabase.airlines[code.toUpperCase()];
-        return airline ? airline[lang] : `(${code})`;
-    };
-
-    // ── Weekday lookup ────────────────────────────────────────────────
-    const DAYS_AR = ['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
-    const DAYS_EN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const MONTHS_AR = { JAN:'يناير',FEB:'فبراير',MAR:'مارس',APR:'أبريل',MAY:'مايو',
-                        JUN:'يونيو',JUL:'يوليو',AUG:'أغسطس',SEP:'سبتمبر',OCT:'أكتوبر',
-                        NOV:'نوفمبر',DEC:'ديسمبر' };
-    const MONTHS_NUM = { JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11 };
-
-    function getDayName(dayNum, monthStr, lang) {
-        const month = MONTHS_NUM[monthStr.toUpperCase()];
-        if (month === undefined) return '';
-        const yr = 2026;
-        const date = new Date(yr, month, parseInt(dayNum));
-        return lang === 'ar' ? DAYS_AR[date.getDay()] : DAYS_EN[date.getDay()];
-    }
-
-    // ── Amadeus Segment Parser ────────────────────────────────────────
-    // Format: SV1395 B 29APR 3 RUHAJF DK2 0600 0740 29APR E
-    //  [0]  flight number  e.g. SV1395
-    //  [1]  class          e.g. B
-    //  [2]  dep date       e.g. 29APR
-    //  [3]  day-of-week    e.g. 3 (1=Mon…7=Sun)  — ignored, we compute ourselves
-    //  [4]  origin+dest    e.g. RUHAJF  (3+3 IATA)
-    //  [5]  status+pax     e.g. DK2
-    //  [6]  dep time       e.g. 0600
-    //  [7]  arr time       e.g. 0740
-    //  [8]  arr date       e.g. 29APR  (may be +1 etc.)
-    //  [9]  e-ticket flag  e.g. E
-
-    function parseAmadeusSegment(line) {
-        const tok = line.trim().toUpperCase().split(/\s+/);
-        if (tok.length < 8) return null;
-
-        const flightNum = tok[0];                        // SV1395
-        const airCode   = flightNum.replace(/\d/g,'');   // SV
-        const cabinClass= tok[1];                        // B
-        const depDate   = tok[2];                        // 29APR
-        const route     = tok[4];                        // RUHAJF
-        const depTime   = tok[6];                        // 0600
-        const arrTime   = tok[7];                        // 0740
-        const arrDate   = tok[8] || tok[2];              // 29APR
-
-        if (!depDate.match(/^\d{2}[A-Z]{3}$/) || !route.match(/^[A-Z]{6}$/)) return null;
-
-        const dayNum  = depDate.substring(0,2);
-        const monthAb = depDate.substring(2,5);
-        const origin  = route.substring(0,3);
-        const dest    = route.substring(3,6);
-
-        const arrDayNum  = arrDate.substring(0,2);
-        const arrMonthAb = arrDate.substring(2,5);
-
-        return { flightNum, airCode, cabinClass, dayNum, monthAb, origin, dest, depTime, arrTime, arrDayNum, arrMonthAb };
-    }
-
-    function fmtT(t, lang) {
-        if (!t || t.length < 4) return '...';
-        let h = parseInt(t.substring(0,2)), m = t.substring(2,4);
-        let suffix = h >= 12 ? (lang==='ar'?'م':'PM') : (lang==='ar'?'ص':'AM');
-        let displayH = h % 12 || 12;
-        return `${displayH}:${m} ${suffix}`;
-    }
-
-    function formatDate(dayNum, monthAb, lang) {
-        const dayName = getDayName(dayNum, monthAb, lang);
-        if (lang === 'ar') {
-            return `${dayName} ${dayNum} ${MONTHS_AR[monthAb]||monthAb} 2026`;
-        }
-        return `${dayName} ${dayNum} ${monthAb} 2026`;
-    }
-
-    // Build WhatsApp-style bold text line for a flight
-    function buildFlightTextAr(seg) {
-        const from = translateCity(seg.origin, 'ar');
-        const to   = translateCity(seg.dest,   'ar');
-        const depT = fmtT(seg.depTime, 'ar');
-        const arrT = fmtT(seg.arrTime, 'ar');
-        const dateLine = formatDate(seg.dayNum, seg.monthAb, 'ar');
-        const airline  = formatAirline(seg.airCode, 'ar');
-
-        return `من *${from}* إلى *${to}*\nوقت المغادرة: ${depT} *${dateLine}*\nموعد الوصول: ${arrT}\n*رحلة مباشرة*\n(${airline})`;
-    }
-
-    function buildFlightTextEn(seg) {
-        const from = translateCity(seg.origin, 'en');
-        const to   = translateCity(seg.dest,   'en');
-        const depT = fmtT(seg.depTime, 'en');
-        const arrT = fmtT(seg.arrTime, 'en');
-        const dateLine = formatDate(seg.dayNum, seg.monthAb, 'en');
-        const airline  = formatAirline(seg.airCode, 'en');
-
-        return `From *${from}* to *${to}*\nDeparture: ${depT} *${dateLine}*\nArrival: ${arrT}\n*Direct Flight*\n(${airline})`;
-    }
-
-    // ── Segment preview box ───────────────────────────────────────────
-    function renderSegPreview(segs) {
-        const box = document.getElementById('segPreview');
-        if (!segs.length) { box.style.display='none'; return; }
-        box.style.display = 'block';
-        box.innerHTML = segs.map((s,i) => {
-            if (!s) return `<div class="seg-item" style="color:red">⚠️ Invalid segment format on line ${i+1}</div>`;
-            const from = translateCity(s.origin, uiLang);
-            const to   = translateCity(s.dest,   uiLang);
-            const dep  = fmtT(s.depTime, uiLang);
-            const arr  = fmtT(s.arrTime, uiLang);
-            const date = formatDate(s.dayNum, s.monthAb, uiLang);
-            const air  = formatAirline(s.airCode, uiLang);
-            return `<div class="seg-item">
-                <span class="seg-tag">${s.flightNum}</span>
-                <strong>${from} → ${to}</strong><br>
-                🛫 ${dep} · 🛬 ${arr} · ${date}<br>
-                ✈️ ${air} · ${uiLang==='ar'?'درجة':'Class'}: ${s.cabinClass}
-            </div>`;
-        }).join('');
-    }
-
-    // ── Modal helpers ─────────────────────────────────────────────────
-    function openPaxModal() {
-        const segText  = document.getElementById('rawSeg').value;
-        const maskText = document.getElementById('maskA').value;
-
-        // Parse all segments to detect domestic/international
-        const lines    = segText.trim().split('\n').filter(l => l.trim());
-        const segs     = lines.map(parseAmadeusSegment).filter(Boolean);
-
-        // ── 1. Airline info ──────────────────────────────────────────
-        const code = _maskAirlineCode || getAirlineCodeFromSegment(segText) || getAirlineCodeFromMask(maskText);
-        const summaryEl = document.getElementById('paxAirlineSummary');
-        if (code) {
-            const airlineName = aiDatabase.airlines[code] || {};
-            const nameDisplay = uiLang==='ar'
-                ? (airlineName.ar || code)
-                : (airlineName.en || code);
-            document.getElementById('paxAirlineLogo').textContent = code;
-            document.getElementById('paxAirlineName').textContent = nameDisplay;
-            summaryEl.style.display = 'block';
-
-            // Route info from first segment (if available)
-            if (segs.length) {
-                const s = segs[0];
-                const fromCity = translateCity(s.origin, uiLang);
-                const toCity   = translateCity(s.dest,   uiLang);
-                const routeExtra = segs.length > 1 ? ` (+${segs.length-1})` : '';
-                document.getElementById('paxRouteInfo').textContent = `${fromCity} → ${toCity}${routeExtra}`;
-            } else {
-                document.getElementById('paxRouteInfo').textContent = uiLang === 'ar'
-                    ? 'تم اكتشافه من الماسك' : 'Detected from mask';
-            }
-        } else {
-            summaryEl.style.display = 'none';
-        }
-
-        // ── 2. Domestic / International detection ────────────────────
-        // Use mask-detected type first, then segment-detected
-        const detectedType = _maskFlightType || detectFlightType(segs);
-        _selectedFlightType = detectedType;
-
-        // Check currency for SAR
-        const aMask = document.getElementById('maskA').value;
-        const currMatch = aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
-        const detectedCur = currMatch ? currMatch[1].toUpperCase() : 'SAR';
-
-        const badgeEl = document.getElementById('paxFlightTypeBadge');
-        const ftSection = document.getElementById('flightTypeSection');
-
-        if (detectedCur === 'SAR') {
-            ftSection.style.display = 'block';
-            if (detectedType === 'domestic') {
-                badgeEl.textContent = uiLang==='ar' ? '🏠 داخلية' : '🏠 Domestic';
-                badgeEl.style.cssText = 'padding:4px 12px; border-radius:20px; font-size:0.72rem; font-weight:700; flex-shrink:0; background:#dcfce7; color:#16a34a;';
-                selectFlightType('domestic');
-            } else {
-                badgeEl.textContent = uiLang==='ar' ? '🌍 دولية' : '🌍 International';
-                badgeEl.style.cssText = 'padding:4px 12px; border-radius:20px; font-size:0.72rem; font-weight:700; flex-shrink:0; background:#dbeafe; color:#1d4ed8;';
-                selectFlightType('international');
-            }
-        } else {
-            ftSection.style.display = 'none';
-            badgeEl.textContent = detectedCur;
-            badgeEl.style.cssText = 'padding:4px 12px; border-radius:20px; font-size:0.72rem; font-weight:700; flex-shrink:0; background:#f1f5f9; color:#475569;';
-        }
-
-        // ── 3. No-Show auto-fill ─────────────────────────────────────
-        const noShowNoteEl = document.getElementById('noShowRuleNote');
-        if (code && noShowMap[code]) {
-            const rule = noShowMap[code];
-            const numOnly = rule.match(/^(\d+)$/);
-            if (numOnly) {
-                document.getElementById('noShowHr').value = numOnly[1];
-                noShowNoteEl.textContent = `${rule} ${uiLang==='ar'?'ساعة (مكتشف تلقائياً)':'hr(s) — auto-detected'}`;
-            } else {
-                document.getElementById('noShowHr').value = '';
-                document.getElementById('noShowHr').placeholder = '?';
-                noShowNoteEl.textContent = rule;
-            }
-        } else {
-            noShowNoteEl.textContent = uiLang==='ar' ? 'أدخل يدوياً' : 'Enter manually';
-            document.getElementById('noShowHr').value = 24;
-        }
-
-        applyLangVisibility();
-        document.getElementById('paxModal').style.display = 'flex';
-    }
-    function clean(v) { return parseFloat(v.toString().replace(/,/g,'').replace(/[^\d\.\-]/g,'')) || 0; }
-
-    function parseM(id) {
-        const t = document.getElementById(id).value;
-        if (!t) return { p:0, tot:0, mk:0 };
-        const pm = t.match(/PENALTY\s*(?:[A-Z]{3})?\s*([\-]?\d+(\.\d+)?)/i);
-        const tm = t.match(/TOTAL\s*ADD\s*COLL\s*(?:[A-Z]{3})?\s*([\-]?\d+(\.\d+)?)/i);
-        const mm = t.match(/MARK\s*UP\s*(?:[A-Z]{3})?\s*([\-]?\d+(\.\d+)?)/i);
-        return { p: pm?clean(pm[1]):0, tot: tm?clean(tm[1]):0, mk: mm?clean(mm[1]):0 };
-    }
-
-    function checkCurrency() {
-        const aMask = document.getElementById('maskA').value;
-        const m = aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
-        cur = m ? m[1].toUpperCase() : 'SAR';
-        document.getElementById('curDisplay').innerText = `Currency: ${cur}`;
-        document.getElementById('paxModal').style.display = 'none';
-
-        if (cur === 'SAR') {
-            const isDomestic = (_selectedFlightType === 'domestic');
-            if (isDomestic) finalize(40.25, 35, true);
-            else            finalize(50, 50, false);
-        } else {
-            const fee = (cur === 'KWD') ? 6 : 50;
-            finalize(fee, fee, false);
-        }
-    }
-
-    function finalize(mosFee, baseFee, isDomestic) {
-        const nHr = document.getElementById('noShowHr').value;
-        const cA = clean(document.getElementById('cA').value),
-              cC = clean(document.getElementById('cC').value),
-              cI = clean(document.getElementById('cI').value);
-        const vA = parseM('maskA'), vC = parseM('maskC'), vI = parseM('maskI');
-
-        const tP = (vA.p*cA)+(vC.p*cC)+(vI.p*cI);
-        const fdA = (vA.tot-vA.p)+vA.mk;
-        const fdC = (vC.tot-vC.p)+vC.mk;
-        const fdI = (vI.tot-vI.p)+vI.mk;
-        const totalFD = (fdA*cA)+(fdC*cC)+(fdI*cI);
-        const tM = 0;
-        const totalMos = mosFee*(cA+cC);
-
-        const indA = vA.p+fdA+mosFee;
-        const indC = vC.p+fdC+mosFee;
-        const indI = vI.p+fdI;
-        const grand = tP+totalFD+totalMos;
-
-        d = { tP, totalFD, tM, totalMos, grand, currency: cur, hrs: nHr,
-              cA, cC, cI, mosFee, baseFee, isDomestic, indA, indC, indI,
-              pPer: (cA+cC+cI)>0 ? grand/(cA+cC+cI) : 0 };
-
-        // Hide placeholder, show real output
-        const placeholder = document.getElementById('msgPlaceholder');
-        if (placeholder) placeholder.style.display = 'none';
-
-        renderOutput();
-        document.getElementById('internalPreview').style.display='block';
-        document.getElementById('breakdownText').innerHTML=`Penalty: ${tP.toFixed(2)} | FD(+MK): ${totalFD.toFixed(2)} | Almosafer: ${totalMos.toFixed(2)}`;
-        document.getElementById('actionPanel').style.display='flex';
-
-        // Now build confirmation messages with flight data
-        processAll();
-    }
-
-    function renderOutput() {
-        const curAr = {'SAR':'ريال سعودي','AED':'درهم إماراتي','KWD':'دينار كويتي','USD':'دولار أمريكي'}[d.currency]||d.currency;
-        let mosFeeTextAr = (d.isDomestic && d.currency==='SAR') ?
-            `رسوم المسافر ${d.baseFee} ريال سعودى لكل مسافر وبعد إضافة ضريبة القيمة المضافة ستصبح ${d.mosFee} ريال سعودى لكل مسافر.` :
-            `رسوم المسافر: ${d.mosFee} ${curAr} لكل مسافر.`;
-
-        const totalAdult  = (d.indA*d.cA).toFixed(2);
-        const totalChild  = (d.indC*d.cC).toFixed(2);
-        const totalInfant = (d.indI*d.cI).toFixed(2);
-
-        let msgAr = `رسوم التعديل لشركة الطيران: ${d.tP.toFixed(2)} ${curAr}.\n${mosFeeTextAr}\n\nفارق السعر: ${d.totalFD.toFixed(2)} ${curAr}.\n\nرسوم التعديل للفرد الواحد: ${d.pPer.toFixed(2)} ${curAr}.\n\nإجمالي الرسوم للبالغ: ${totalAdult} ${curAr}.\nإجمالي الرسوم للطفل: ${totalChild} ${curAr}.\nإجمالي الرسوم للرضيع: ${totalInfant} ${curAr}.\n\nإجمالي مبلغ التعديل المطلوب: ${d.grand.toFixed(2)} ${curAr}.\n\nمع العلم أن السعر والإمكانية غير ثابتين وأن رسوم شركة الطيران صالحة حتى ${d.hrs} ساعات قبل موعد الإقلاع.`;
-
-        let msgEn = `Airline Amendment fees: ${d.tP.toFixed(2)} ${d.currency}\nAlmosafer fees: ${d.totalMos.toFixed(2)} ${d.currency}\nFare difference: ${d.totalFD.toFixed(2)} ${d.currency}\nAmendment fee per person: ${d.pPer.toFixed(2)} ${d.currency}\n\nTotal fees per adult: ${totalAdult} ${d.currency}\nTotal fees per child: ${totalChild} ${d.currency}\nTotal fees for the infant: ${totalInfant} ${d.currency}.\nTotal amendment amount: ${d.grand.toFixed(2)} ${d.currency}.\n\nKnowing that the price and availability are not guaranteed, and the airline amendment fees are valid up to ${d.hrs} hours before the departure time.`;
-
-        const box = document.getElementById('msgOutput');
-        // Clear placeholder, write text
-        box.innerHTML = '';
-        box.innerText = msgEn + "\n\n--------------------------\n\n" + msgAr;
-    }
-
-    function handleAccept() {
-        // Show the post-accept section (baggage + names + optional segment)
-        const postAccept = document.getElementById('postAcceptStep');
-        postAccept.style.display = 'block';
-
-        // If rawSeg was already filled in the pre-accept flight step, copy it to rawSegPost and hide segCardPost
-        const rawSegPre = document.getElementById('rawSeg');
-        const rawSegPost = document.getElementById('rawSegPost');
-        if (rawSegPre && rawSegPre.value.trim()) {
-            rawSegPost.value = rawSegPre.value;
-            document.getElementById('segCardPost').style.display = 'none';
-            onSegmentPostInput();
-        } else {
-            document.getElementById('segCardPost').style.display = 'block';
-        }
-
-        // Scroll into view
-        postAccept.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    // ── Main processor ────────────────────────────────────────────────
-    function processAll() {
-        // Use post-accept segment if available, fall back to pre-accept
-        const rawSegPostEl = document.getElementById('rawSegPost');
-        const rawSegPreEl  = document.getElementById('rawSeg');
-        const rawText = (rawSegPostEl && rawSegPostEl.value.trim())
-                      ? rawSegPostEl.value.trim()
-                      : (rawSegPreEl ? rawSegPreEl.value.trim() : '');
-
-        const bH  = document.getElementById('bHand')    ? document.getElementById('bHand').value.trim()    : '';
-        const bC  = document.getElementById('bCheck')   ? document.getElementById('bCheck').value.trim()   : '';
-        const pN  = document.getElementById('paxNames') ? document.getElementById('paxNames').value.trim() : '';
-
-        // Validation highlighting
-        [['rawSegPost',rawText],['bHand',bH],['bCheck',bC],['paxNames',pN]].forEach(x => {
-            const el = document.getElementById(x[0]);
-            if (el) {
-                if (x[1]) el.classList.remove('alert-red-input');
-            }
-        });
-
-        if (!rawText || !bH || !bC || !pN) {
-            document.getElementById('confirmSection').style.display='none';
-            return;
-        }
-
-        // Parse segments
-        const lines = rawText.split('\n').filter(l => l.trim() !== '');
-        const segs  = lines.map(parseAmadeusSegment);
-
-        const validSegs = segs.filter(Boolean);
-        if (!validSegs.length) {
-            document.getElementById('confirmSection').style.display='none';
-            return;
-        }
-
-        if (!d.grand) {
-            document.getElementById('confirmSection').style.display='none';
-            return;
-        }
-
-        document.getElementById('confirmSection').style.display='block';
-
-        const curAr = {'SAR':'ريال سعودي','AED':'درهم إماراتي','KWD':'دينار كويتي'}[d.currency]||d.currency;
-
-        // Arabic confirmation message
-        let flightsArLines = validSegs.map((s,i) =>
-            (validSegs.length > 1 ? `✈️ *الرحلة ${i+1}*\n` : '') + buildFlightTextAr(s)
-        ).join('\n\n');
-
-        let flightsEnLines = validSegs.map((s,i) =>
-            (validSegs.length > 1 ? `✈️ *Flight ${i+1}*\n` : '') + buildFlightTextEn(s)
-        ).join('\n\n');
-
-        const note = `برجاء العلم بأنه فى حال إتمام تعديل الرحلة على حجزك إلى رحلة أخرى قد يتم حذف جميع الخدمات الإضافية السابقة من جانب خط الطيران مثل ( المقاعد, الحقائب الإضافية,تأخير ذكي, الوجبات,رسوم اصدار بطاقه الصعود , الالغاء المجانى و التامين على الرحله,حماية الأمتعة), وفى حال تم حذفها سوف تحتاج إضافة اى من هذه الخدمات الإضافية مرة اخرى وسوف يتم دفع رسومها المعروضة من جانب خط الطيران إذا متاح إضافتها على الرحلة الجديدة.`;
-
-        const noteEn = `Please note that if you change your flight reservation to another flight, all additional services previously provided by the airline (such as seats, extra bags, smart delay, meals, boarding pass fees, free cancellation, flight insurance, and baggage protection) may be removed. If they are removed, you will need to add any of these additional services again, and the fees offered by the airline will be paid if they can be added to the new flight.`;
-
-        document.getElementById('confirmAr').innerText =
-            `للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\nالمسافرون:\n${pN}\n\n${flightsArLines}\n\nالأمتعة: يد ${bH} | شحن ${bC}\nإجمالي المطلوب: ${d.grand.toFixed(2)} ${curAr}\n\n${note}`;
-
-        document.getElementById('confirmEn').innerText =
-            `Just to confirm, this is the requested flight, correct?\n\nPassengers:\n${pN}\n\n${flightsEnLines}\n\nBaggage: Hand ${bH} | Checked ${bC}\nTotal Fees: ${d.grand.toFixed(2)} ${d.currency}\n\n${noteEn}`;
-    }
-
-    function copyGdsNote() {
-        const rawSegPost = document.getElementById('rawSegPost');
-        const rawSegPre  = document.getElementById('rawSeg');
-        const rawSeg = (rawSegPost && rawSegPost.value.trim()) ? rawSegPost.value : (rawSegPre ? rawSegPre.value : '');
-        const note = `cx asked to amend to \n${rawSeg}\n\npe ${d.tP.toFixed(2)}\nms ${d.totalMos.toFixed(2)}\nfd ${d.totalFD.toFixed(2)}\n\nTOTAL: ${d.grand.toFixed(2)} ${d.currency}\npl sent`;
-        navigator.clipboard.writeText(note);
-        alert(uiLang==='ar' ? "تم نسخ ملاحظة الـ GDS!" : "GDS Note copied!");
-    }
-
-    function copyText(id) {
-        navigator.clipboard.writeText(document.getElementById(id).innerText);
-        alert(uiLang==='ar' ? "تم النسخ!" : "Copied!");
-    }
+  } else {
+    noShowNoteEl.textContent=uiLang==='ar'?'أدخل يدوياً':'Enter manually';
+    document.getElementById('noShowHr').value=24;
+  }
+  applyLangVisibility();
+  document.getElementById('paxModal').style.display='flex';
+}
+
+function clean(v){return parseFloat(v.toString().replace(/,/g,'').replace(/[^\d.\-]/g,''))||0;}
+
+function parseM(id){
+  const t=document.getElementById(id).value;
+  if(!t)return{p:0,tot:0,mk:0};
+  const pm=t.match(/PENALTY\s*(?:[A-Z]{3})?\s*([\-]?\d+(\.\d+)?)/i);
+  const tm=t.match(/TOTAL\s*ADD\s*COLL\s*(?:[A-Z]{3})?\s*([\-]?\d+(\.\d+)?)/i);
+  const mm=t.match(/MARK\s*UP\s*(?:[A-Z]{3})?\s*([\-]?\d+(\.\d+)?)/i);
+  return{p:pm?clean(pm[1]):0,tot:tm?clean(tm[1]):0,mk:mm?clean(mm[1]):0};
+}
+
+function checkCurrency(){
+  const aMask=document.getElementById('maskA').value;
+  const m=aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
+  cur=m?m[1].toUpperCase():'SAR';
+  document.getElementById('curDisplay').innerText=cur;
+  document.getElementById('paxModal').style.display='none';
+  if(cur==='SAR'){
+    const isDom=(_selectedFlightType==='domestic');
+    if(isDom) finalize(40.25,35,true); else finalize(50,50,false);
+  } else {
+    finalize((cur==='KWD')?6:50,(cur==='KWD')?6:50,false);
+  }
+}
+
+function finalize(mosFee,baseFee,isDomestic){
+  const nHr=document.getElementById('noShowHr').value;
+  const cA=clean(document.getElementById('cA').value),cC=clean(document.getElementById('cC').value),cI=clean(document.getElementById('cI').value);
+  const vA=parseM('maskA'),vC=parseM('maskC'),vI=parseM('maskI');
+  const tP=(vA.p*cA)+(vC.p*cC)+(vI.p*cI);
+  const fdA=(vA.tot-vA.p)+vA.mk, fdC=(vC.tot-vC.p)+vC.mk, fdI=(vI.tot-vI.p)+vI.mk;
+  const totalFD=(fdA*cA)+(fdC*cC)+(fdI*cI);
+  const totalMos=mosFee*(cA+cC);
+  const grand=tP+totalFD+totalMos;
+  const indA=vA.p+fdA+mosFee, indC=vC.p+fdC+mosFee, indI=vI.p+fdI;
+  d={tP,totalFD,tM:0,totalMos,grand,currency:cur,hrs:nHr,cA,cC,cI,mosFee,baseFee,isDomestic,indA,indC,indI,pPer:(cA+cC+cI)>0?grand/(cA+cC+cI):0};
+  renderOutput();
+  document.getElementById('internalPreview').style.display='block';
+  document.getElementById('breakdownText').innerHTML=`Penalty: ${tP.toFixed(2)} | FD(+MK): ${totalFD.toFixed(2)} | Almosafer: ${totalMos.toFixed(2)}`;
+  document.getElementById('actionPanel').style.display='flex';
+  setStep(4);
+  processAll();
+}
+
+function renderOutput(){
+  const curAr={'SAR':'ريال سعودي','AED':'درهم إماراتي','KWD':'دينار كويتي','USD':'دولار أمريكي'}[d.currency]||d.currency;
+  const mosFeeTextAr=(d.isDomestic&&d.currency==='SAR')?`رسوم المسافر ${d.baseFee} ريال سعودى لكل مسافر وبعد إضافة ضريبة القيمة المضافة ستصبح ${d.mosFee} ريال سعودى لكل مسافر.`:`رسوم المسافر: ${d.mosFee} ${curAr} لكل مسافر.`;
+  const tA=(d.indA*d.cA).toFixed(2),tC=(d.indC*d.cC).toFixed(2),tI=(d.indI*d.cI).toFixed(2);
+  const msgAr=`رسوم التعديل لشركة الطيران: ${d.tP.toFixed(2)} ${curAr}.\n${mosFeeTextAr}\n\nفارق السعر: ${d.totalFD.toFixed(2)} ${curAr}.\n\nرسوم التعديل للفرد الواحد: ${d.pPer.toFixed(2)} ${curAr}.\n\nإجمالي الرسوم للبالغ: ${tA} ${curAr}.\nإجمالي الرسوم للطفل: ${tC} ${curAr}.\nإجمالي الرسوم للرضيع: ${tI} ${curAr}.\n\nإجمالي مبلغ التعديل المطلوب: ${d.grand.toFixed(2)} ${curAr}.\n\nمع العلم أن السعر والإمكانية غير ثابتين وأن رسوم شركة الطيران صالحة حتى ${d.hrs} ساعات قبل موعد الإقلاع.`;
+  const msgEn=`Airline Amendment fees: ${d.tP.toFixed(2)} ${d.currency}\nAlmosafer fees: ${d.totalMos.toFixed(2)} ${d.currency}\nFare difference: ${d.totalFD.toFixed(2)} ${d.currency}\nAmendment fee per person: ${d.pPer.toFixed(2)} ${d.currency}\n\nTotal fees per adult: ${tA} ${d.currency}\nTotal fees per child: ${tC} ${d.currency}\nTotal fees for the infant: ${tI} ${d.currency}.\nTotal amendment amount: ${d.grand.toFixed(2)} ${d.currency}.\n\nKnowing that the price and availability are not guaranteed, and the airline amendment fees are valid up to ${d.hrs} hours before the departure time.`;
+  document.getElementById('msgPlaceholder').style.display='none';
+  const tb=document.getElementById('msgOutputText');
+  tb.style.display='block';
+  tb.innerText=msgEn+"\n\n--------------------------\n\n"+msgAr;
+  document.getElementById('hdrCopyBtn').style.display='block';
+  const strip=document.getElementById('breakdownStrip');
+  strip.style.display='grid';
+  document.getElementById('bdAirline').innerHTML=`<span class="cur">${d.currency} </span>${d.tP.toFixed(2)}`;
+  document.getElementById('bdFare').innerHTML=`<span class="cur">${d.currency} </span>${d.totalFD.toFixed(2)}`;
+  document.getElementById('bdMos').innerHTML=`<span class="cur">${d.currency} </span>${d.totalMos.toFixed(2)}`;
+  document.getElementById('bdTotal').innerHTML=`<span class="cur">${d.currency} </span>${d.grand.toFixed(2)}`;
+}
+
+function handleAccept(){
+  const post=document.getElementById('postAcceptStep');
+  post.style.display='block';
+  const pre=document.getElementById('rawSeg');
+  const rsp=document.getElementById('rawSegPost');
+  if(pre&&pre.value.trim()){
+    rsp.value=pre.value;
+    document.getElementById('segCardPost').style.display='none';
+    onSegmentPostInput();
+  } else { document.getElementById('segCardPost').style.display='block'; }
+  post.scrollIntoView({behavior:'smooth',block:'start'});
+  setStep(4);
+}
+
+function cleanPaxName(raw){
+  return String(raw).replace(/\b(ADT|CHD|INF)\b/gi,"").replace(/[\/\-]/g," ").split(/\s+/).filter(w=>w.trim().length>0).join(" ");
+}
+
+function onPaxNamesInput(){
+  const raw=document.getElementById('paxNamesRaw').value;
+  const ri=document.getElementById('paxNamesRaw');
+  const lines=raw.split('\n').filter(l=>l.trim().length>0);
+  _parsedPaxNames=lines.map(cleanPaxName).filter(n=>n.trim().length>0);
+  const section=document.getElementById('paxParsedSection');
+  const list=document.getElementById('paxParsedList');
+  const badge=document.getElementById('paxCountText');
+  const hidden=document.getElementById('paxNames');
+  if(_parsedPaxNames.length===0){
+    section.style.display='none'; ri.classList.remove('has-content');
+    hidden.value=''; processAll(); return;
+  }
+  ri.classList.add('has-content'); section.style.display='block';
+  const n=_parsedPaxNames.length;
+  badge.textContent=uiLang==='ar'?(n===1?'مسافر واحد':`${n} مسافرين`):(n===1?'1 Passenger':`${n} Passengers`);
+  list.innerHTML=_parsedPaxNames.map((name,i)=>`
+    <div class="pax-item" id="paxItem_${i}">
+      <div class="pax-num">${i+1}</div>
+      <span class="pax-name-text" id="paxNameText_${i}">${name}</span>
+      <button class="pax-edit-btn" onclick="editPaxName(${i})">✏️</button>
+    </div>`).join('');
+  syncHiddenPaxField();
+  applyLangVisibility();
+  processAll();
+}
+
+function editPaxName(i){
+  const textEl=document.getElementById('paxNameText_'+i);
+  const current=_parsedPaxNames[i];
+  const inp=document.createElement('input');
+  inp.type='text'; inp.value=current;
+  inp.style.cssText='flex:1;font-weight:600;font-size:12px;border:1.5px solid var(--emerald);border-radius:6px;padding:3px 8px;color:var(--text);outline:none;background:#fff;';
+  const btn=textEl.nextElementSibling;
+  btn.style.display='none'; textEl.replaceWith(inp); inp.focus(); inp.select();
+  function commit(){
+    const nv=inp.value.trim()||current;
+    _parsedPaxNames[i]=nv;
+    const span=document.createElement('span');
+    span.className='pax-name-text'; span.id='paxNameText_'+i; span.textContent=nv;
+    inp.replaceWith(span); btn.style.display='';
+    syncHiddenPaxField(); processAll();
+  }
+  inp.addEventListener('blur',commit);
+  inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();inp.blur();}});
+}
+
+function syncHiddenPaxField(){
+  document.getElementById('paxNames').value=_parsedPaxNames.length===1?_parsedPaxNames[0]:_parsedPaxNames.map((n,i)=>`${i+1}. ${n}`).join('\n');
+}
+
+function processAll(){
+  const rawSegPost=document.getElementById('rawSegPost');
+  const rawSegPre=document.getElementById('rawSeg');
+  const rawText=(rawSegPost&&rawSegPost.value.trim())?rawSegPost.value.trim():(rawSegPre?rawSegPre.value.trim():'');
+  const bH=document.getElementById('bHand')?document.getElementById('bHand').value.trim():'';
+  const bC=document.getElementById('bCheck')?document.getElementById('bCheck').value.trim():'';
+  const pN=document.getElementById('paxNames')?document.getElementById('paxNames').value.trim():'';
+  if(!rawText||!bH||!bC||!pN){document.getElementById('confirmSection').style.display='none';return;}
+  const segs=rawText.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment).filter(Boolean);
+  if(!segs.length||!d.grand){document.getElementById('confirmSection').style.display='none';return;}
+  document.getElementById('confirmSection').style.display='block';
+  setStep(5);
+  const curAr={'SAR':'ريال سعودي','AED':'درهم إماراتي','KWD':'دينار كويتي'}[d.currency]||d.currency;
+  const flAr=segs.map((s,i)=>(segs.length>1?`✈️ *الرحلة ${i+1}*\n`:'')+buildFlightTextAr(s)).join('\n\n');
+  const flEn=segs.map((s,i)=>(segs.length>1?`✈️ *Flight ${i+1}*\n`:'')+buildFlightTextEn(s)).join('\n\n');
+  const note=`برجاء العلم بأنه فى حال إتمام تعديل الرحلة على حجزك إلى رحلة أخرى قد يتم حذف جميع الخدمات الإضافية السابقة من جانب خط الطيران مثل ( المقاعد, الحقائب الإضافية,تأخير ذكي, الوجبات,رسوم اصدار بطاقه الصعود , الالغاء المجانى و التامين على الرحله,حماية الأمتعة), وفى حال تم حذفها سوف تحتاج إضافة اى من هذه الخدمات الإضافية مرة اخرى وسوف يتم دفع رسومها المعروضة من جانب خط الطيران إذا متاح إضافتها على الرحلة الجديدة.`;
+  const noteEn=`Please note that if you change your flight reservation to another flight, all additional services previously provided by the airline (such as seats, extra bags, smart delay, meals, boarding pass fees, free cancellation, flight insurance, and baggage protection) may be removed. If they are removed, you will need to add any of these additional services again, and the fees offered by the airline will be paid if they can be added to the new flight.`;
+  const paxArLabel=_parsedPaxNames.length===1?`اسم المسافر: ${_parsedPaxNames[0]}`:`أسماء المسافرين:\n${_parsedPaxNames.map((n,i)=>`${i+1}. ${n}`).join('\n')}`;
+  const paxEnLabel=_parsedPaxNames.length===1?`Passenger Name: ${_parsedPaxNames[0]}`:`Passenger Names:\n${_parsedPaxNames.map((n,i)=>`${i+1}. ${n}`).join('\n')}`;
+  document.getElementById('confirmAr').innerText=`للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\n${paxArLabel}\n\n${flAr}\n\nالأمتعة: يد ${bH} | شحن ${bC}\nإجمالي المطلوب: ${d.grand.toFixed(2)} ${curAr}\n\n${note}`;
+  document.getElementById('confirmEn').innerText=`Just to confirm, this is the requested flight, correct?\n\n${paxEnLabel}\n\n${flEn}\n\nBaggage: Hand ${bH} | Checked ${bC}\nTotal Fees: ${d.grand.toFixed(2)} ${d.currency}\n\n${noteEn}`;
+}
+
+function copyGdsNote(){
+  const rawSeg=(document.getElementById('rawSegPost')&&document.getElementById('rawSegPost').value.trim())?document.getElementById('rawSegPost').value:document.getElementById('rawSeg').value;
+  const note=`cx asked to amend to \n${rawSeg}\n\npe ${d.tP.toFixed(2)}\nms ${d.totalMos.toFixed(2)}\nfd ${d.totalFD.toFixed(2)}\n\nTOTAL: ${d.grand.toFixed(2)} ${d.currency}\npl sent`;
+  navigator.clipboard.writeText(note);
+  alert(uiLang==='ar'?'تم نسخ ملاحظة الـ GDS!':'GDS Note copied!');
+}
+
+function copyText(id){
+  const el=document.getElementById(id);
+  const text=el.innerText||el.value||'';
+  navigator.clipboard.writeText(text);
+  alert(uiLang==='ar'?'تم النسخ!':'Copied!');
+}
 </script>
 </body>
 </html>
