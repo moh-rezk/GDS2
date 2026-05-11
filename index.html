@@ -750,8 +750,8 @@ html[lang=ar] [data-en] { display: none !important; }
             <span data-en>✅ Client Accepted</span>
           </button>
           <button class="btn-gds" onclick="copyGdsNote()">
-            <span data-ar>📋 نسخ GDS Note</span>
-            <span data-en>📋 Copy GDS Note</span>
+            <span data-ar>📋 نسخ Internal /FFT note</span>
+            <span data-en>📋 Copy Internal /FFT note</span>
           </button>
         </div>
 
@@ -1388,7 +1388,7 @@ function copyGdsNote(){
   const rawSeg=(document.getElementById('rawSegPost')&&document.getElementById('rawSegPost').value.trim())?document.getElementById('rawSegPost').value:document.getElementById('rawSeg').value;
   const note=`cx asked to amend to \n${rawSeg}\n\npe ${d.tP.toFixed(2)}\nms ${d.totalMos.toFixed(2)}\nfd ${d.totalFD.toFixed(2)}\n\nTOTAL: ${d.grand.toFixed(2)} ${d.currency}\npl sent`;
   navigator.clipboard.writeText(note);
-  alert(uiLang==='ar'?'تم نسخ ملاحظة الـ GDS!':'GDS Note copied!');
+  alert(uiLang==='ar'?'تم نسخ ملاحظة الـ GDS!':'Internal /FFT note copied!');
 }
 
 function copyText(id){
