@@ -85,8 +85,13 @@ body {
   transition: .18s; position: relative;
 }
 .sb-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.sb-icon:hover { background: rgba(255,255,255,0.06); color: #94a3b8; }
-.sb-icon.active { background: var(--emerald-x); color: var(--emerald); }
+.sb-icon:hover { background: rgba(255,255,255,0.07); color: #94a3b8; }
+.sb-icon.active {
+  background: rgba(16,185,129,0.15);
+  color: var(--emerald);
+  box-shadow: inset 3px 0 0 var(--emerald);
+}
+html[dir=rtl] .sb-icon.active { box-shadow: inset -3px 0 0 var(--emerald); }
 .sb-icon[data-tip]:hover::after {
   content: attr(data-tip);
   position: absolute;
@@ -96,6 +101,7 @@ body {
   color: #e2e8f0; font-size: 11px; padding: 4px 8px;
   border-radius: 6px; white-space: nowrap; pointer-events: none;
   font-family: 'IBM Plex Sans Arabic', sans-serif;
+  z-index: 99;
 }
 html[lang=en] .sb-icon[data-tip-en]:hover::after { content: attr(data-tip-en); }
 .sb-spacer { flex: 1; }
@@ -104,6 +110,28 @@ html[lang=en] .sb-icon[data-tip-en]:hover::after { content: attr(data-tip-en); }
   writing-mode: vertical-rl; letter-spacing: 0.05em;
   margin-bottom: 8px;
 }
+/* Sidebar reset button */
+.sb-reset {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  color: #475569; cursor: pointer; transition: .18s;
+  background: none; border: none; position: relative;
+  margin-bottom: 4px;
+}
+.sb-reset svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.sb-reset:hover { background: rgba(239,68,68,0.12); color: #ef4444; }
+.sb-reset[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%; transform: translateY(-50%);
+  background: #1e293b;
+  color: #e2e8f0; font-size: 11px; padding: 4px 8px;
+  border-radius: 6px; white-space: nowrap; pointer-events: none;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  z-index: 99;
+}
+html[lang=en] .sb-reset[data-tip-en]:hover::after { content: attr(data-tip-en); }
 
 /* ══ MAIN PANEL ══ */
 .main-panel {
@@ -327,7 +355,17 @@ html[dir=rtl] .prog-arrow { transform: scaleX(-1); }
 .btn-reset:hover { background: #e2e8f0; }
 
 /* alert */
-.alert-red-input { border-color: #fca5a5 !important; background: #fff5f5 !important; }
+.alert-red-input { border-color: #ef4444 !important; background: #fff5f5 !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.15) !important; animation: shake .35s ease; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-5px)}
+  40%{transform:translateX(5px)}
+  60%{transform:translateX(-4px)}
+  80%{transform:translateX(4px)}
+}
+.field-error-label { color: #ef4444 !important; font-weight: 600; }
+.ip-section.section-error { border-color: #fca5a5; background: #fff8f8; border-radius: 0; }
 
 /* ══ OUTPUT PANEL (right) ══ */
 .output-panel {
@@ -507,9 +545,61 @@ html[dir=rtl] .prog-arrow { transform: scaleX(-1); }
 }
 .modal-confirm-btn:hover { background: var(--slate-mid); }
 
+/* POC currency picker */
+.poc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 7px; margin-top:4px; }
+.poc-btn {
+  padding: 8px 4px; border-radius: 9px; border: 1.5px solid var(--border-s);
+  background: #f8fafc; cursor: pointer; font-size: 12px; font-weight: 600;
+  font-family: inherit; transition: .15s; text-align: center; color: var(--muted);
+}
+.poc-btn:hover { border-color: var(--emerald); color: var(--emerald); background: var(--emerald-x); }
+.poc-btn.selected { border-color: var(--emerald); background: var(--emerald-x); color: var(--emerald-d); }
+.poc-btn .poc-fee { font-size: 9px; font-weight: 400; color: var(--faint); margin-top:2px; display:block; }
+.poc-btn.selected .poc-fee { color: var(--emerald-d); }
+.poc-mask-note { font-size: 10px; color: var(--muted); margin-bottom:6px; padding: 6px 8px; background:#f1f5f9; border-radius:7px; }
+
 /* i18n */
 html[lang=en] [data-ar] { display: none !important; }
 html[lang=ar] [data-en] { display: none !important; }
+
+/* ══ GDS FARE BREAKDOWN TABLE ══ */
+.gds-breakdown-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  font-family: 'IBM Plex Mono', monospace;
+}
+.gds-breakdown-hdr {
+  padding: 10px 16px; background: #0f172a;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 600; color: #10b981;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.gds-breakdown-body { padding: 0; }
+.gds-row {
+  display: flex; align-items: center;
+  padding: 7px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 12px;
+}
+.gds-row:last-child { border-bottom: none; }
+.gds-row.divider { border-bottom: 2px solid #e2e8f0; }
+.gds-row.total-row {
+  background: #f0fdf4; font-weight: 700;
+  border-top: 2px solid #bbf7d0;
+}
+.gds-row.grand-row {
+  background: #0f172a; color: #10b981;
+  font-weight: 700; font-size: 13px;
+}
+.gds-label { flex: 1; color: #475569; font-size: 11px; letter-spacing: 0.03em; }
+.gds-row.total-row .gds-label { color: #166534; }
+.gds-row.grand-row .gds-label { color: #10b981; }
+.gds-cur { width: 52px; text-align: center; color: #94a3b8; font-size: 10px; font-weight: 600; }
+.gds-row.grand-row .gds-cur { color: #6ee7b7; }
+.gds-amount { width: 90px; text-align: right; color: #0f172a; font-weight: 600; font-size: 12px; }
+.gds-row.total-row .gds-amount { color: #166534; }
+.gds-row.grand-row .gds-amount { color: #fff; font-size: 14px; }
+.gds-zero { color: #94a3b8; }
 
 /* Scroll */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -541,6 +631,9 @@ html[lang=ar] [data-en] { display: none !important; }
     <div class="sb-icon" data-tip="الإعدادات" data-tip-en="Settings">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14M12 2v2M12 20v2M2 12h2M20 12h2"/></svg>
     </div>
+    <button class="sb-reset" data-tip="إعادة ضبط" data-tip-en="Reset" onclick="confirmReset()" title="">
+      <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.95"/></svg>
+    </button>
     <div class="sb-version">v21.0</div>
   </aside>
 
@@ -710,6 +803,15 @@ html[lang=ar] [data-en] { display: none !important; }
           </div>
         </div>
 
+        <!-- GDS Fare Breakdown Table (PKR style) -->
+        <div id="gdsBreakdownCard" class="gds-breakdown-card" style="display:none;">
+          <div class="gds-breakdown-hdr">
+            📋 <span data-ar>كشف حساب GDS</span><span data-en>GDS Fare Breakdown</span>
+            <span id="gdsCurBadge" style="margin-right:auto;margin-left:auto;font-size:10px;background:rgba(16,185,129,0.15);padding:2px 8px;border-radius:10px;"></span>
+          </div>
+          <div class="gds-breakdown-body" id="gdsBreakdownBody"><!-- filled by JS --></div>
+        </div>
+
         <!-- Internal note -->
         <div id="internalPreview" class="internal-view">
           <strong>[Internal]</strong> <span id="breakdownText"></span>
@@ -723,9 +825,6 @@ html[lang=ar] [data-en] { display: none !important; }
               <span data-ar>العرض النهائي</span>
               <span data-en>Quote Output</span>
             </div>
-            <button class="copy-btn" id="hdrCopyBtn" onclick="copyText('msgOutputText')" style="display:none;">
-              <span data-ar>📋 نسخ</span><span data-en>📋 Copy</span>
-            </button>
           </div>
           <div id="msgOutput">
             <div id="msgPlaceholder" class="msg-placeholder">
@@ -739,7 +838,32 @@ html[lang=ar] [data-en] { display: none !important; }
                 <span data-en>1. Paste mask → 2. Enter segment → 3. Analyze amounts</span>
               </div>
             </div>
-            <div id="msgOutputText" class="msg-box" style="display:none;"></div>
+            <div id="msgOutputSplit" style="display:none;">
+              <div class="confirm-split">
+                <div class="confirm-col">
+                  <div class="confirm-col-hdr">
+                    <span class="lang-dot" style="background:#166534;"></span>
+                    <span data-ar>عربي</span><span data-en>Arabic</span>
+                  </div>
+                  <div id="msgOutputAr" class="msg-box" dir="rtl" style="font-size:12px;padding:0;line-height:1.9;white-space:pre-wrap;"></div>
+                </div>
+                <div class="confirm-col">
+                  <div class="confirm-col-hdr">
+                    <span class="lang-dot" style="background:#1d4ed8;"></span>
+                    <span data-ar>إنجليزي</span><span data-en>English</span>
+                  </div>
+                  <div id="msgOutputEn" class="msg-box" dir="ltr" style="font-size:12px;padding:0;line-height:1.9;white-space:pre-wrap;"></div>
+                </div>
+              </div>
+              <div class="copy-btns">
+                <button class="copy-btn primary" onclick="copyText('msgOutputAr')">
+                  <span data-ar>📋 نسخ العربية</span><span data-en>📋 Copy Arabic</span>
+                </button>
+                <button class="copy-btn" onclick="copyText('msgOutputEn')">
+                  <span data-ar>📋 نسخ الإنجليزية</span><span data-en>📋 Copy English</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -750,8 +874,8 @@ html[lang=ar] [data-en] { display: none !important; }
             <span data-en>✅ Client Accepted</span>
           </button>
           <button class="btn-gds" onclick="copyGdsNote()">
-            <span data-ar>📋 نسخ Internal /FFT note</span>
-            <span data-en>📋 Copy Internal /FFT note</span>
+            <span data-ar>📋 نسخ GDS Note</span>
+            <span data-en>📋 Copy GDS Note</span>
           </button>
         </div>
 
@@ -869,6 +993,68 @@ html[lang=ar] [data-en] { display: none !important; }
           </button>
         </div>
       </div>
+      <!-- POC currency override -->
+      <div class="modal-section" id="pocSection">
+        <div class="modal-section-lbl"><span data-ar>عملة التحصيل (POC)</span><span data-en>Point of Collection (POC)</span></div>
+        <div id="pocMaskNote" class="poc-mask-note"></div>
+        <div class="poc-grid" id="pocGrid">
+          <!-- filled by JS -->
+        </div>
+      </div>
+
+      <!-- Exchange rate section (shown only when POC ≠ mask currency) -->
+      <div class="modal-section" id="fxRateSection" style="display:none;padding:0;overflow:hidden;border:1.5px solid var(--emerald-b);">
+
+        <!-- Section Header -->
+        <div style="background:var(--slate);padding:10px 14px;display:flex;align-items:center;gap:8px;">
+          <span style="font-size:15px;">💱</span>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#fff;letter-spacing:0.04em;">
+              <span data-ar>تحويل العملة — BSR</span><span data-en>Currency Conversion — BSR</span>
+            </div>
+            <div style="font-size:9px;color:#94a3b8;margin-top:1px;" id="fxRateLbl">1 PKR =</div>
+          </div>
+        </div>
+
+        <div style="padding:14px;">
+
+          <!-- BSR Input row -->
+          <div style="display:flex;align-items:stretch;gap:10px;margin-bottom:10px;">
+            <div style="flex:1;">
+              <div style="font-size:9px;font-weight:600;color:var(--faint);letter-spacing:0.07em;text-transform:uppercase;margin-bottom:5px;">
+                <span data-ar>⌨️ أدخل BSR من GDS</span><span data-en>⌨️ Enter BSR from GDS</span>
+              </div>
+              <input type="number" id="fxRateInput"
+                style="width:100%;font-size:16px;font-weight:700;color:var(--slate);
+                       border:2px solid var(--emerald);border-radius:9px;padding:9px 12px;
+                       font-family:'IBM Plex Mono',monospace;background:#f0fdf4;outline:none;"
+                placeholder="0.01349828" step="0.00000001" min="0" oninput="onFxRateInput()">
+              <div style="font-size:9px;color:var(--faint);margin-top:4px;font-family:'IBM Plex Mono',monospace;" id="fxRateDesc">
+                <span data-ar>FQC → BSR USED ...</span><span data-en>FQC → BSR USED ...</span>
+              </div>
+            </div>
+            <!-- Grand total preview -->
+            <div style="min-width:110px;background:linear-gradient(135deg,#f0fdf4,#dcfce7);border:1.5px solid #bbf7d0;border-radius:9px;padding:10px;text-align:center;display:flex;flex-direction:column;justify-content:center;">
+              <div style="font-size:9px;color:#6b7280;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;" id="fxPreviewLbl">TOTAL</div>
+              <div style="font-size:15px;font-weight:800;color:#059669;font-family:'IBM Plex Mono',monospace;line-height:1.2;" id="fxPreviewVal">—</div>
+            </div>
+          </div>
+
+          <!-- Rounding note -->
+          <div style="font-size:10px;color:#475569;background:#f8fafc;
+               border:1px solid var(--border-s);border-radius:7px;padding:6px 10px;
+               font-family:'IBM Plex Mono',monospace;display:none;" id="fxRoundNote"></div>
+
+          <!-- hidden stubs so JS refs don't break -->
+          <div id="fxAutoCard" style="display:none;"></div>
+          <div id="fxSpinner" style="display:none;"></div>
+          <div id="fxCheckIcon" style="display:none;"></div>
+          <div id="fxAutoLbl" style="display:none;"></div>
+          <div id="fxAutoSub" style="display:none;"></div>
+          <button id="fxRefreshBtn" style="display:none;" onclick="fetchLiveRate()"></button>
+
+        </div>
+      </div>
       <button class="modal-confirm-btn" onclick="checkCurrency()">
         <span data-ar>✅ تأكيد وحساب الرسوم</span>
         <span data-en>✅ Confirm & Calculate Fees</span>
@@ -888,7 +1074,7 @@ const noShowRules = [
   ["KU","3"],["LH","1"],["MH","3"],["ME","24 or 48 or 1 Check Rules"],["NE","24 or 48 Check Rules"],
   ["NP","24 or 48 or 72 Check Rules"],["BJ","24"],["WY","3"],["PK","4"],["PC","2"],
   ["PR","4 or 24 Check Rules"],["QR","3"],["AT","24"],["RJ","4 for Economy / 18 for business"],
-  ["SV","Departure time"],["TR","24"],["ER","24"],["SQ","24"],["UL","24"],["LX","24"],
+  ["SV","3"],["TR","24"],["ER","24"],["SQ","24"],["UL","24"],["LX","24"],
   ["TG","Check Rules"],["TK","3"],["UA","1"],["F3","90 Mins / Non refundable"],["FT","24"],
   ["6E","4"],["G9","Updated on Ticket Copy"],["E5","24"],["3L","Updated on Ticket Copy"],
   ["3O","Updated on Ticket Copy"],["IX","Before 96 - before 24 - less than 24 Check rules"],
@@ -952,8 +1138,13 @@ function getFlightTypeFromMask(t) {
 
 function getAirlineCodeFromSegment(t) {
   for (const line of t.trim().split('\n')) {
-    const tok=line.trim().toUpperCase().split(/\s+/);
-    if (tok.length>=5&&tok[0].match(/^[A-Z0-9]{2,3}\d+$/)) return tok[0].replace(/\d+/g,'');
+    let raw = line.trim().toUpperCase().replace(/^\d+\s+/, '').replace(/\*/g,' ');
+    const tok = raw.split(/\s+/).filter(Boolean);
+    if (!tok.length) continue;
+    // joined: NP228
+    if (tok[0].match(/^[A-Z0-9]{2,3}\d+$/)) return tok[0].replace(/\d+/g,'');
+    // split: NP 228
+    if (tok[0].match(/^[A-Z0-9]{2,3}$/) && tok[1] && tok[1].match(/^\d{1,4}$/)) return tok[0];
   }
   return null;
 }
@@ -1010,7 +1201,7 @@ function setLang(lang) {
   document.getElementById('btnAr').classList.toggle('active',lang==='ar');
   document.getElementById('btnEn').classList.toggle('active',lang==='en');
   applyLangVisibility();
-  if (d.grand) renderOutput();
+  if (d.grand) { renderOutput(); renderGdsBreakdown(); }
   if (document.getElementById('confirmSection').style.display!=='none') processAll();
 }
 
@@ -1112,6 +1303,8 @@ const aiDatabase = {
     'JFK':{ar:'نيويورك',en:'New York'},'LAX':{ar:'لوس أنجلوس',en:'Los Angeles'},
     'WAE':{ar:'وادي الدواسر',en:'Wadi Al-Dawaser'},'KMX':{ar:'خميس مشيط',en:'Khamis Mushait'},
     'AHB':{ar:'أبها',en:'Abha'},'YNB':{ar:'ينبع',en:'Yanbu'},
+    'KHI':{ar:'كراتشي',en:'Karachi'},'LHE':{ar:'لاهور',en:'Lahore'},'ISB':{ar:'إسلام آباد',en:'Islamabad'},
+    'PEW':{ar:'بيشاور',en:'Peshawar'},'SKT':{ar:'سيالكوت',en:'Sialkot'},'MUX':{ar:'ملتان',en:'Multan'},
   },
   airlines: {
     'SV':{ar:'الخطوط السعودية',en:'Saudia'},'XY':{ar:'طيران ناس',en:'flynas'},
@@ -1120,6 +1313,7 @@ const aiDatabase = {
     'FZ':{ar:'فلاي دبي',en:'flydubai'},'EK':{ar:'طيران الإمارات',en:'Emirates'},
     'GF':{ar:'الخليج',en:'Gulf Air'},'WY':{ar:'عُمان إير',en:'Oman Air'},
     'QR':{ar:'القطرية',en:'Qatar Airways'},'KU':{ar:'الكويتية',en:'Kuwait Airways'},
+    'PK':{ar:'الخطوط الجوية الباكستانية',en:'Pakistan International Airlines'},
     'RJ':{ar:'الملكية الأردنية',en:'Royal Jordanian'},'TK':{ar:'التركية',en:'Turkish Airlines'},
     'LH':{ar:'لوفتهانزا',en:'Lufthansa'},'BA':{ar:'بريتيش إيرويز',en:'British Airways'},
   }
@@ -1141,11 +1335,89 @@ function getDayName(dayNum,monthStr,lang){
 }
 
 function parseAmadeusSegment(line){
-  const tok=line.trim().toUpperCase().split(/\s+/);
-  if(tok.length<8)return null;
-  const flightNum=tok[0],airCode=flightNum.replace(/\d/g,''),cabinClass=tok[1],depDate=tok[2],route=tok[4],depTime=tok[6],arrTime=tok[7],arrDate=tok[8]||tok[2];
-  if(!depDate.match(/^\d{2}[A-Z]{3}$/)||!route.match(/^[A-Z]{6}$/))return null;
-  return{flightNum,airCode,cabinClass,dayNum:depDate.substring(0,2),monthAb:depDate.substring(2,5),origin:route.substring(0,3),dest:route.substring(3,6),depTime,arrTime,arrDayNum:arrDate.substring(0,2),arrMonthAb:arrDate.substring(2,5)};
+  // Normalize: remove leading segment number (e.g. " 2 " or "2 ")
+  let raw = line.trim().toUpperCase();
+  raw = raw.replace(/^\d+\s+/, '');          // strip leading "2 " etc.
+  raw = raw.replace(/\*/g, ' ');              // replace * separator (JEDCAI → JED CAI handled via route logic)
+
+  const tok = raw.split(/\s+/).filter(Boolean);
+  if (tok.length < 8) return null;
+
+  // Detect if airline code and flight number are split: "NP 228 K ..." vs "NP228 K ..."
+  let airCode, flightNum, offset = 0;
+  if (/^[A-Z0-9]{2,3}$/.test(tok[0]) && /^\d{1,4}$/.test(tok[1])) {
+    // Split format: NP 228
+    airCode   = tok[0];
+    flightNum = tok[0] + tok[1];
+    offset    = 1; // everything shifts right by 1
+  } else if (/^[A-Z0-9]{2,3}\d{1,4}$/.test(tok[0])) {
+    // Joined format: NP228
+    airCode   = tok[0].replace(/\d+/g, '');
+    flightNum = tok[0];
+    offset    = 0;
+  } else {
+    return null;
+  }
+
+  const cabinClass = tok[1 + offset];
+  const depDate    = tok[2 + offset]; // e.g. 20MAY
+  // tok[3+offset] = day-of-week digit (3), skip it
+  const routeRaw   = tok[4 + offset]; // e.g. JEDCAI or JED (if split by *)
+
+  // Status token: find it after routeRaw — skip any purely numeric tokens
+  let statusIdx = 5 + offset;
+  // Some formats insert extra numeric tokens after route (e.g. "HK2  3  2330")
+  // Status is the first token matching /^[A-Z]{2}\d/
+  // Advance past any pure-number extra tokens after the route
+  while (statusIdx < tok.length && /^\d+$/.test(tok[statusIdx])) statusIdx++;
+  // status itself
+  statusIdx; // already pointing at HK2 / DK2 etc.
+  // After status, skip any extra standalone number tokens (like "3" seat count)
+  let timeIdx = statusIdx + 1;
+  while (timeIdx < tok.length && /^\d{1,2}$/.test(tok[timeIdx])) timeIdx++;
+
+  const status  = tok[statusIdx];
+  const depTime = tok[timeIdx];
+  // arrTime may have +1/+2 suffix — strip it
+  const arrRaw  = tok[timeIdx + 1] || '';
+  const arrTime = arrRaw.replace(/\+\d$/, '');
+  const arrDate = tok[timeIdx + 2] || depDate;
+
+  if (!depDate.match(/^\d{2}[A-Z]{3}$/)) return null;
+
+  // Route: could be 6-char JEDCAI or two 3-char codes split by space (after * replace)
+  let origin, dest;
+  if (routeRaw && routeRaw.match(/^[A-Z]{6}$/)) {
+    origin = routeRaw.substring(0, 3);
+    dest   = routeRaw.substring(3, 6);
+  } else if (routeRaw && routeRaw.match(/^[A-Z]{3}$/) && tok[statusIdx] && tok[statusIdx].match(/^[A-Z]{3}$/)) {
+    // The * was between airport codes → after replace they became two separate tokens
+    origin = routeRaw;
+    dest   = tok[statusIdx];
+    // recalc timeIdx skipping status and extra numbers
+    let si2 = statusIdx + 1;
+    while (si2 < tok.length && /^\d{1,2}$/.test(tok[si2])) si2++;
+    const d1 = tok[si2];
+    const a1Raw = tok[si2 + 1] || '';
+    const a1 = a1Raw.replace(/\+\d$/, '');
+    const ad = tok[si2 + 2] || depDate;
+    if (!d1 || !a1) return null;
+    return {flightNum, airCode, cabinClass,
+      dayNum: depDate.substring(0,2), monthAb: depDate.substring(2,5),
+      origin, dest,
+      depTime: d1, arrTime: a1,
+      arrDayNum: ad.substring(0,2), arrMonthAb: ad.substring(2,5)};
+  } else {
+    return null;
+  }
+
+  if (!depTime || !arrTime) return null;
+
+  return {flightNum, airCode, cabinClass,
+    dayNum: depDate.substring(0,2), monthAb: depDate.substring(2,5),
+    origin, dest,
+    depTime, arrTime,
+    arrDayNum: arrDate.substring(0,2), arrMonthAb: arrDate.substring(2,5)};
 }
 
 function fmtT(t,lang){
@@ -1169,6 +1441,7 @@ function buildFlightTextEn(seg){
 }
 
 function openPaxModal(){
+  if(!validateBeforeAnalyze()) return;
   const segText=document.getElementById('rawSeg').value;
   const maskText=document.getElementById('maskA').value;
   const segs=segText.trim().split('\n').filter(l=>l.trim()).map(parseAmadeusSegment).filter(Boolean);
@@ -1226,6 +1499,13 @@ function openPaxModal(){
     document.getElementById('noShowHr').value=24;
   }
   applyLangVisibility();
+  // Build POC grid with current detected currency
+  const aMask2=document.getElementById('maskA').value;
+  const mc=aMask2.match(/PENALTY\s+([A-Z]{3})\s+/i);
+  _maskCur=mc?mc[1].toUpperCase():'SAR';
+  if(!_pocCur) _pocCur=_maskCur;
+  buildPocGrid(_maskCur);
+  updateFxRateSection();
   document.getElementById('paxModal').style.display='flex';
 }
 
@@ -1240,61 +1520,616 @@ function parseM(id){
   return{p:pm?clean(pm[1]):0,tot:tm?clean(tm[1]):0,mk:mm?clean(mm[1]):0};
 }
 
-function checkCurrency(){
-  const aMask=document.getElementById('maskA').value;
-  const m=aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
-  cur=m?m[1].toUpperCase():'SAR';
-  document.getElementById('curDisplay').innerText=cur;
-  document.getElementById('paxModal').style.display='none';
-  if(cur==='SAR'){
-    const isDom=(_selectedFlightType==='domestic');
-    if(isDom) finalize(40.25,35,true); else finalize(50,50,false);
+/* ── POC fee table — only active Almosafer POCs ──────────────────────────
+   KSA Domestic: 40.25 SAR (35 + VAT) | KSA Intl: 50 SAR
+   BHD: 3 (3dp) | KWD: 6 (3dp) | AED: 50 | OMR: 5 (3dp) | QAR: 50 | USD: 14
+   Rounding: KWD/BHD/OMR → 3dp; SAR domestic → 2dp; others → whole number   */
+const POC_FEES = {
+  SAR: { dom: 40.25, intl: 50,  label: 'SAR', dp: 2 },
+  BHD: { dom: 3,     intl: 3,   label: 'BHD', dp: 3 },
+  KWD: { dom: 6,     intl: 6,   label: 'KWD', dp: 3 },
+  AED: { dom: 50,    intl: 50,  label: 'AED', dp: 0 },
+  OMR: { dom: 5,     intl: 5,   label: 'OMR', dp: 3 },
+  QAR: { dom: 50,    intl: 50,  label: 'QAR', dp: 0 },
+  USD: { dom: 14,    intl: 14,  label: 'USD', dp: 0 },
+};
+
+let _maskCur = 'SAR';
+let _pocCur  = null;
+let _fxRate  = null;
+
+// ==========================================
+// Currency Rounding Config
+// ==========================================
+const fareRoundingRules = {
+  PKR: 10,
+  INR: 10,
+  JPY: 50,
+  EGP: 5,
+  SAR: 1,
+  AED: 10,
+  QAR: 10,
+  USD: 1,
+  EUR: 1,
+  GBP: 1,
+  KWD: 0.001,
+  BHD: 0.001,
+  OMR: 0.001,
+  JOD: 0.001,
+};
+
+// ==========================================
+// ROUNDED AS FARES
+// ==========================================
+function roundAsFare(amount, currency) {
+  if(amount === null || amount === undefined || isNaN(amount)) return 0;
+  const unit = fareRoundingRules[currency] || 1;
+  return Math.ceil(amount / unit) * unit;
+}
+
+// How many decimal places a currency uses for display
+function dpForCur(currency) {
+  const unit = fareRoundingRules[currency];
+  if(!unit) return 2;
+  if(unit < 0.01) return 3;
+  if(unit < 1)    return 2;
+  if(unit >= 10)  return 0;
+  return 0;
+}
+
+// Master formatter: display amount with GDS decimal places (no extra rounding)
+function fmtAmt(amount, currency) {
+  if(amount === null || amount === undefined) return '—';
+  const rule = GDS_RULES[currency] || { decimals: 2 };
+  const dp   = rule.decimals;
+  return Number(amount).toLocaleString('en-US', {minimumFractionDigits: dp, maximumFractionDigits: dp});
+}
+
+function gdsRound(val, dp){
+  if(dp===3) return Math.round(val*1000)/1000;
+  if(dp===2) return Math.round(val*100)/100;
+  return Math.round(val);
+}
+
+function getMosFee(pocKey, isDom){
+  const cfg = POC_FEES[pocKey];
+  if(!cfg) return { fee: 50, baseFee: 50, dp: 0 };
+  const raw = isDom ? cfg.dom : cfg.intl;
+  const rounded = gdsRound(raw, cfg.dp);
+  // baseFee = pre-VAT for SAR domestic only (35 SAR before 15% VAT = 40.25)
+  const baseFee = (pocKey==='SAR' && isDom) ? 35 : rounded;
+  return { fee: rounded, baseFee, dp: cfg.dp };
+}
+
+function buildPocGrid(maskCur){
+  const grid = document.getElementById('pocGrid');
+  const note = document.getElementById('pocMaskNote');
+  note.innerHTML = uiLang==='ar'
+    ? `عملة الماسك: <strong>${maskCur}</strong> — اختر POC مختلفة لتغيير رسوم المسافر`
+    : `Mask currency: <strong>${maskCur}</strong> — pick a different POC to change MOS fee`;
+
+  const isDom = _selectedFlightType==='domestic';
+  grid.innerHTML = Object.entries(POC_FEES).map(([key,cfg])=>{
+    const feeRaw = isDom ? cfg.dom : cfg.intl;
+    const feeRounded = gdsRound(feeRaw, cfg.dp);
+    const isSel = (_pocCur||maskCur)===key;
+    return `<button class="poc-btn${isSel?' selected':''}" onclick="selectPoc('${key}')" id="pocBtn_${key}">
+      ${key}
+      <span class="poc-fee">${feeRounded.toFixed(cfg.dp===0?0:cfg.dp)}</span>
+    </button>`;
+  }).join('');
+}
+
+function selectPoc(key){
+  _pocCur = key;
+  document.querySelectorAll('.poc-btn').forEach(b=>b.classList.remove('selected'));
+  const btn = document.getElementById('pocBtn_'+key);
+  if(btn) btn.classList.add('selected');
+  updateFxRateSection();
+}
+
+/* ── Live FX rate via exchangerate.host ─────────────────────────────────
+   Fetches the real exchange rate between mask currency and POC currency.
+   Applies GDS "ROUNDED AS FARES" rounding (BSR_ROUND) after conversion.  */
+
+let _fxFetchController = null;   // abort previous in-flight request
+
+async function fetchLiveRate() {
+  const pocKey = _pocCur || _maskCur;
+  if (!pocKey || pocKey === _maskCur) return;
+
+  const spinner    = document.getElementById('fxSpinner');
+  const checkIcon  = document.getElementById('fxCheckIcon');
+  const autoLbl    = document.getElementById('fxAutoLbl');
+  const autoSub    = document.getElementById('fxAutoSub');
+  const autoCard   = document.getElementById('fxAutoCard');
+  const refreshBtn = document.getElementById('fxRefreshBtn');
+
+  // Loading state
+  spinner.style.display    = 'block';
+  checkIcon.style.display  = 'none';
+  autoLbl.textContent      = uiLang === 'ar' ? 'جاري جلب سعر الصرف…' : 'Fetching live rate…';
+  autoSub.textContent      = '';
+  autoCard.style.background  = '#f0fdf4';
+  autoCard.style.borderColor = '#bbf7d0';
+  if (refreshBtn) refreshBtn.disabled = true;
+
+  if (_fxFetchController) _fxFetchController.abort();
+  _fxFetchController = new AbortController();
+
+  try {
+    // open.er-api.com — free, no key required
+    const url  = `https://open.er-api.com/v6/latest/${_maskCur}`;
+    const res  = await fetch(url, { signal: _fxFetchController.signal });
+    const data = await res.json();
+
+    if (data.result !== 'success' || !data.rates || !data.rates[pocKey]) {
+      throw new Error('Rate not found');
+    }
+
+    const bsr = data.rates[pocKey];   // raw BSR, e.g. 1 PKR = 0.01349828 SAR
+
+    // Store raw BSR — rounding applied per-amount inside convertByBsr
+    _fxRate = bsr;
+    const inp = document.getElementById('fxRateInput');
+    if (inp) inp.value = bsr;
+    onFxRateInput();
+
+    // Show GDS-style preview: what 1 maskCur converts to in pocKey (ROUNDED AS FARES)
+    const rule    = GDS_RULES[pocKey] || { round:1, method:'UP', decimals:2 };
+    const rounded = applyGdsRound(bsr, pocKey);
+
+    // Success UI
+    spinner.style.display   = 'none';
+    checkIcon.style.display = 'block';
+    checkIcon.textContent   = '✅';
+    autoLbl.textContent     = `1 ${_maskCur} = ${bsr.toFixed(8)} ${pocKey}`;
+    const now = new Date();
+    const ts  = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+    autoSub.textContent = uiLang === 'ar'
+      ? `تم التحديث ${ts} — ROUNDED AS FARES: ${rounded.toFixed(rule.decimals)} ${pocKey}`
+      : `Updated ${ts} — ROUNDED AS FARES: ${rounded.toFixed(rule.decimals)} ${pocKey}`;
+    autoCard.style.background  = '#f0fdf4';
+    autoCard.style.borderColor = '#bbf7d0';
+
+  } catch (err) {
+    if (err.name === 'AbortError') return;
+
+    spinner.style.display   = 'none';
+    checkIcon.style.display = 'block';
+    checkIcon.textContent   = '⚠️';
+    autoLbl.textContent     = uiLang === 'ar' ? 'تعذّر جلب السعر' : 'Could not fetch rate';
+    autoSub.textContent     = uiLang === 'ar'
+      ? 'أدخل السعر يدوياً أو اضغط تحديث'
+      : 'Enter rate manually or press Refresh';
+    autoCard.style.background  = '#fffbeb';
+    autoCard.style.borderColor = '#fde68a';
+  } finally {
+    if (refreshBtn) refreshBtn.disabled = false;
+  }
+}
+function parseFqc() {
+  // Legacy stub — kept so old call-sites don't break.
+  // Real rate is now fetched automatically via fetchLiveRate().
+  const inp = document.getElementById('fxRateInput');
+  if (inp && parseFloat(inp.value) > 0) onFxRateInput();
+}
+
+function updateFxRateSection(){
+  const pocKey  = _pocCur || _maskCur;
+  const section = document.getElementById('fxRateSection');
+  const lbl     = document.getElementById('fxRateLbl');
+  if(!section) return;
+  const needsFx = pocKey && _maskCur && pocKey !== _maskCur;
+  section.style.display = needsFx ? 'block' : 'none';
+  if(!needsFx){
+    _fxRate = null;
+    return;
+  }
+  // Update label
+  lbl.textContent = `1 ${_maskCur} =`;
+  // Set initial card state before fetch
+  const autoLbl = document.getElementById('fxAutoLbl');
+  const autoSub = document.getElementById('fxAutoSub');
+  const checkIcon = document.getElementById('fxCheckIcon');
+  if(autoLbl) autoLbl.textContent = uiLang==='ar'
+    ? `${_maskCur} ← جاري التحويل إلى → ${pocKey}`
+    : `Converting ${_maskCur} → ${pocKey}`;
+  if(autoSub) autoSub.textContent = '';
+  if(checkIcon){ checkIcon.style.display='block'; checkIcon.textContent='💱'; }
+  // Don't auto-fetch — show idle state, user clicks Fetch or types BSR manually
+  const fxAutoLbl = document.getElementById('fxAutoLbl');
+  const fxCheckIcon2 = document.getElementById('fxCheckIcon');
+  // Re-trigger preview if rate already set
+  const existingRate = parseFloat(document.getElementById('fxRateInput')?.value || 0);
+  if(existingRate > 0){ _fxRate = existingRate; onFxRateInput(); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   GET ROUNDED AS FARES — exact logic from reference implementation
+   ══════════════════════════════════════════════════════════════════════ */
+
+// Rounding rules — matches GDS FQC output exactly
+const GDS_RULES = {
+  AED: { round: 10,    method: 'UP',   decimals: 0, display: '10' },
+  SAR: { round: 1,     method: 'UP',   decimals: 2 },
+  KWD: { round: 1,     method: 'UP',   decimals: 3 },
+  BHD: { round: 1,     method: 'UP',   decimals: 3 },
+  OMR: { round: 1,     method: 'UP',   decimals: 3 },
+  QAR: { round: 10,    method: 'UP',   decimals: 0, display: '10.00' },
+  USD: { round: 1,     method: 'UP',   decimals: 2 },
+};
+
+// Apply GDS rounding to an already-converted amount
+function applyGdsRound(converted, toKey) {
+  const rule = GDS_RULES[toKey] || { round: 1, method: 'UP', decimals: 2 };
+  let rounded;
+  if (rule.method === 'DOWN') {
+    rounded = Math.floor(converted / rule.round) * rule.round;
   } else {
-    finalize((cur==='KWD')?6:50,(cur==='KWD')?6:50,false);
+    rounded = Math.ceil(converted  / rule.round) * rule.round;
+  }
+  return rounded;
+}
+
+// Convert an amount from maskCur to pocKey using stored _fxRate, apply GDS rounding
+function convertByBsr(amount, pocKey) {
+  if (!_fxRate || !pocKey) return amount;
+  const converted = amount * _fxRate;
+  return applyGdsRound(converted, pocKey);
+}
+
+// For display: how many decimal places for a currency
+function dpForCur(currency) {
+  const rule = GDS_RULES[currency];
+  if (rule) return rule.decimals;
+  return 2;
+}
+
+// BSR_ROUND kept as alias so any remaining call-sites don't break
+const BSR_ROUND = GDS_RULES;
+
+function getRoundedAsFares({ amount, bsr, roundUnit, method = 'UP' }) {
+  const converted = amount * bsr;
+  if (method === 'DOWN') return Math.floor(converted / roundUnit) * roundUnit;
+  if (method === 'NEAREST') return Math.round(converted / roundUnit) * roundUnit;
+  return Math.ceil(converted / roundUnit) * roundUnit;
+}
+
+function onFxRateInput() {
+  const pocKey = _pocCur || _maskCur;
+  const rate   = parseFloat(document.getElementById('fxRateInput').value) || 0;
+  _fxRate      = rate > 0 ? rate : null;
+
+  const prev    = document.getElementById('fxPreviewVal');
+  const prevLbl = document.getElementById('fxPreviewLbl');
+  const noteEl  = document.getElementById('fxRoundNote');
+  if (rate > 0) {
+    // Preview: convert GRAND TOTAL from mask using GDS rounding
+    const fb = parseFareBalance('maskA');
+    const maskTotal = (fb && fb.grandTotal) ? fb.grandTotal : 0;
+    if (maskTotal > 0) {
+      const converted = convertByBsr(maskTotal, pocKey);   // applyGdsRound inside
+      prev.textContent    = `${fmtAmt(converted, pocKey)} ${pocKey}`;
+      prevLbl.textContent = `GRAND TOTAL ${maskTotal.toLocaleString()} ${_maskCur} →`;
+    } else {
+      prev.textContent    = '—';
+      prevLbl.textContent = 'GRAND TOTAL preview';
+    }
+    if (noteEl) {
+      const rule = GDS_RULES[pocKey] || { round:1, method:'UP', decimals:2 };
+      noteEl.textContent =
+        `ROUNDING OF FARES UP TO ${rule.display || (rule.round >= 10 ? rule.round : rule.round.toFixed(rule.decimals))} ${pocKey}  |  METHOD: ${rule.method}`;
+      noteEl.style.display = 'block';
+    }
+  } else {
+    prev.textContent    = '—';
+    prevLbl.textContent = 'GRAND TOTAL preview';
+    if (noteEl) noteEl.style.display = 'none';
   }
 }
 
-function finalize(mosFee,baseFee,isDomestic){
-  const nHr=document.getElementById('noShowHr').value;
-  const cA=clean(document.getElementById('cA').value),cC=clean(document.getElementById('cC').value),cI=clean(document.getElementById('cI').value);
-  const vA=parseM('maskA'),vC=parseM('maskC'),vI=parseM('maskI');
-  const tP=(vA.p*cA)+(vC.p*cC)+(vI.p*cI);
-  const fdA=(vA.tot-vA.p)+vA.mk, fdC=(vC.tot-vC.p)+vC.mk, fdI=(vI.tot-vI.p)+vI.mk;
-  const totalFD=(fdA*cA)+(fdC*cC)+(fdI*cI);
-  const totalMos=mosFee*(cA+cC);
-  const grand=tP+totalFD+totalMos;
-  const indA=vA.p+fdA+mosFee, indC=vC.p+fdC+mosFee, indI=vI.p+fdI;
-  d={tP,totalFD,tM:0,totalMos,grand,currency:cur,hrs:nHr,cA,cC,cI,mosFee,baseFee,isDomestic,indA,indC,indI,pPer:(cA+cC+cI)>0?grand/(cA+cC+cI):0};
+function checkCurrency(){
+  const aMask = document.getElementById('maskA').value;
+  const m = aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
+  _maskCur = m ? m[1].toUpperCase() : 'SAR';
+  const pocKey = _pocCur || _maskCur;
+  cur = pocKey;
+  document.getElementById('curDisplay').innerText = cur;
+  document.getElementById('paxModal').style.display = 'none';
+
+  const isDom = _selectedFlightType === 'domestic';
+  const { fee, baseFee } = getMosFee(pocKey, isDom);
+  const isSarDom = (pocKey === 'SAR' && isDom);
+  finalize(fee, baseFee, isSarDom);
+}
+
+function finalize(mosFee, baseFee, isDomestic){
+  const pocKey = _pocCur || _maskCur || cur;
+  const pocCfg = POC_FEES[pocKey] || {dp:0};
+  const dp     = pocCfg.dp;
+  // FX: when mask currency ≠ POC, use GDS BSR rounding (convertByBsr)
+  //     when same currency,        use normal fare rounding (roundAsFare)
+  const needsFx = _fxRate && _maskCur !== pocKey;
+
+  // Helper: convert one mask-currency amount to POC currency
+  // Uses GDS "ROUNDED AS FARES" logic (BSR_ROUND) — matches FQC output exactly
+  function cvt(amount) {
+    if (!needsFx) return roundAsFare(amount, pocKey);
+    return convertByBsr(amount, pocKey);
+  }
+
+  const mosFeeRounded = roundAsFare(mosFee, pocKey);
+
+  const nHr = document.getElementById('noShowHr').value;
+  const cA  = clean(document.getElementById('cA').value),
+        cC  = clean(document.getElementById('cC').value),
+        cI  = clean(document.getElementById('cI').value);
+  const vA  = parseM('maskA'), vC = parseM('maskC'), vI = parseM('maskI');
+
+  // Penalty per pax → convert each individually (GDS rounds per-pax then sums)
+  const tP = cvt(vA.p * cA) + cvt(vC.p * cC) + cvt(vI.p * cI);
+
+  // Fare Difference per pax → same per-pax conversion
+  const fdA = (vA.tot - vA.p) + vA.mk;
+  const fdC = (vC.tot - vC.p) + vC.mk;
+  const fdI = (vI.tot - vI.p) + vI.mk;
+  const totalFD = cvt(fdA * cA) + cvt(fdC * cC) + cvt(fdI * cI);
+
+  // MOS total (already in POC currency — no FX)
+  const paxForMos = cA + cC;
+  const totalMos  = roundAsFare((paxForMos >= 4 ? mosFeeRounded * 4 : mosFeeRounded * paxForMos), pocKey);
+  const effectiveMosPerPax = paxForMos > 0 ? totalMos / paxForMos : mosFeeRounded;
+
+  // Grand total: convert the full mask total once (single rounding), then add MOS
+  const maskGrandTotal = (vA.tot + vA.mk) * cA + (vC.tot + vC.mk) * cC + (vI.tot + vI.mk) * cI;
+  const convertedTotal = needsFx ? convertByBsr(maskGrandTotal, pocKey) : roundAsFare(maskGrandTotal, pocKey);
+  const grand = roundAsFare(convertedTotal + totalMos, pocKey);
+
+  // Per-pax totals in POC currency
+  const indA = roundAsFare(cvt(vA.p) + cvt(fdA) + effectiveMosPerPax, pocKey);
+  const indC = roundAsFare(cvt(vC.p) + cvt(fdC) + effectiveMosPerPax, pocKey);
+  const indI = roundAsFare(cvt(vI.p) + cvt(fdI), pocKey);
+  const pPer = (cA + cC + cI) > 0 ? roundAsFare(grand / (cA + cC + cI), pocKey) : 0;
+
+  const peBalance = parseFareBalance('maskA');
+  const fx = needsFx ? _fxRate : 1;
+
+  d = {
+    tP, totalFD, tM:0, totalMos, grand,
+    currency:pocKey, hrs:nHr,
+    cA, cC, cI,
+    mosFee:mosFeeRounded, baseFee, isDomestic,
+    indA, indC, indI, pPer,
+    paxForMos, effectiveMosPerPax,
+    mosCapped: paxForMos >= 4,
+    dp,
+    maskCur:_maskCur, pocCur:pocKey,
+    peCur:pocKey, fdCur:pocKey,
+    fareBalance:peBalance,
+    fx
+  };
+
+  cur = pocKey;
+  document.getElementById('curDisplay').innerText = cur;
+
   renderOutput();
-  document.getElementById('internalPreview').style.display='block';
-  document.getElementById('breakdownText').innerHTML=`Penalty: ${tP.toFixed(2)} | FD(+MK): ${totalFD.toFixed(2)} | Almosafer: ${totalMos.toFixed(2)}`;
-  document.getElementById('actionPanel').style.display='flex';
+  renderGdsBreakdown();
+  document.getElementById('internalPreview').style.display = 'block';
+  const fxNote = fx !== 1 ? ` [×${fx} ${_maskCur}→${pocKey}]` : '';
+  document.getElementById('breakdownText').innerHTML =
+    `PE: ${fmtAmt(tP,pocKey)} ${pocKey} | FD: ${fmtAmt(totalFD,pocKey)} ${pocKey} | ALM: ${fmtAmt(totalMos,pocKey)} ${pocKey} | TOTAL: ${fmtAmt(grand,pocKey)} ${pocKey}${fxNote}`;
+  document.getElementById('actionPanel').style.display = 'flex';
   setStep(4);
   processAll();
 }
 
+/* ── Parse detailed fare fields from mask (for GDS breakdown table) ─── */
+function parseFareBalance(id){
+  const t = document.getElementById(id).value;
+  if(!t) return null;
+  const g = (re) => { const m=t.match(re); return m?clean(m[1]):null; };
+  return {
+    fareBalance:   g(/FARE\s*BALANCE\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    oldTax:        g(/OLD\s*TAX\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    newTax:        g(/NEW\s*TAX\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    taxBalance:    g(/TAX\s*BALANCE\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    ticketDiff:    g(/TICKET\s*DIFF(?:ERENCE)?\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    penalty:       g(/PENALTY\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    grandTotal:    g(/GRAND\s*TOTAL\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    totalAddColl:  g(/TOTAL\s*ADD\s*COLL\s+(?:[A-Z]{3}\s+)?([\-]?\d[\d,]*(?:\.\d+)?)/i),
+    paymentCur:    (t.match(/PAYMENT\s*CURRENCY[\s\r\n]+([A-Z]{3})/i)||[])[1]||null,
+  };
+}
+
+
+function renderGdsBreakdown(){
+  const card = document.getElementById('gdsBreakdownCard');
+  const body = document.getElementById('gdsBreakdownBody');
+  if(!card||!body) return;
+
+  const fb     = d.fareBalance;
+  const peCur  = d.peCur  || d.currency;
+  const fdCur  = d.fdCur  || d.currency;
+  const pocCur = d.pocCur || d.currency;
+  const fx     = d.fx || 1;  // exchange rate applied to raw mask values
+
+  // Helper: convert a raw mask value (in maskCur) to target currency
+  const conv = (val, targetCur) => {
+    if(val === null || val === undefined) return null;
+    return roundAsFare(val * fx, targetCur);
+  };
+
+  // Row builder — uses global fmtAmt with per-cell currency
+  const row = (label, currency, val, cls='') => {
+    const isZero = val === 0 || val === null || val === undefined;
+    const display = (val === null || val === undefined) ? '—' : fmtAmt(val, currency);
+    return `<div class="gds-row${cls ? ' '+cls : ''}">
+      <span class="gds-label">${label}</span>
+      <span class="gds-cur">${currency || ''}</span>
+      <span class="gds-amount${isZero ? ' gds-zero' : ''}">${display}</span>
+    </div>`;
+  };
+
+  // Values: convert raw mask fields by FX rate, fall back to computed d values
+  const fareBalanceVal = fb && fb.fareBalance !== null ? conv(fb.fareBalance, fdCur)  : (d.totalFD || 0);
+  const oldTaxVal      = fb && fb.oldTax      !== null ? conv(fb.oldTax,      peCur) : null;
+  const newTaxVal      = fb && fb.newTax      !== null ? conv(fb.newTax,      peCur) : null;
+  const taxBalVal      = fb && fb.taxBalance  !== null ? conv(fb.taxBalance,  peCur) : 0;
+  const ticketDiffVal  = fb && fb.ticketDiff  !== null ? conv(fb.ticketDiff,  fdCur) : fareBalanceVal;
+  const penaltyVal     = fb && fb.penalty     !== null ? conv(fb.penalty,     peCur) : d.tP;
+  const grandTotalVal  = fb && fb.grandTotal  !== null ? conv(fb.grandTotal,  pocCur): (d.tP + d.totalFD);
+  const paymentCur     = (fx !== 1) ? pocCur : ((fb && fb.paymentCur) || peCur);
+  const paxForMos      = d.paxForMos || 1;
+
+  // Update badge
+  const gdsBadge = document.getElementById('gdsCurBadge');
+  if(gdsBadge){
+    const parts = [`PE: ${peCur}`];
+    if(fdCur !== peCur)   parts.push(`FD: ${fdCur}`);
+    if(pocCur !== peCur)  parts.push(`POC: ${pocCur}`);
+    gdsBadge.textContent = parts.join(' · ');
+  }
+
+  let html = '';
+  html += row('FARE BALANCE',      fdCur,  fareBalanceVal);
+  html += `<div class="gds-row" style="background:#f8fafc;">
+    <span class="gds-label" style="color:#94a3b8;font-size:10px;letter-spacing:0.05em;">PAYMENT CURRENCY</span>
+    <span class="gds-cur" style="color:#475569;font-weight:700;">${paymentCur}</span>
+    <span class="gds-amount" style="color:#475569;">—</span>
+  </div>`;
+  if(oldTaxVal !== null) html += row('OLD TAX',          peCur, oldTaxVal);
+  if(newTaxVal !== null) html += row('NEW TAX',          peCur, newTaxVal);
+  html += row('TAX BALANCE',        peCur,  taxBalVal);
+  html += row('TICKET DIFFERENCE',  fdCur,  ticketDiffVal, 'divider');
+  html += row('PENALTY',            peCur,  penaltyVal);
+  html += row('GRAND TOTAL',        pocCur, grandTotalVal, 'total-row');
+  html += `<div class="gds-row" style="background:#fffbeb;border-top:1px solid #fde68a;">
+    <span class="gds-label" style="color:#92400e;font-size:10px;">ALMOSAFER FEE${paxForMos > 1 ? ' ×'+paxForMos : ''}</span>
+    <span class="gds-cur" style="color:#b45309;">${pocCur}</span>
+    <span class="gds-amount" style="color:#92400e;">${fmtAmt(d.totalMos, pocCur)}</span>
+  </div>`;
+  html += row('TOTAL ADD COLL',     pocCur, d.grand, 'grand-row');
+
+  body.innerHTML = html;
+  card.style.display = 'block';
+  applyLangVisibility();
+}
+
 function renderOutput(){
-  const curAr={'SAR':'ريال سعودي','AED':'درهم إماراتي','KWD':'دينار كويتي','USD':'دولار أمريكي'}[d.currency]||d.currency;
-  const mosFeeTextAr=(d.isDomestic&&d.currency==='SAR')?`رسوم المسافر ${d.baseFee} ريال سعودى لكل مسافر وبعد إضافة ضريبة القيمة المضافة ستصبح ${d.mosFee} ريال سعودى لكل مسافر.`:`رسوم المسافر: ${d.mosFee} ${curAr} لكل مسافر.`;
-  const tA=(d.indA*d.cA).toFixed(2),tC=(d.indC*d.cC).toFixed(2),tI=(d.indI*d.cI).toFixed(2);
-  const msgAr=`رسوم التعديل لشركة الطيران: ${d.tP.toFixed(2)} ${curAr}.\n${mosFeeTextAr}\n\nفارق السعر: ${d.totalFD.toFixed(2)} ${curAr}.\n\nرسوم التعديل للفرد الواحد: ${d.pPer.toFixed(2)} ${curAr}.\n\nإجمالي الرسوم للبالغ: ${tA} ${curAr}.\nإجمالي الرسوم للطفل: ${tC} ${curAr}.\nإجمالي الرسوم للرضيع: ${tI} ${curAr}.\n\nإجمالي مبلغ التعديل المطلوب: ${d.grand.toFixed(2)} ${curAr}.\n\nمع العلم أن السعر والإمكانية غير ثابتين وأن رسوم شركة الطيران صالحة حتى ${d.hrs} ساعات قبل موعد الإقلاع.`;
-  const msgEn=`Airline Amendment fees: ${d.tP.toFixed(2)} ${d.currency}\nAlmosafer fees: ${d.totalMos.toFixed(2)} ${d.currency}\nFare difference: ${d.totalFD.toFixed(2)} ${d.currency}\nAmendment fee per person: ${d.pPer.toFixed(2)} ${d.currency}\n\nTotal fees per adult: ${tA} ${d.currency}\nTotal fees per child: ${tC} ${d.currency}\nTotal fees for the infant: ${tI} ${d.currency}.\nTotal amendment amount: ${d.grand.toFixed(2)} ${d.currency}.\n\nKnowing that the price and availability are not guaranteed, and the airline amendment fees are valid up to ${d.hrs} hours before the departure time.`;
+  const pocCur = d.currency;
+  const peCur  = d.peCur || pocCur;
+  const fdCur  = d.fdCur || pocCur;
+
+  const curAr = {
+    SAR:'ريال سعودي', AED:'درهم إماراتي', KWD:'دينار كويتي',
+    USD:'دولار أمريكي', EGP:'جنيه مصري', QAR:'ريال قطري',
+    EUR:'يورو', GBP:'جنيه إسترليني', BHD:'دينار بحريني',
+    OMR:'ريال عماني', JOD:'دينار أردني', PKR:'روبية باكستانية'
+  }[pocCur] || pocCur;
+
+  // ── Hours grammar helpers ──────────────────────────────────────────
+  function hrWordEn(n){
+    // "hour" only with exactly 1; everything else → "hours"
+    return n === 1 ? 'hour' : 'hours';
+  }
+  function hrWordAr(n){
+    // 1 → ساعة واحدة | 2 → ساعتان | 3–10 → ساعات | >10 → ساعة
+    if(n === 1)  return 'ساعة واحدة';
+    if(n === 2)  return 'ساعتان';
+    if(n >= 3 && n <= 10) return 'ساعات';
+    return 'ساعة';  // 11, 20, 100 …
+  }
+  const hrs    = parseFloat(d.hrs) || 0;
+  const hrsEn  = `${d.hrs} ${hrWordEn(hrs)}`;
+  const hrsAr  = `${d.hrs} ${hrWordAr(hrs)}`;
+  // ──────────────────────────────────────────────────────────────────
+
+  // Per-pax breakdowns
+  const totalPax   = d.cA + d.cC + d.cI;
+  const pPaxForMos = d.paxForMos || (d.cA + d.cC);
+  const pePerPax   = totalPax > 0 ? roundAsFare(d.tP / totalPax, peCur) : 0;
+  const fdPerPax   = totalPax > 0 ? roundAsFare(d.totalFD / totalPax, fdCur) : 0;
+  const mosPerPax  = pPaxForMos > 0 ? roundAsFare(d.totalMos / pPaxForMos, pocCur) : 0;
+
+  // Per-pax total amounts per pax type
+  const tA = fmtAmt(d.indA * d.cA, pocCur);
+  const tC = fmtAmt(d.indC * d.cC, pocCur);
+  const tI = fmtAmt(d.indI * d.cI, pocCur);
+
+  const mosFeeTextAr = d.mosCapped
+    ? `رسوم المسافر: ${fmtAmt(d.totalMos, pocCur)} ${curAr} (الحد الأقصى لـ 4 مسافرين).`
+    : (d.isDomestic && pocCur === 'SAR')
+      ? `رسوم المسافر ${d.baseFee} ريال سعودى لكل مسافر وبعد إضافة ضريبة القيمة المضافة ستصبح ${fmtAmt(d.mosFee, pocCur)} ريال سعودى لكل مسافر.`
+      : `رسوم المسافر: ${fmtAmt(d.mosFee, pocCur)} ${curAr} لكل مسافر.`;
+
+  const mosFeeTextEn = d.mosCapped
+    ? `Almosafer fees: ${fmtAmt(d.totalMos, pocCur)} ${pocCur} (capped at 4 passengers).`
+    : `Almosafer fees: ${fmtAmt(d.totalMos, pocCur)} ${pocCur}`;
+
+  const peCurAr  = {'SAR':'ريال سعودي','AED':'درهم إماراتي','KWD':'دينار كويتي','USD':'دولار أمريكي','EGP':'جنيه مصري','QAR':'ريال قطري','EUR':'يورو','GBP':'جنيه إسترليني','BHD':'دينار بحريني','OMR':'ريال عماني','JOD':'دينار أردني','PKR':'روبية باكستانية'}[peCur]  || peCur;
+  const fdCurAr  = {'SAR':'ريال سعودي','AED':'درهم إماراتي','KWD':'دينار كويتي','USD':'دولار أمريكي','EGP':'جنيه مصري','QAR':'ريال قطري','EUR':'يورو','GBP':'جنيه إسترليني','BHD':'دينار بحريني','OMR':'ريال عماني','JOD':'دينار أردني','PKR':'روبية باكستانية'}[fdCur]  || fdCur;
+
+  const msgAr =
+    `رسوم التعديل لشركة الطيران: ${fmtAmt(d.tP, peCur)} ${peCurAr}.\n` +
+    `${mosFeeTextAr}\n\n` +
+    `فارق السعر: ${fmtAmt(d.totalFD, fdCur)} ${fdCurAr}.\n\n` +
+    `── التفصيل للفرد الواحد ──\n` +
+    `غرامة للمسافر: ${fmtAmt(pePerPax, peCur)} ${peCurAr}\n` +
+    `فارق السعر للمسافر: ${fmtAmt(fdPerPax, fdCur)} ${fdCurAr}\n` +
+    `رسوم المسافر للفرد: ${fmtAmt(mosPerPax, pocCur)} ${curAr}\n` +
+    `إجمالي للفرد: ${fmtAmt(d.pPer, pocCur)} ${curAr}\n\n` +
+    `إجمالي الرسوم للبالغ: ${tA} ${curAr}.\n` +
+    (d.cC > 0 ? `إجمالي الرسوم للطفل: ${tC} ${curAr}.\n` : '') +
+    (d.cI > 0 ? `إجمالي الرسوم للرضيع: ${tI} ${curAr}.\n` : '') +
+    `\n` +
+    `إجمالي مبلغ التعديل المطلوب: ${fmtAmt(d.grand, pocCur)} ${curAr}.\n\n` +
+    `مع العلم أن السعر والإمكانية غير ثابتين وأن رسوم شركة الطيران صالحة حتى ${hrsAr} قبل موعد الإقلاع.`;
+
+  const msgEn =
+    `Airline Amendment fees: ${fmtAmt(d.tP, peCur)} ${pocCur}\n` +
+    `${mosFeeTextEn}\n` +
+    `Fare difference: ${fmtAmt(d.totalFD, fdCur)} ${pocCur}\n\n` +
+    `── Per Pax Breakdown ──\n` +
+    `Penalty per pax: ${fmtAmt(pePerPax, peCur)} ${pocCur}\n` +
+    `Fare diff per pax: ${fmtAmt(fdPerPax, fdCur)} ${pocCur}\n` +
+    `Almosafer fee per pax: ${fmtAmt(mosPerPax, pocCur)} ${pocCur}\n` +
+    `Total per pax: ${fmtAmt(d.pPer, pocCur)} ${pocCur}\n\n` +
+    `Total fees per adult: ${tA} ${pocCur}\n` +
+    (d.cC > 0 ? `Total fees per child: ${tC} ${pocCur}\n` : '') +
+    (d.cI > 0 ? `Total fees for the infant: ${tI} ${pocCur}\n` : '') +
+    `\n` +
+    `Total amendment amount: ${fmtAmt(d.grand, pocCur)} ${pocCur}.\n\n` +
+    `Knowing that the price and availability are not guaranteed, and the airline amendment fees are valid up to ${hrsEn} before the departure time.`;
+
   document.getElementById('msgPlaceholder').style.display='none';
-  const tb=document.getElementById('msgOutputText');
-  tb.style.display='block';
-  tb.innerText=msgEn+"\n\n--------------------------\n\n"+msgAr;
-  document.getElementById('hdrCopyBtn').style.display='block';
-  const strip=document.getElementById('breakdownStrip');
-  strip.style.display='grid';
-  document.getElementById('bdAirline').innerHTML=`<span class="cur">${d.currency} </span>${d.tP.toFixed(2)}`;
-  document.getElementById('bdFare').innerHTML=`<span class="cur">${d.currency} </span>${d.totalFD.toFixed(2)}`;
-  document.getElementById('bdMos').innerHTML=`<span class="cur">${d.currency} </span>${d.totalMos.toFixed(2)}`;
-  document.getElementById('bdTotal').innerHTML=`<span class="cur">${d.currency} </span>${d.grand.toFixed(2)}`;
+  document.getElementById('msgOutputSplit').style.display='block';
+  document.getElementById('msgOutputAr').innerText = msgAr;
+  document.getElementById('msgOutputEn').innerText = msgEn;
+
+  const strip = document.getElementById('breakdownStrip');
+  strip.style.display = 'grid';
+  document.getElementById('bdAirline').innerHTML = `<span class="cur">${peCur} </span>${fmtAmt(d.tP, peCur)}`;
+  document.getElementById('bdFare').innerHTML    = `<span class="cur">${fdCur} </span>${fmtAmt(d.totalFD, fdCur)}`;
+  document.getElementById('bdMos').innerHTML     = `<span class="cur">${pocCur} </span>${fmtAmt(d.totalMos, pocCur)}`;
+  document.getElementById('bdTotal').innerHTML   = `<span class="cur">${pocCur} </span>${fmtAmt(d.grand, pocCur)}`;
 }
 
 function handleAccept(){
   const post=document.getElementById('postAcceptStep');
   post.style.display='block';
+  // Validate after a tick so fields are visible
+  setTimeout(()=>{
+    const bH=document.getElementById('bHand');
+    const bC=document.getElementById('bCheck');
+    const px=document.getElementById('paxNamesRaw');
+    [bH,bC,px].forEach(el=>{
+      if(el) el.addEventListener('blur',()=>{
+        if(!el.value.trim()) el.classList.add('alert-red-input');
+        else el.classList.remove('alert-red-input');
+      });
+    });
+  },300);
   const pre=document.getElementById('rawSeg');
   const rsp=document.getElementById('rawSegPost');
   if(pre&&pre.value.trim()){
@@ -1368,6 +2203,16 @@ function processAll(){
   const bH=document.getElementById('bHand')?document.getElementById('bHand').value.trim():'';
   const bC=document.getElementById('bCheck')?document.getElementById('bCheck').value.trim():'';
   const pN=document.getElementById('paxNames')?document.getElementById('paxNames').value.trim():'';
+  // Highlight missing post-accept fields if user has interacted (postAcceptStep visible)
+  const postVisible=document.getElementById('postAcceptStep').style.display!=='none';
+  if(postVisible){
+    const bHEl=document.getElementById('bHand');
+    const bCEl=document.getElementById('bCheck');
+    const pxEl=document.getElementById('paxNamesRaw');
+    if(bHEl&&!bH) bHEl.classList.add('alert-red-input'); else if(bHEl) bHEl.classList.remove('alert-red-input');
+    if(bCEl&&!bC) bCEl.classList.add('alert-red-input'); else if(bCEl) bCEl.classList.remove('alert-red-input');
+    if(pxEl&&!pN) pxEl.classList.add('alert-red-input'); else if(pxEl) pxEl.classList.remove('alert-red-input');
+  }
   if(!rawText||!bH||!bC||!pN){document.getElementById('confirmSection').style.display='none';return;}
   const segs=rawText.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment).filter(Boolean);
   if(!segs.length||!d.grand){document.getElementById('confirmSection').style.display='none';return;}
@@ -1380,15 +2225,18 @@ function processAll(){
   const noteEn=`Please note that if you change your flight reservation to another flight, all additional services previously provided by the airline (such as seats, extra bags, smart delay, meals, boarding pass fees, free cancellation, flight insurance, and baggage protection) may be removed. If they are removed, you will need to add any of these additional services again, and the fees offered by the airline will be paid if they can be added to the new flight.`;
   const paxArLabel=_parsedPaxNames.length===1?`اسم المسافر: ${_parsedPaxNames[0]}`:`أسماء المسافرين:\n${_parsedPaxNames.map((n,i)=>`${i+1}. ${n}`).join('\n')}`;
   const paxEnLabel=_parsedPaxNames.length===1?`Passenger Name: ${_parsedPaxNames[0]}`:`Passenger Names:\n${_parsedPaxNames.map((n,i)=>`${i+1}. ${n}`).join('\n')}`;
-  document.getElementById('confirmAr').innerText=`للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\n${paxArLabel}\n\n${flAr}\n\nالأمتعة: يد ${bH} | شحن ${bC}\nإجمالي المطلوب: ${d.grand.toFixed(2)} ${curAr}\n\n${note}`;
-  document.getElementById('confirmEn').innerText=`Just to confirm, this is the requested flight, correct?\n\n${paxEnLabel}\n\n${flEn}\n\nBaggage: Hand ${bH} | Checked ${bC}\nTotal Fees: ${d.grand.toFixed(2)} ${d.currency}\n\n${noteEn}`;
+  const _dp=d.dp!==undefined?d.dp:2;
+  const _pfmt=(v)=>v.toFixed(_dp===0?0:_dp===3?3:2);
+  document.getElementById('confirmAr').innerText=`للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\n${paxArLabel}\n\n${flAr}\n\nالأمتعة: يد ${bH} | شحن ${bC}\nإجمالي المطلوب: ${_pfmt(d.grand)} ${curAr}\n\n${note}`;
+  document.getElementById('confirmEn').innerText=`Just to confirm, this is the requested flight, correct?\n\n${paxEnLabel}\n\n${flEn}\n\nBaggage: Hand ${bH} | Checked ${bC}\nTotal Fees: ${_pfmt(d.grand)} ${d.currency}\n\n${noteEn}`;
 }
 
 function copyGdsNote(){
   const rawSeg=(document.getElementById('rawSegPost')&&document.getElementById('rawSegPost').value.trim())?document.getElementById('rawSegPost').value:document.getElementById('rawSeg').value;
-  const note=`cx asked to amend to \n${rawSeg}\n\npe ${d.tP.toFixed(2)}\nms ${d.totalMos.toFixed(2)}\nfd ${d.totalFD.toFixed(2)}\n\nTOTAL: ${d.grand.toFixed(2)} ${d.currency}\npl sent`;
+  const _gdp=d.dp!==undefined?d.dp:2;const _gf=(v)=>v.toFixed(_gdp===0?0:_gdp===3?3:2);
+  const note=`cx asked to amend to \n${rawSeg}\n\npe ${_gf(d.tP)}\nms ${_gf(d.totalMos)} [POC: ${d.pocCur||d.currency}]\nfd ${_gf(d.totalFD)}\n\nTOTAL: ${_gf(d.grand)} ${d.currency}\npl sent`;
   navigator.clipboard.writeText(note);
-  alert(uiLang==='ar'?'تم نسخ ملاحظة الـ GDS!':'Internal /FFT note copied!');
+  alert(uiLang==='ar'?'تم نسخ ملاحظة الـ GDS!':'GDS Note copied!');
 }
 
 function copyText(id){
@@ -1396,6 +2244,82 @@ function copyText(id){
   const text=el.innerText||el.value||'';
   navigator.clipboard.writeText(text);
   alert(uiLang==='ar'?'تم النسخ!':'Copied!');
+}
+
+/* ══ RESET ══ */
+function confirmReset(){
+  const msg=uiLang==='ar'?'هل تريد إعادة ضبط كل البيانات؟':'Reset all data and start over?';
+  if(confirm(msg)) location.reload();
+}
+
+/* ══ VALIDATION ══ */
+function clearValidation(){
+  document.querySelectorAll('.alert-red-input').forEach(el=>el.classList.remove('alert-red-input'));
+  document.querySelectorAll('.field-error-label').forEach(el=>el.classList.remove('field-error-label'));
+  document.querySelectorAll('.section-error').forEach(el=>el.classList.remove('section-error'));
+}
+
+function validateBeforeAnalyze(){
+  clearValidation();
+  let ok=true;
+
+  // Check ADT mask (required)
+  const maskA=document.getElementById('maskA');
+  if(!maskA.value.trim()){
+    maskA.classList.add('alert-red-input');
+    maskA.closest('.ip-section').classList.add('section-error');
+    ok=false;
+  }
+
+  // Check segment
+  const seg=document.getElementById('rawSeg');
+  if(document.getElementById('flightStep').style.display!=='none' && !seg.value.trim()){
+    seg.classList.add('alert-red-input');
+    seg.closest('.ip-section').classList.add('section-error');
+    ok=false;
+  }
+
+  // Clear red on valid input
+  [maskA, seg].forEach(el=>{
+    el.addEventListener('input',()=>{
+      el.classList.remove('alert-red-input');
+      el.closest('.ip-section').classList.remove('section-error');
+    },{once:true});
+  });
+
+  if(!ok){
+    // Scroll to first error
+    const first=document.querySelector('.alert-red-input');
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  return ok;
+}
+
+/* Validate post-accept fields (baggage + names) when processAll runs */
+function validatePostAccept(){
+  clearValidation();
+  let ok=true;
+  const bH=document.getElementById('bHand');
+  const bC=document.getElementById('bCheck');
+  const paxRaw=document.getElementById('paxNamesRaw');
+
+  if(bH && !bH.value.trim()){
+    bH.classList.add('alert-red-input'); ok=false;
+    bH.addEventListener('input',()=>bH.classList.remove('alert-red-input'),{once:true});
+  }
+  if(bC && !bC.value.trim()){
+    bC.classList.add('alert-red-input'); ok=false;
+    bC.addEventListener('input',()=>bC.classList.remove('alert-red-input'),{once:true});
+  }
+  if(paxRaw && !paxRaw.value.trim()){
+    paxRaw.classList.add('alert-red-input'); ok=false;
+    paxRaw.addEventListener('input',()=>paxRaw.classList.remove('alert-red-input'),{once:true});
+  }
+  if(!ok){
+    const first=document.querySelector('.alert-red-input');
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  return ok;
 }
 </script>
 </body>
