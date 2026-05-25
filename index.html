@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlTag">
 <head>
@@ -480,31 +481,52 @@ html[dir=rtl] .prog-arrow { transform: scaleX(-1); }
 .modal {
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
-  justify-content: center; align-items: center; z-index: 100;
+  justify-content: center; align-items: flex-start;
+  padding: 4vh 0;
+  z-index: 100; overflow-y: auto;
 }
 .modal-box {
   background: var(--white); border-radius: 16px;
-  width: 460px; max-width: 95vw;
-  overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+  width: 520px; max-width: 95vw;
+  min-height: 0;
+  max-height: 92vh;
+  display: flex; flex-direction: column;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.18);
   animation: modalIn .22s ease;
+  margin: auto;
 }
 @keyframes modalIn { from{opacity:0;transform:scale(.96) translateY(8px)} to{opacity:1;transform:none} }
 .modal-hdr {
-  background: var(--slate); padding: 20px 24px; color: #fff;
+  background: var(--slate); padding: 16px 20px; color: #fff;
   display: flex; justify-content: space-between; align-items: flex-start;
+  flex-shrink: 0; border-radius: 16px 16px 0 0;
 }
 .modal-hdr-title { font-size: 15px; font-weight: 600; }
 .modal-hdr-sub { font-size: 11px; opacity: .55; margin-top: 3px; }
 .modal-close {
-  width: 30px; height: 30px; border-radius: 50%;
+  width: 28px; height: 28px; border-radius: 50%;
   background: rgba(255,255,255,.12); border: none; color: #fff;
-  cursor: pointer; font-size: 16px; display: flex;
+  cursor: pointer; font-size: 15px; display: flex;
   align-items: center; justify-content: center; flex-shrink: 0;
 }
-.modal-body { padding: 20px 24px; background: #f8fafc; display: flex; flex-direction: column; gap: 12px; }
+.modal-body {
+  padding: 12px 18px;
+  background: #f8fafc;
+  display: flex; flex-direction: column; gap: 8px;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.modal-footer {
+  padding: 12px 18px;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  border-radius: 0 0 16px 16px;
+}
 .modal-section {
-  background: var(--white); border-radius: 12px;
-  padding: 14px 16px; border: 1px solid var(--border);
+  background: var(--white); border-radius: 10px;
+  padding: 12px 14px; border: 1px solid var(--border);
 }
 .modal-section-lbl {
   font-size: 10px; font-weight: 600; color: var(--faint);
@@ -513,7 +535,7 @@ html[dir=rtl] .prog-arrow { transform: scaleX(-1); }
 .pax-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; }
 .pax-counter { text-align: center; }
 .pax-counter-lbl { font-size: 10px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
-.pax-counter-lbl span { display: block; font-size: 9px; color: var(--faint); font-weight: 400; margin-top: 1px; }
+.pax-counter-lbl .pax-code { display: block; font-size: 9px; color: var(--faint); font-weight: 400; margin-top: 1px; }
 .pax-counter-ctrl { display: flex; align-items: center; justify-content: center; gap: 4px; }
 .pax-btn { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border-s); background: #f1f5f9; cursor: pointer; font-size: 16px; line-height: 1; }
 .pax-btn.plus { background: var(--slate); color: #fff; border-color: var(--slate); }
@@ -528,15 +550,7 @@ html[dir=rtl] .prog-arrow { transform: scaleX(-1); }
 .noshow-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .noshow-rule-note { font-size: 12px; color: #b45309; font-weight: 500; }
 .noshow-inp { width: 70px; text-align: center; font-size: 16px; font-weight: 600; color: var(--slate); border: 1.5px solid var(--border-s); border-radius: 8px; padding: 7px; }
-.airline-summary { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.airline-logo {
-  width: 38px; height: 38px; background: var(--slate); border-radius: 9px;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff; font-weight: 700; font-size: 13px;
-}
-.airline-name { font-size: 14px; font-weight: 600; color: var(--text); }
-.airline-route { font-size: 12px; color: var(--muted); margin-top: 2px; }
-.ft-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+/* airline-summary styles defined in improved block below */
 .modal-confirm-btn {
   width: 100%; padding: 13px; background: var(--slate);
   border: none; border-radius: 10px; color: #fff;
@@ -601,10 +615,155 @@ html[lang=ar] [data-en] { display: none !important; }
 .gds-row.grand-row .gds-amount { color: #fff; font-size: 14px; }
 .gds-zero { color: #94a3b8; }
 
-/* Scroll */
-::-webkit-scrollbar { width: 5px; height: 5px; }
+/* ══ BAGGAGE INPUT ══ */
+.bag-inp-wrap {
+  position: relative; display: flex; align-items: center;
+}
+.bag-inp {
+  padding-inline-end: 70px !important;
+}
+.bag-unit {
+  position: absolute; inset-inline-end: 10px;
+  font-size: 11px; font-weight: 600;
+  color: var(--emerald-d);
+  background: var(--emerald-x);
+  border: 1px solid var(--emerald-b);
+  border-radius: 5px; padding: 2px 7px;
+  pointer-events: none; white-space: nowrap;
+}
+#poweredByFooter {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  z-index: 5;
+  padding: 9px 16px;
+  font-size: 10px;
+  color: var(--faint);
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  white-space: nowrap;
+  margin-top: auto;
+}
+#poweredByFooter strong { color: var(--muted); font-weight: 600; }
+/* no extra padding needed — footer is in flow */
+.input-panel { padding-bottom: 0; }
+
+/* ══ MODAL PAX — consolidated, no duplicates ══ */
+
+/* Airline summary */
+.airline-summary {
+  background: linear-gradient(135deg, var(--slate) 0%, var(--slate-mid) 100%);
+  border-radius: 9px; padding: 10px 13px;
+  display: flex; align-items: center; gap: 10px;
+}
+.airline-logo {
+  width: 36px; height: 36px; background: rgba(16,185,129,0.18);
+  border: 2px solid var(--emerald-b); border-radius: 8px;
+  color: var(--emerald); font-weight: 800; font-size: 11px;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.airline-name  { font-size: 13px; font-weight: 700; color: #fff; }
+.airline-route { font-size: 10px; color: #94a3b8; margin-top: 1px; }
+.ft-badge { padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; flex-shrink: 0; }
+
+/* No-show */
+.noshow-rule-note {
+  font-size: 12px; font-weight: 600; color: #92400e;
+  background: #fff7ed; border: 1px solid #fed7aa;
+  border-radius: 7px; padding: 5px 10px; flex: 1;
+}
+.noshow-inp {
+  width: 68px; text-align: center; font-size: 17px; font-weight: 700;
+  color: var(--emerald-d); border: 2px solid var(--emerald);
+  border-radius: 8px; padding: 6px; background: var(--emerald-x);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Pax counters */
+.pax-counter {
+  background: #f8fafc; border: 1px solid var(--border-s);
+  border-radius: 9px; padding: 10px 6px; text-align: center; transition: .15s;
+}
+.pax-counter:hover { border-color: var(--emerald-b); background: var(--emerald-x); }
+.pax-counter-lbl { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 7px; }
+.pax-counter-lbl .pax-code { display: block; font-size: 9px; color: var(--faint); font-weight: 400; margin-top: 1px; }
+.pax-btn {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1.5px solid var(--border-s); background: var(--white);
+  cursor: pointer; font-size: 17px; line-height: 1; transition: .15s;
+  display: flex; align-items: center; justify-content: center;
+}
+.pax-btn:hover { border-color: var(--emerald); color: var(--emerald); }
+.pax-btn.plus { background: var(--emerald); color: #fff; border-color: var(--emerald); }
+.pax-btn.plus:hover { background: var(--emerald-d); }
+.pax-inp {
+  width: 38px; text-align: center; font-weight: 700; font-size: 15px;
+  border: 1.5px solid var(--border-s); border-radius: 7px; padding: 3px 2px;
+  color: var(--slate); background: var(--white);
+}
+
+/* Flight type */
+.ft-btn {
+  padding: 11px 8px; border-radius: 9px; border: 2px solid var(--border-s);
+  background: var(--white); cursor: pointer; font-size: 13px; font-weight: 600;
+  transition: .18s; font-family: inherit; display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+}
+.ft-btn-sub { font-size: 10px; color: var(--muted); font-weight: 500; }
+.ft-btn:hover { border-color: var(--emerald); background: var(--emerald-x); }
+
+/* Confirm button — green, sticky */
+.modal-confirm-btn {
+  width: 100%; padding: 13px; font-size: 14px; font-weight: 600;
+  background: var(--emerald); border: none; border-radius: 10px;
+  color: #fff; cursor: pointer; font-family: inherit;
+  transition: .15s; letter-spacing: .02em;
+}
+.modal-confirm-btn:hover { background: var(--emerald-d); }
+
+/* FX Rate section */
+#fxRateSection {
+  padding: 0 !important;
+  overflow: hidden;
+  border: 1.5px solid var(--emerald-b) !important;
+  min-height: 120px;
+  flex-shrink: 0;
+}
+#fxRateSection > div:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+
+/* ══ HISTORY ITEM ══ */
+.hist-item {
+  background: #f8fafc; border: 1px solid var(--border-s);
+  border-radius: 10px; padding: 10px 13px;
+  cursor: pointer; transition: .15s;
+  display: flex; align-items: flex-start; gap: 10px;
+}
+.hist-item:hover { background: #f0fdf4; border-color: var(--emerald-b); }
+.hist-item-body { flex: 1; min-width: 0; }
+.hist-item-title { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-item-meta  { font-size: 10px; color: var(--muted); display: flex; gap: 8px; flex-wrap: wrap; }
+.hist-item-badge { background: var(--emerald-x); color: var(--emerald-d); border: 1px solid var(--emerald-b); border-radius: 20px; padding: 1px 8px; font-size: 10px; font-weight: 600; }
+.hist-item-del   { background: none; border: none; cursor: pointer; color: var(--faint); font-size: 14px; padding: 2px 4px; border-radius: 4px; flex-shrink: 0; }
+.hist-item-del:hover { color: #ef4444; background: #fff5f5; }
+.hist-empty { text-align: center; color: var(--faint); font-size: 12px; padding: 28px 0; }
+
+/* ══ PRINT / PDF ══ */
+@media print {
+  body * { visibility: hidden !important; }
+  #printArea, #printArea * { visibility: visible !important; }
+  #printArea {
+    position: fixed !important; inset: 0 !important;
+    background: #fff !important; padding: 28px 32px !important;
+    font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif !important;
+    font-size: 13px !important; line-height: 1.8 !important;
+    color: #0f172a !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -620,7 +779,7 @@ html[lang=ar] [data-en] { display: none !important; }
       <div class="sb-icon active" data-tip="التعديل" data-tip-en="Amendment">
         <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
       </div>
-      <div class="sb-icon" data-tip="السجل" data-tip-en="History">
+      <div class="sb-icon" data-tip="السجل" data-tip-en="History" onclick="toggleHistoryPanel()">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       </div>
       <div class="sb-icon" data-tip="المسافرون" data-tip-en="Passengers">
@@ -749,11 +908,17 @@ html[lang=ar] [data-en] { display: none !important; }
             <div class="ip-grid2">
               <div>
                 <label class="ip-label"><span data-ar>اليد</span><span data-en>Hand</span></label>
-                <input type="text" id="bHand" class="ip-input" placeholder="7KG" oninput="processAll()">
+                <div class="bag-inp-wrap">
+                  <input type="text" id="bHand" class="ip-input bag-inp" placeholder="7" oninput="processAll()" inputmode="numeric">
+                  <span class="bag-unit" data-ar>كيلوجرام</span><span class="bag-unit" data-en>KG</span>
+                </div>
               </div>
               <div>
                 <label class="ip-label"><span data-ar>الشحن</span><span data-en>Checked</span></label>
-                <input type="text" id="bCheck" class="ip-input" placeholder="30KG" oninput="processAll()">
+                <div class="bag-inp-wrap">
+                  <input type="text" id="bCheck" class="ip-input bag-inp" placeholder="30" oninput="processAll()" inputmode="numeric">
+                  <span class="bag-unit" data-ar>كيلوجرام</span><span class="bag-unit" data-en>KG</span>
+                </div>
               </div>
             </div>
           </div>
@@ -777,7 +942,7 @@ html[lang=ar] [data-en] { display: none !important; }
         </div>
 
         <!-- Footer -->
-        <div style="padding:12px 16px;font-size:10px;color:var(--faint);border-top:1px solid var(--border);margin-top:auto;">⚡ Powered by <strong style="color:var(--muted);">Mohamed Rezk</strong> · Al-Mosafer</div>
+        <div id="poweredByFooter">⚡ Powered by <strong>Mohamed Rezk</strong> · Al-Mosafer</div>
       </div>
 
       <!-- ══ OUTPUT PANEL ══ -->
@@ -910,7 +1075,24 @@ html[lang=ar] [data-en] { display: none !important; }
               <button class="copy-btn" onclick="copyText('confirmEn')">
                 <span data-ar>نسخ الإنجليزية</span><span data-en>Copy English</span>
               </button>
+              <button class="copy-btn" onclick="printAsPDF()" style="margin-inline-start:auto;" title="طباعة / حفظ PDF">
+                🖨️ <span data-ar>طباعة / PDF</span><span data-en>Print / PDF</span>
+              </button>
             </div>
+          </div>
+        </div>
+
+        </div>
+        <!-- ══ HISTORY PANEL ══ -->
+        <div id="historyPanel" style="display:none;">
+          <div class="confirm-card">
+            <div class="confirm-hdr" style="justify-content:space-between;">
+              <span>🕓 <span data-ar>آخر المدخلات</span><span data-en>Recent Entries</span></span>
+              <button onclick="clearHistory()" style="background:none;border:none;cursor:pointer;font-size:11px;color:#ef4444;font-family:inherit;padding:2px 8px;border-radius:6px;" onmouseenter="this.style.background='#fff5f5'" onmouseleave="this.style.background='none'">
+                <span data-ar>🗑 مسح الكل</span><span data-en>🗑 Clear All</span>
+              </button>
+            </div>
+            <div id="historyList" style="padding:10px 14px;display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto;"></div>
           </div>
         </div>
 
@@ -955,7 +1137,7 @@ html[lang=ar] [data-en] { display: none !important; }
         <div class="modal-section-lbl"><span data-ar>عدد المسافرين</span><span data-en>Passenger Count</span></div>
         <div class="pax-grid">
           <div class="pax-counter">
-            <div class="pax-counter-lbl"><span data-ar>بالغ</span><span data-en>Adult</span><span>ADT</span></div>
+            <div class="pax-counter-lbl"><span data-ar>بالغ</span><span data-en>Adult</span><span class="pax-code">ADT</span></div>
             <div class="pax-counter-ctrl">
               <button class="pax-btn" onclick="stepPax('cA',-1)">−</button>
               <input type="number" id="cA" value="1" min="0" class="pax-inp">
@@ -963,7 +1145,7 @@ html[lang=ar] [data-en] { display: none !important; }
             </div>
           </div>
           <div class="pax-counter">
-            <div class="pax-counter-lbl"><span data-ar>طفل</span><span data-en>Child</span><span>CHD</span></div>
+            <div class="pax-counter-lbl"><span data-ar>طفل</span><span data-en>Child</span><span class="pax-code">CHD</span></div>
             <div class="pax-counter-ctrl">
               <button class="pax-btn" onclick="stepPax('cC',-1)">−</button>
               <input type="number" id="cC" value="0" min="0" class="pax-inp">
@@ -971,7 +1153,7 @@ html[lang=ar] [data-en] { display: none !important; }
             </div>
           </div>
           <div class="pax-counter">
-            <div class="pax-counter-lbl"><span data-ar>رضيع</span><span data-en>Infant</span><span>INF</span></div>
+            <div class="pax-counter-lbl"><span data-ar>رضيع</span><span data-en>Infant</span><span class="pax-code">INF</span></div>
             <div class="pax-counter-ctrl">
               <button class="pax-btn" onclick="stepPax('cI',-1)">−</button>
               <input type="number" id="cI" value="0" min="0" class="pax-inp">
@@ -1003,7 +1185,7 @@ html[lang=ar] [data-en] { display: none !important; }
       </div>
 
       <!-- Exchange rate section (shown only when POC ≠ mask currency) -->
-      <div class="modal-section" id="fxRateSection" style="display:none;padding:0;overflow:hidden;border:1.5px solid var(--emerald-b);">
+      <div class="modal-section" id="fxRateSection" style="display:none;">
 
         <!-- Section Header -->
         <div style="background:var(--slate);padding:10px 14px;display:flex;align-items:center;gap:8px;">
@@ -1055,6 +1237,8 @@ html[lang=ar] [data-en] { display: none !important; }
 
         </div>
       </div>
+    </div><!-- end modal-body -->
+    <div class="modal-footer">
       <button class="modal-confirm-btn" onclick="checkCurrency()">
         <span data-ar>✅ تأكيد وحساب الرسوم</span>
         <span data-en>✅ Confirm & Calculate Fees</span>
@@ -1066,33 +1250,20 @@ html[lang=ar] [data-en] { display: none !important; }
 <script>
 let d = {}, cur = 'SAR', uiLang = 'ar';
 
-const noShowRules = [
-  ["A3","4"],["AH","3"],["AC","2"],["AI","24"],["MK","24"],["SM","24"],["AZ","3"],["UJ","24"],
-  ["GP","148 or 48 or 4 Check Rules"],["UH","24"],["OS","24"],["J2","1"],["BA","6"],["SN","24"],
-  ["CX","24"],["DL","Check Rules"],["MS","24"],["EK","1"],["ET","24"],["EY","1"],["FZ","24"],
-  ["XY","4"],["GA","3"],["GF","24"],["R5","24"],["RQ","24"],["KQ","24"],["AF","1"],["KL","1"],
-  ["KU","3"],["LH","1"],["MH","3"],["ME","24 or 48 or 1 Check Rules"],["NE","24 or 48 Check Rules"],
-  ["NP","24 or 48 or 72 Check Rules"],["BJ","24"],["WY","3"],["PK","4"],["PC","2"],
-  ["PR","4 or 24 Check Rules"],["QR","3"],["AT","24"],["RJ","4 for Economy / 18 for business"],
-  ["SV","3"],["TR","24"],["ER","24"],["SQ","24"],["UL","24"],["LX","24"],
-  ["TG","Check Rules"],["TK","3"],["UA","1"],["F3","90 Mins / Non refundable"],["FT","24"],
-  ["6E","4"],["G9","Updated on Ticket Copy"],["E5","24"],["3L","Updated on Ticket Copy"],
-  ["3O","Updated on Ticket Copy"],["IX","Before 96 - before 24 - less than 24 Check rules"],
-  ["J5","Departure time"],["J9","8 for Reissue / 24 for Refund"],["FR","2 for reissue / Non refundable"],
-  ["OV","24"],["G8","8"]
-];
-const noShowMap = Object.fromEntries(noShowRules);
-
-const SAUDI_AIRPORTS = new Set([
-  'RUH','JED','DMM','MED','AJF','TUU','GIZ','HOF','ELQ','RAE','ABT','TIF','SHW','WAE',
-  'URY','BHH','KMX','AHB','SLF','HMB','TUI','AQI','HAS','EAM','MHD','RAH','GNI','ULH',
-  'DWD','YNB','AKH','ABH','SHO','ZUL','KMC','HEA'
-]);
+// noShowMap و SAUDI_AIRPORTS يُبنيان بالكامل من flight_data.json — لا بيانات مُضمَّنة
+let noShowMap = {};
+const SAUDI_AIRPORTS = new Set(); // تُملأ بعد تحميل الـ JSON
 
 let _selectedFlightType = null, _maskAirlineCode = null, _maskFlightType = null;
 let _parsedPaxNames = [];
 
-function isSaudiAirport(c) { return SAUDI_AIRPORTS.has(c.toUpperCase()); }
+// ══ Fix 4: isSaudiAirport تعتمد على الـ Set + fallback على flightData مباشرةً ══
+function isSaudiAirport(c) {
+  const code = c.toUpperCase();
+  if (SAUDI_AIRPORTS.has(code)) return true;
+  // fallback للحالة النادرة التي تُستدعى فيها قبل اكتمال loadFlightData
+  return flightData?.saudiAirports?.includes(code) ?? false;
+}
 
 function detectFlightType(segs) {
   if (!segs||!segs.length) return null;
@@ -1154,7 +1325,7 @@ function updateNoShowBanner(code) {
   if (!code) {b.style.display='none';return;}
   const rule=noShowMap[code];
   if (!rule) {b.style.display='none';return;}
-  const ai=aiDatabase.airlines[code]||{};
+  const ai=(flightData?.airlines?.[code])||{};
   const nm=uiLang==='ar'?(ai.ar?`${ai.ar} (${code})`:code):(ai.en?`${ai.en} (${code})`:code);
   b.style.display='block';
   b.innerHTML=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
@@ -1174,7 +1345,7 @@ function updateNoShowBanner(code) {
 function updateMaskDetectBadge(airlineCode, flightType) {
   const badge=document.getElementById('maskDetectBadge');
   if (!airlineCode&&!flightType) {badge.style.display='none';return;}
-  const ai=airlineCode?(aiDatabase.airlines[airlineCode]||{}):{};
+  const ai=airlineCode?(flightData?.airlines?.[airlineCode]||{}):{};
   const ad=airlineCode?(uiLang==='ar'?(ai.ar||airlineCode):(ai.en||airlineCode)):(uiLang==='ar'?'❓ غير معروف':'❓ Unknown');
   const fd=flightType?(flightType==='domestic'?(uiLang==='ar'?'🏠 داخلية':'🏠 Domestic'):(uiLang==='ar'?'🌍 دولية':'🌍 International')):(uiLang==='ar'?'❓ غير محدد':'❓ Not detected');
   const ok=airlineCode&&flightType;
@@ -1216,7 +1387,8 @@ function setStep(n) {
   });
 }
 
-function onMaskInput() {
+async function onMaskInput() {
+  await flightDataReady; // Fix 1: انتظر اكتمال تحميل الـ JSON قبل أي معالجة
   const t=document.getElementById('maskA').value.trim();
   if (!t) {
     document.getElementById('flightStep').style.display='none';
@@ -1288,49 +1460,81 @@ function renderSegPreview(segs, boxId) {
   }).join('');
 }
 
-const aiDatabase = {
-  cities: {
-    'RUH':{ar:'الرياض',en:'Riyadh'},'DXB':{ar:'دبي',en:'Dubai'},'JED':{ar:'جدة',en:'Jeddah'},
-    'CAI':{ar:'القاهرة',en:'Cairo'},'DMM':{ar:'الدمام',en:'Dammam'},'HMB':{ar:'سوهاج',en:'Sohag'},
-    'MED':{ar:'المدينة المنورة',en:'Medina'},'HBE':{ar:'الإسكندرية',en:'Alexandria'},
-    'AJF':{ar:'الجوف',en:'Jouf'},'TUU':{ar:'تبوك',en:'Tabuk'},'GIZ':{ar:'جيزان',en:'Jazan'},
-    'HOF':{ar:'الأحساء',en:'Al-Ahsa'},'ELQ':{ar:'القصيم',en:'Qassim'},'RAE':{ar:'عرعر',en:'Arar'},
-    'ABT':{ar:'الباحة',en:'Al-Baha'},'TIF':{ar:'الطائف',en:'Taif'},'SHW':{ar:'شرورة',en:'Sharurah'},
-    'BAH':{ar:'البحرين',en:'Bahrain'},'KWI':{ar:'الكويت',en:'Kuwait'},'DOH':{ar:'الدوحة',en:'Doha'},
-    'MCT':{ar:'مسقط',en:'Muscat'},'AUH':{ar:'أبوظبي',en:'Abu Dhabi'},'SHJ':{ar:'الشارقة',en:'Sharjah'},
-    'AMM':{ar:'عمان',en:'Amman'},'BEY':{ar:'بيروت',en:'Beirut'},'IST':{ar:'إسطنبول',en:'Istanbul'},
-    'LHR':{ar:'لندن',en:'London'},'CDG':{ar:'باريس',en:'Paris'},'FRA':{ar:'فرانكفورت',en:'Frankfurt'},
-    'JFK':{ar:'نيويورك',en:'New York'},'LAX':{ar:'لوس أنجلوس',en:'Los Angeles'},
-    'WAE':{ar:'وادي الدواسر',en:'Wadi Al-Dawaser'},'KMX':{ar:'خميس مشيط',en:'Khamis Mushait'},
-    'AHB':{ar:'أبها',en:'Abha'},'YNB':{ar:'ينبع',en:'Yanbu'},
-    'KHI':{ar:'كراتشي',en:'Karachi'},'LHE':{ar:'لاهور',en:'Lahore'},'ISB':{ar:'إسلام آباد',en:'Islamabad'},
-    'PEW':{ar:'بيشاور',en:'Peshawar'},'SKT':{ar:'سيالكوت',en:'Sialkot'},'MUX':{ar:'ملتان',en:'Multan'},
-  },
-  airlines: {
-    'SV':{ar:'الخطوط السعودية',en:'Saudia'},'XY':{ar:'طيران ناس',en:'flynas'},
-    'SM':{ar:'إير كايرو',en:'Air Cairo'},'F3':{ar:'طيران أديل',en:'flyadeal'},
-    'MS':{ar:'مصر للطيران',en:'EgyptAir'},'NP':{ar:'النيل للطيران',en:'Nile Air'},
-    'FZ':{ar:'فلاي دبي',en:'flydubai'},'EK':{ar:'طيران الإمارات',en:'Emirates'},
-    'GF':{ar:'الخليج',en:'Gulf Air'},'WY':{ar:'عُمان إير',en:'Oman Air'},
-    'QR':{ar:'القطرية',en:'Qatar Airways'},'KU':{ar:'الكويتية',en:'Kuwait Airways'},
-    'PK':{ar:'الخطوط الجوية الباكستانية',en:'Pakistan International Airlines'},
-    'RJ':{ar:'الملكية الأردنية',en:'Royal Jordanian'},'TK':{ar:'التركية',en:'Turkish Airlines'},
-    'LH':{ar:'لوفتهانزا',en:'Lufthansa'},'BA':{ar:'بريتيش إيرويز',en:'British Airways'},
+// ══ FLIGHT DATA — loaded from flight_data.json ══
+let flightData = null;
+let flightDataReady; // Promise — resolve بعد اكتمال التحميل
+
+function showDataLoadingOverlay(show) {
+  let el = document.getElementById('dataLoadingOverlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'dataLoadingOverlay';
+    el.style.cssText = 'position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;z-index:999;';
+    el.innerHTML = '<div style="background:#fff;border-radius:14px;padding:28px 36px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2);font-family:\'IBM Plex Sans Arabic\',sans-serif;">'
+      + '<div style="font-size:2rem;margin-bottom:10px;">✈️</div>'
+      + '<div style="font-weight:600;color:#0f172a;margin-bottom:4px;">جارٍ تحميل بيانات الرحلات…</div>'
+      + '<div style="font-size:11px;color:#64748b;">Loading flight data</div>'
+      + '</div>';
+    document.body.appendChild(el);
   }
+  el.style.display = show ? 'flex' : 'none';
+}
+
+flightDataReady = (async () => {
+  showDataLoadingOverlay(true);
+  try {
+    // Fix 5: يدعم file:// و http:// — يجرب fetch أولاً ثم يتراجع لبيانات مضمّنة
+    let loaded = false;
+    if (location.protocol !== 'file:') {
+      try {
+        const res = await fetch('flight_data.json');
+        if (res.ok) { flightData = await res.json(); loaded = true; }
+      } catch(_) {}
+    }
+    if (!loaded) {
+      // عند فتح الملف مباشرة بدون server — حاوِل fetch بصمت وانتهِ بـ fallback
+      console.warn('⚠️ flight_data.json غير متاح عبر file:// — استخدم Live Server أو http-server.');
+      flightData = { airports: {}, airlines: {}, saudiAirports: [], noShowRules: {} };
+    }
+  } catch(e) {
+    console.error('flight_data.json load error:', e);
+    flightData = { airports: {}, airlines: {}, saudiAirports: [], noShowRules: {} };
+  }
+
+  // Fix 2: noShowMap و SAUDI_AIRPORTS يُبنيان كليًّا من الـ JSON
+  if (flightData.noShowRules)   Object.assign(noShowMap, flightData.noShowRules);
+  if (flightData.saudiAirports) flightData.saudiAirports.forEach(c => SAUDI_AIRPORTS.add(c));
+
+  showDataLoadingOverlay(false);
+})();
+
+const translateCity = (code, lang) => {
+  const c = flightData?.airports?.[code.toUpperCase()];
+  if (c) return `${c[lang] || c.en} (${code.toUpperCase()})`;
+  return code;
 };
 
-const translateCity=(code,lang)=>{const c=aiDatabase.cities[code.toUpperCase()];return c?`${c[lang]} (${code.toUpperCase()})`:code;};
-const formatAirline=(code,lang)=>{const a=aiDatabase.airlines[code.toUpperCase()];return a?a[lang]:`(${code})`;};
+const formatAirline = (code, lang) => {
+  const a = flightData?.airlines?.[code.toUpperCase()];
+  if (a) return a[lang] || a.en || code;
+  return `(${code})`;
+};
 
 const DAYS_AR=['الأحد','الإثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
 const DAYS_EN=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTHS_AR={JAN:'يناير',FEB:'فبراير',MAR:'مارس',APR:'أبريل',MAY:'مايو',JUN:'يونيو',JUL:'يوليو',AUG:'أغسطس',SEP:'سبتمبر',OCT:'أكتوبر',NOV:'نوفمبر',DEC:'ديسمبر'};
 const MONTHS_NUM={JAN:0,FEB:1,MAR:2,APR:3,MAY:4,JUN:5,JUL:6,AUG:7,SEP:8,OCT:9,NOV:10,DEC:11};
 
+// Fix 3: السنة ديناميكية
+function _guessYear(month) {
+  const now = new Date();
+  return (month !== undefined && now.getMonth() > month && (now.getMonth() - month) > 6)
+    ? now.getFullYear() + 1 : now.getFullYear();
+}
 function getDayName(dayNum,monthStr,lang){
   const month=MONTHS_NUM[monthStr.toUpperCase()];
   if(month===undefined)return '';
-  const dt=new Date(2026,month,parseInt(dayNum));
+  const dt=new Date(_guessYear(month),month,parseInt(dayNum));
   return lang==='ar'?DAYS_AR[dt.getDay()]:DAYS_EN[dt.getDay()];
 }
 
@@ -1429,7 +1633,8 @@ function fmtT(t,lang){
 
 function formatDate(dayNum,monthAb,lang){
   const dn=getDayName(dayNum,monthAb,lang);
-  return lang==='ar'?`${dn} ${dayNum} ${MONTHS_AR[monthAb]||monthAb} 2026`:`${dn} ${dayNum} ${monthAb} 2026`;
+  const yr=_guessYear(MONTHS_NUM[(monthAb||'').toUpperCase()]);
+  return lang==='ar'?`${dn} ${dayNum} ${MONTHS_AR[monthAb]||monthAb} ${yr}`:`${dn} ${dayNum} ${monthAb} ${yr}`;
 }
 
 function buildFlightTextAr(seg){
@@ -1448,7 +1653,7 @@ function openPaxModal(){
   const code=_maskAirlineCode||getAirlineCodeFromSegment(segText)||getAirlineCodeFromMask(maskText);
   const summaryEl=document.getElementById('paxAirlineSummary');
   if(code){
-    const ai=aiDatabase.airlines[code]||{};
+    const ai=(flightData?.airlines?.[code])||{};
     document.getElementById('paxAirlineLogo').textContent=code;
     document.getElementById('paxAirlineName').textContent=uiLang==='ar'?(ai.ar||code):(ai.en||code);
     if(segs.length){
@@ -1503,7 +1708,7 @@ function openPaxModal(){
   const aMask2=document.getElementById('maskA').value;
   const mc=aMask2.match(/PENALTY\s+([A-Z]{3})\s+/i);
   _maskCur=mc?mc[1].toUpperCase():'SAR';
-  if(!_pocCur) _pocCur=_maskCur;
+  _pocCur=_maskCur;  // دايمًا ابدأ بعملة الماسك — المستخدم يغيّر لو أراد
   buildPocGrid(_maskCur);
   updateFxRateSection();
   document.getElementById('paxModal').style.display='flex';
@@ -1622,6 +1827,12 @@ function buildPocGrid(maskCur){
 
 function selectPoc(key){
   _pocCur = key;
+  // تأكد إن _maskCur محدد قبل updateFxRateSection
+  if(!_maskCur){
+    const aMask = document.getElementById('maskA').value;
+    const mc = aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
+    _maskCur = mc ? mc[1].toUpperCase() : 'SAR';
+  }
   document.querySelectorAll('.poc-btn').forEach(b=>b.classList.remove('selected'));
   const btn = document.getElementById('pocBtn_'+key);
   if(btn) btn.classList.add('selected');
@@ -1727,22 +1938,18 @@ function updateFxRateSection(){
     return;
   }
   // Update label
-  lbl.textContent = `1 ${_maskCur} =`;
-  // Set initial card state before fetch
-  const autoLbl = document.getElementById('fxAutoLbl');
-  const autoSub = document.getElementById('fxAutoSub');
-  const checkIcon = document.getElementById('fxCheckIcon');
-  if(autoLbl) autoLbl.textContent = uiLang==='ar'
-    ? `${_maskCur} ← جاري التحويل إلى → ${pocKey}`
-    : `Converting ${_maskCur} → ${pocKey}`;
-  if(autoSub) autoSub.textContent = '';
-  if(checkIcon){ checkIcon.style.display='block'; checkIcon.textContent='💱'; }
-  // Don't auto-fetch — show idle state, user clicks Fetch or types BSR manually
-  const fxAutoLbl = document.getElementById('fxAutoLbl');
-  const fxCheckIcon2 = document.getElementById('fxCheckIcon');
-  // Re-trigger preview if rate already set
-  const existingRate = parseFloat(document.getElementById('fxRateInput')?.value || 0);
-  if(existingRate > 0){ _fxRate = existingRate; onFxRateInput(); }
+  if(lbl) lbl.textContent = `1 ${_maskCur} =`;
+  // Reset BSR input لو العملة اتغيرت
+  const inp = document.getElementById('fxRateInput');
+  if(inp) inp.value = '';
+  const prevVal = document.getElementById('fxPreviewVal');
+  if(prevVal) prevVal.textContent = '—';
+  const roundNote = document.getElementById('fxRoundNote');
+  if(roundNote) roundNote.style.display = 'none';
+  // Scroll المستخدم للـ section تلقائيًا
+  setTimeout(() => {
+    section.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 50);
 }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -2227,8 +2434,15 @@ function processAll(){
   const paxEnLabel=_parsedPaxNames.length===1?`Passenger Name: ${_parsedPaxNames[0]}`:`Passenger Names:\n${_parsedPaxNames.map((n,i)=>`${i+1}. ${n}`).join('\n')}`;
   const _dp=d.dp!==undefined?d.dp:2;
   const _pfmt=(v)=>v.toFixed(_dp===0?0:_dp===3?3:2);
-  document.getElementById('confirmAr').innerText=`للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\n${paxArLabel}\n\n${flAr}\n\nالأمتعة: يد ${bH} | شحن ${bC}\nإجمالي المطلوب: ${_pfmt(d.grand)} ${curAr}\n\n${note}`;
-  document.getElementById('confirmEn').innerText=`Just to confirm, this is the requested flight, correct?\n\n${paxEnLabel}\n\n${flEn}\n\nBaggage: Hand ${bH} | Checked ${bC}\nTotal Fees: ${_pfmt(d.grand)} ${d.currency}\n\n${noteEn}`;
+  // تطبيع وحدة الوزن — أضف KG/كيلوجرام لو مش موجودة
+  function normBag(v, lang) {
+    if(!v) return v;
+    const num = v.replace(/[^\d.]/g,'').trim();
+    if(!num) return v;
+    return lang==='ar' ? `${num} كيلوجرام` : `${num} KG`;
+  }
+  document.getElementById('confirmAr').innerText=`للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\n${paxArLabel}\n\n${flAr}\n\nالأمتعة: يد ${normBag(bH,'ar')} | شحن ${normBag(bC,'ar')}\nإجمالي المطلوب: ${_pfmt(d.grand)} ${curAr}\n\n${note}`;
+  document.getElementById('confirmEn').innerText=`Just to confirm, this is the requested flight, correct?\n\n${paxEnLabel}\n\n${flEn}\n\nBaggage: Hand ${normBag(bH,'en')} | Checked ${normBag(bC,'en')}\nTotal Fees: ${_pfmt(d.grand)} ${d.currency}\n\n${noteEn}`;
 }
 
 function copyGdsNote(){
@@ -2295,7 +2509,186 @@ function validateBeforeAnalyze(){
   return ok;
 }
 
-/* Validate post-accept fields (baggage + names) when processAll runs */
+/* ══ HISTORY — LocalStorage (آخر 20 مدخلاً) ══ */
+const HISTORY_KEY = 'almosafer_history_v1';
+const HISTORY_MAX = 20;
+
+function historyLoad() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
+  catch(e) { return []; }
+}
+
+function historySave(list) {
+  try { localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); } catch(e) {}
+}
+
+function historySaveEntry() {
+  // لا نحفظ إلا إذا اكتملت رسائل التأكيد
+  const arText = document.getElementById('confirmAr').innerText.trim();
+  const enText = document.getElementById('confirmEn').innerText.trim();
+  if (!arText || !d.grand) return;
+
+  const maskVal = (document.getElementById('maskA').value.trim().split('\n')[0] || '').substring(0, 60);
+  const segVal  = (document.getElementById('rawSegPost')?.value.trim() || document.getElementById('rawSeg')?.value.trim() || '').split('\n')[0].substring(0, 60);
+  const _dp = d.dp !== undefined ? d.dp : 2;
+  const fmt = v => v.toFixed(_dp===0?0:_dp===3?3:2);
+
+  const entry = {
+    id:        Date.now(),
+    savedAt:   new Date().toLocaleString('ar-EG', {dateStyle:'short', timeStyle:'short'}),
+    mask:      maskVal,
+    segment:   segVal,
+    total:     fmt(d.grand),
+    currency:  d.currency || 'SAR',
+    arText,
+    enText,
+  };
+
+  const list = historyLoad();
+  // تجنّب التكرار: إذا نفس الـ mask والـ segment موجودَين بالفعل، حدِّث السجل
+  const dupIdx = list.findIndex(e => e.mask === entry.mask && e.segment === entry.segment);
+  if (dupIdx !== -1) list.splice(dupIdx, 1);
+
+  list.unshift(entry);
+  if (list.length > HISTORY_MAX) list.length = HISTORY_MAX;
+  historySave(list);
+}
+
+function historyRender() {
+  const list = historyLoad();
+  const container = document.getElementById('historyList');
+  if (!list.length) {
+    container.innerHTML = `<div class="hist-empty"><span data-ar>لا توجد مدخلات محفوظة بعد</span><span data-en>No saved entries yet</span></div>`;
+    applyLangVisibility();
+    return;
+  }
+  container.innerHTML = list.map(e => `
+    <div class="hist-item" id="hitem_${e.id}">
+      <div class="hist-item-body" onclick="historyRestore(${e.id})">
+        <div class="hist-item-title">${e.segment || e.mask || '—'}</div>
+        <div class="hist-item-meta">
+          <span class="hist-item-badge">${e.total} ${e.currency}</span>
+          <span>🕐 ${e.savedAt}</span>
+        </div>
+      </div>
+      <button class="hist-item-del" onclick="historyDelete(${e.id})" title="حذف">✕</button>
+    </div>`).join('');
+  applyLangVisibility();
+}
+
+function historyRestore(id) {
+  const list = historyLoad();
+  const entry = list.find(e => e.id === id);
+  if (!entry) return;
+  // أظهر النصوص في confirmSection مباشرةً
+  document.getElementById('confirmAr').innerText = entry.arText;
+  document.getElementById('confirmEn').innerText = entry.enText;
+  document.getElementById('confirmSection').style.display = 'block';
+  toggleHistoryPanel(); // أغلق لوحة السجل وعُد للنتيجة
+  document.getElementById('confirmSection').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function historyDelete(id) {
+  const list = historyLoad().filter(e => e.id !== id);
+  historySave(list);
+  historyRender();
+  // حدّث badge عدد السجلات
+  updateHistoryBadge();
+}
+
+function clearHistory() {
+  const msg = uiLang==='ar' ? 'هل تريد مسح جميع السجلات؟' : 'Clear all history?';
+  if (!confirm(msg)) return;
+  localStorage.removeItem(HISTORY_KEY);
+  historyRender();
+  updateHistoryBadge();
+}
+
+function updateHistoryBadge() {
+  const count = historyLoad().length;
+  const icon = document.querySelector('.sb-icon[data-tip="السجل"]');
+  if (!icon) return;
+  let badge = icon.querySelector('.hist-badge');
+  if (count === 0) { if (badge) badge.remove(); return; }
+  if (!badge) {
+    badge = document.createElement('span');
+    badge.className = 'hist-badge';
+    badge.style.cssText = 'position:absolute;top:4px;right:4px;background:#ef4444;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;pointer-events:none;';
+    icon.appendChild(badge);
+  }
+  badge.textContent = count > 9 ? '9+' : count;
+}
+
+let _historyPanelOpen = false;
+function toggleHistoryPanel() {
+  _historyPanelOpen = !_historyPanelOpen;
+  const panel = document.getElementById('historyPanel');
+  panel.style.display = _historyPanelOpen ? 'block' : 'none';
+  if (_historyPanelOpen) {
+    historyRender();
+    panel.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  // toggle active state on sidebar icon
+  document.querySelectorAll('.sb-icon').forEach(el => {
+    if (el.dataset.tip === 'السجل') el.classList.toggle('active', _historyPanelOpen);
+    else el.classList.remove('active');
+  });
+}
+
+/* ══ PRINT / PDF ══ */
+function printAsPDF() {
+  const arText = document.getElementById('confirmAr').innerText.trim();
+  const enText = document.getElementById('confirmEn').innerText.trim();
+  if (!arText) { alert(uiLang==='ar'?'لا توجد بيانات للطباعة':'Nothing to print yet'); return; }
+
+  // أنشئ div مؤقت للطباعة فقط
+  let printArea = document.getElementById('printArea');
+  if (printArea) printArea.remove();
+  printArea = document.createElement('div');
+  printArea.id = 'printArea';
+
+  const now = new Date().toLocaleString('ar-EG', {dateStyle:'full', timeStyle:'short'});
+  printArea.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #10b981;padding-bottom:12px;margin-bottom:20px;">
+      <div>
+        <div style="font-size:18px;font-weight:700;color:#0f172a;">Al-Mosafer — Amendment Tool</div>
+        <div style="font-size:11px;color:#64748b;margin-top:2px;">${now}</div>
+      </div>
+      <div style="font-size:24px;">✈️</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div dir="rtl">
+        <div style="font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;border-bottom:1px solid #e2e8f0;padding-bottom:6px;">عربي</div>
+        <pre style="font-family:inherit;white-space:pre-wrap;font-size:12px;line-height:1.9;color:#0f172a;">${arText}</pre>
+      </div>
+      <div dir="ltr">
+        <div style="font-size:10px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.07em;margin-bottom:10px;border-bottom:1px solid #e2e8f0;padding-bottom:6px;">English</div>
+        <pre style="font-family:inherit;white-space:pre-wrap;font-size:12px;line-height:1.9;color:#0f172a;">${enText}</pre>
+      </div>
+    </div>
+    <div style="margin-top:24px;border-top:1px solid #e2e8f0;padding-top:10px;font-size:10px;color:#94a3b8;text-align:center;">
+      Al-Mosafer Amendment Tool · Powered by Mohamed Rezk
+    </div>`;
+  document.body.appendChild(printArea);
+  window.print();
+  // نزيل الـ div بعد الطباعة
+  setTimeout(() => { if (printArea) printArea.remove(); }, 1000);
+}
+
+/* ══ حفظ تلقائي في السجل عند اكتمال processAll ══ */
+const _origProcessAll = processAll;
+processAll = function() {
+  _origProcessAll();
+  // احفظ فقط إذا ظهر confirmSection
+  if (document.getElementById('confirmSection').style.display !== 'none') {
+    historySaveEntry();
+    updateHistoryBadge();
+  }
+};
+
+// تحميل أولي لعداد الشارة
+document.addEventListener('DOMContentLoaded', updateHistoryBadge);
+
 function validatePostAccept(){
   clearValidation();
   let ok=true;
