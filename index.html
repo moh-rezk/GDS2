@@ -752,6 +752,216 @@ html[lang=ar] [data-en] { display: none !important; }
 .hist-item-del:hover { color: #ef4444; background: #fff5f5; }
 .hist-empty { text-align: center; color: var(--faint); font-size: 12px; padding: 28px 0; }
 
+/* ══ STORAGE DRAWER ══ */
+#storageDrawer {
+  position: fixed; inset: 0; z-index: 200;
+  display: none; align-items: stretch;
+}
+#storageDrawer.open .sd-panel { transform: translateX(0); }
+.sd-overlay {
+  flex: 1; background: rgba(15,23,42,0.5);
+  backdrop-filter: blur(3px);
+}
+.sd-panel {
+  width: 360px; max-width: 96vw;
+  background: var(--white);
+  display: flex; flex-direction: column;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.15);
+  transform: translateX(100%);
+  transition: transform .28s cubic-bezier(.4,0,.2,1);
+  overflow: hidden;
+}
+html[dir=rtl] .sd-panel {
+  transform: translateX(-100%);
+  box-shadow: 8px 0 40px rgba(0,0,0,0.15);
+}
+html[dir=rtl] #storageDrawer.open .sd-panel { transform: translateX(0); }
+.sd-header {
+  background: var(--slate);
+  padding: 14px 16px 0;
+  display: flex; align-items: flex-start; gap: 8px;
+  flex-shrink: 0;
+}
+.sd-tabs {
+  display: flex; flex: 1; gap: 2px; overflow-x: auto;
+  padding-bottom: 0;
+}
+.sd-tabs::-webkit-scrollbar { display: none; }
+.sd-tab {
+  background: transparent; border: none;
+  color: #94a3b8; font-family: inherit; font-size: 11px;
+  font-weight: 500; cursor: pointer; padding: 7px 10px;
+  border-radius: 8px 8px 0 0; white-space: nowrap;
+  transition: .15s; border-bottom: 2px solid transparent;
+}
+.sd-tab:hover { color: #cbd5e1; background: rgba(255,255,255,0.06); }
+.sd-tab.active { color: var(--emerald); border-bottom-color: var(--emerald); background: rgba(16,185,129,0.1); }
+.sd-close {
+  background: rgba(255,255,255,0.08); border: none;
+  color: #94a3b8; width: 28px; height: 28px;
+  border-radius: 8px; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: .15s; margin-top: 4px;
+}
+.sd-close:hover { background: rgba(239,68,68,0.2); color: #ef4444; }
+
+/* ══ SEARCH BOX — IMPROVED ══ */
+.sd-search-wrap {
+  padding: 12px 14px 10px;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  flex-shrink: 0;
+}
+.sd-search-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.sd-search-icon {
+  position: absolute;
+  inset-inline-start: 11px;
+  top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px;
+  color: var(--faint);
+  pointer-events: none;
+  transition: color .2s;
+  flex-shrink: 0;
+}
+.sd-search {
+  width: 100%;
+  background: #f1f5f9;
+  border: 1.5px solid var(--border-s);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-size: 13px;
+  padding: 9px 12px 9px 36px;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+  outline: none;
+}
+html[dir=rtl] .sd-search {
+  padding: 9px 36px 9px 12px;
+}
+.sd-search::placeholder {
+  color: var(--faint);
+  font-size: 12px;
+}
+.sd-search:focus {
+  border-color: var(--emerald);
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--emerald-x);
+}
+.sd-search:focus ~ .sd-search-icon,
+.sd-search-inner:focus-within .sd-search-icon {
+  color: var(--emerald);
+}
+.sd-search-clear {
+  position: absolute;
+  inset-inline-end: 8px;
+  top: 50%; transform: translateY(-50%);
+  width: 20px; height: 20px;
+  background: var(--border-s);
+  border: none; border-radius: 50%;
+  color: var(--muted); font-size: 11px;
+  cursor: pointer; display: none;
+  align-items: center; justify-content: center;
+  transition: .15s;
+  padding: 0;
+  line-height: 1;
+}
+.sd-search-clear:hover { background: #e2e8f0; color: var(--text); }
+.sd-search-wrap.has-query .sd-search-clear { display: flex; }
+.sd-search-hint {
+  font-size: 10px; color: var(--faint);
+  margin-top: 5px;
+  padding-inline-start: 2px;
+  display: flex; align-items: center; gap: 4px;
+  min-height: 14px;
+  transition: opacity .2s;
+}
+
+/* ══ DRAWER BODY ══ */
+.sd-body {
+  flex: 1; overflow-y: auto; padding: 10px 12px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.sd-body::-webkit-scrollbar { width: 4px; }
+.sd-body::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.sd-item {
+  background: #f8fafc; border: 1px solid var(--border-s);
+  border-radius: 10px; padding: 10px 12px;
+  display: flex; align-items: flex-start; gap: 8px;
+  cursor: pointer; transition: .15s;
+  animation: fadeUp .18s ease;
+}
+.sd-item:hover { background: #f0fdf4; border-color: var(--emerald-b); }
+.sd-item.pinned-item { border-color: #fde68a; background: #fffbeb; }
+.sd-item-body { flex: 1; min-width: 0; }
+.sd-item-title {
+  font-size: 12px; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+.sd-item-meta {
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  font-size: 10px;
+}
+.sd-badge {
+  background: var(--emerald-x); color: var(--emerald-d);
+  border: 1px solid var(--emerald-b); border-radius: 20px;
+  padding: 1px 8px; font-size: 10px; font-weight: 600;
+}
+.sd-chip {
+  background: #f1f5f9; color: var(--muted);
+  border-radius: 6px; padding: 1px 7px;
+  font-size: 10px; border: 1px solid var(--border-s);
+}
+.sd-item-actions {
+  display: flex; gap: 4px; flex-shrink: 0;
+  align-items: flex-start; padding-top: 1px;
+}
+.sd-act-btn {
+  width: 26px; height: 26px; border-radius: 7px;
+  background: none; border: 1px solid transparent;
+  cursor: pointer; font-size: 12px;
+  display: flex; align-items: center; justify-content: center;
+  transition: .15s; color: var(--faint);
+}
+.sd-act-btn:hover { background: #f1f5f9; border-color: var(--border-s); color: var(--muted); }
+.sd-act-btn.del:hover { background: #fff5f5; border-color: #fca5a5; color: #ef4444; }
+.sd-act-btn.pinned { color: #f59e0b; }
+.sd-empty {
+  text-align: center; color: var(--faint); font-size: 12px;
+  padding: 36px 16px; line-height: 1.8;
+}
+.sd-tpl-new {
+  display: flex; gap: 8px; margin-bottom: 10px;
+}
+.sd-save-btn {
+  background: var(--emerald); color: #fff;
+  border: none; border-radius: 9px;
+  padding: 8px 14px; font-family: inherit;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; transition: .15s; flex-shrink: 0;
+}
+.sd-save-btn:hover { background: var(--emerald-d); }
+.sd-stats-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 8px;
+  margin-bottom: 14px;
+}
+.sd-stat-card {
+  background: #f8fafc; border: 1px solid var(--border-s);
+  border-radius: 9px; padding: 10px; text-align: center;
+}
+.sd-stat-val { font-size: 20px; font-weight: 700; color: var(--slate); }
+.sd-stat-lbl { font-size: 10px; color: var(--muted); margin-top: 3px; }
+.sd-section-title {
+  font-size: 10px; font-weight: 700; color: var(--faint);
+  text-transform: uppercase; letter-spacing: .07em;
+  margin-bottom: 6px; margin-top: 4px;
+}
+
 /* ══ PRINT / PDF ══ */
 @media print {
   body * { visibility: hidden !important; }
@@ -2509,131 +2719,600 @@ function validateBeforeAnalyze(){
   return ok;
 }
 
-/* ══ HISTORY — LocalStorage (آخر 20 مدخلاً) ══ */
-const HISTORY_KEY = 'almosafer_history_v1';
-const HISTORY_MAX = 20;
+/* ═══════════════════════════════════════════════════
+   LOCAL STORAGE — Full Implementation
+   Keys:
+     almosafer_history_v1   → سجل آخر 20 مدخلاً
+     almosafer_pinned_v1    → المدخلات المثبتة
+     almosafer_draft_v1     → مسودة تلقائية
+     almosafer_prefs_v1     → تفضيلات المستخدم
+     almosafer_templates_v1 → القوالب المحفوظة
+     almosafer_stats_v1     → الإحصائيات
+   ═══════════════════════════════════════════════════ */
 
+const HISTORY_KEY   = 'almosafer_history_v1';
+const PINNED_KEY    = 'almosafer_pinned_v1';
+const DRAFT_KEY     = 'almosafer_draft_v1';
+const PREFS_KEY     = 'almosafer_prefs_v1';
+const TEMPLATES_KEY = 'almosafer_templates_v1';
+const STATS_KEY     = 'almosafer_stats_v1';
+const HISTORY_MAX   = 20;
+const MAX_AGE_DAYS  = 30; // ميزة #6 — حذف السجلات الأقدم من 30 يوم
+
+/* ── Utils ── */
+function lsGet(key, fallback = null) {
+  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
+  catch(e) { return fallback; }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+
+/* ════════════════════════════════
+   1. DRAFT — حفظ مسودة تلقائي
+   ════════════════════════════════ */
+let _draftTimer = null;
+
+function draftSave() {
+  const mask = document.getElementById('maskA')?.value || '';
+  const maskC = document.getElementById('maskC')?.value || '';
+  const maskI = document.getElementById('maskI')?.value || '';
+  const seg  = document.getElementById('rawSeg')?.value || '';
+  if (!mask.trim() && !seg.trim()) return; // لا شيء يُحفظ
+  lsSet(DRAFT_KEY, { mask, maskC, maskI, seg, at: Date.now() });
+}
+
+function draftLoad() {
+  const draft = lsGet(DRAFT_KEY);
+  if (!draft || !draft.mask) return;
+  const ageMin = (Date.now() - draft.at) / 60000;
+  if (ageMin > 60 * 24 * 7) { localStorage.removeItem(DRAFT_KEY); return; } // أقدم من أسبوع تُحذف
+  // عرض banner الاستعادة
+  const bar = document.createElement('div');
+  bar.id = 'draftBar';
+  const t = new Date(draft.at).toLocaleTimeString('ar-EG', {hour:'2-digit', minute:'2-digit'});
+  bar.innerHTML = `
+    <span style="flex:1">💾 <b data-ar>مسودة محفوظة</b><b data-en>Saved draft</b>
+      <span style="color:var(--faint);font-size:10px;margin-inline-start:6px;">
+        <span data-ar>من الساعة ${t}</span><span data-en>from ${t}</span>
+      </span>
+    </span>
+    <button onclick="draftRestore()" style="background:var(--emerald);color:#fff;border:none;border-radius:6px;padding:4px 12px;cursor:pointer;font-family:inherit;font-size:11px;font-weight:600;">
+      <span data-ar>استعادة</span><span data-en>Restore</span>
+    </button>
+    <button onclick="draftDiscard()" style="background:none;border:none;cursor:pointer;color:var(--faint);font-size:16px;padding:0 4px;">✕</button>`;
+  bar.style.cssText = 'display:flex;align-items:center;gap:10px;background:#f0fdf4;border:1px solid var(--emerald-b);border-radius:9px;padding:8px 13px;font-size:12px;margin-bottom:10px;';
+  const maskSection = document.querySelector('#maskA')?.closest('.ip-section');
+  if (maskSection) maskSection.prepend(bar);
+  applyLangVisibility();
+}
+
+function draftRestore() {
+  const draft = lsGet(DRAFT_KEY);
+  if (!draft) return;
+  if (draft.mask)  document.getElementById('maskA').value  = draft.mask;
+  if (draft.maskC) document.getElementById('maskC').value  = draft.maskC;
+  if (draft.maskI) document.getElementById('maskI').value  = draft.maskI;
+  if (draft.seg)   document.getElementById('rawSeg').value = draft.seg;
+  document.getElementById('draftBar')?.remove();
+  onMaskInput();
+  if (draft.seg) onSegmentInput?.();
+}
+
+function draftDiscard() {
+  localStorage.removeItem(DRAFT_KEY);
+  document.getElementById('draftBar')?.remove();
+}
+
+// حفظ كل 3 ثواني عند الكتابة
+function draftSchedule() {
+  clearTimeout(_draftTimer);
+  _draftTimer = setTimeout(draftSave, 3000);
+}
+
+/* ════════════════════════════════
+   2. PREFS — تفضيلات المستخدم
+   ════════════════════════════════ */
+function prefsSave() {
+  lsSet(PREFS_KEY, { lang: uiLang, currency: cur, poc: _pocCur || null });
+}
+
+function prefsLoad() {
+  const p = lsGet(PREFS_KEY);
+  if (!p) return;
+  if (p.lang && p.lang !== uiLang) setLang(p.lang);
+}
+
+/* ════════════════════════════════
+   3. TEMPLATES — القوالب
+   ════════════════════════════════ */
+function templateSave(name) {
+  if (!name?.trim()) return;
+  const list = lsGet(TEMPLATES_KEY, []);
+  const tpl = {
+    id:          Date.now(),
+    name:        name.trim(),
+    airCode:     _maskAirlineCode || '',
+    flightType:  _selectedFlightType || '',
+    noShowVal:   document.getElementById('noShowInput')?.value || '',
+    adtCnt:      parseInt(document.getElementById('adtCnt')?.value || 1),
+    chdCnt:      parseInt(document.getElementById('chdCnt')?.value || 0),
+    infCnt:      parseInt(document.getElementById('infCnt')?.value || 0),
+    savedAt:     new Date().toLocaleString('ar-EG', {dateStyle:'short', timeStyle:'short'}),
+  };
+  // تحديث لو موجود بنفس الاسم
+  const idx = list.findIndex(t => t.name === name.trim());
+  if (idx !== -1) list.splice(idx, 1);
+  list.unshift(tpl);
+  lsSet(TEMPLATES_KEY, list);
+  storageToast(uiLang==='ar' ? `✅ تم حفظ قالب "${name}"` : `✅ Template "${name}" saved`);
+}
+
+function templateApply(id) {
+  const list = lsGet(TEMPLATES_KEY, []);
+  const tpl  = list.find(t => t.id === id);
+  if (!tpl) return;
+  if (tpl.adtCnt) { const el = document.getElementById('adtCnt'); if(el) el.value = tpl.adtCnt; }
+  if (tpl.chdCnt !== undefined) { const el = document.getElementById('chdCnt'); if(el) el.value = tpl.chdCnt; }
+  if (tpl.infCnt !== undefined) { const el = document.getElementById('infCnt'); if(el) el.value = tpl.infCnt; }
+  if (tpl.noShowVal) { const el = document.getElementById('noShowInput'); if(el) el.value = tpl.noShowVal; }
+  storageToast(uiLang==='ar' ? `✈️ تم تطبيق "${tpl.name}"` : `✈️ Applied "${tpl.name}"`);
+  storageDrawerClose();
+}
+
+function templateDelete(id) {
+  lsSet(TEMPLATES_KEY, lsGet(TEMPLATES_KEY,[]).filter(t => t.id !== id));
+  storageDrawerRender();
+}
+
+/* ════════════════════════════════
+   4. STATS — الإحصائيات
+   ════════════════════════════════ */
+function statsRecord() {
+  if (!d.grand) return;
+  const stats = lsGet(STATS_KEY, { total: 0, byAirline: {}, byMonth: {}, fees: [] });
+  stats.total = (stats.total || 0) + 1;
+  const air = _maskAirlineCode || 'XX';
+  stats.byAirline[air] = (stats.byAirline[air] || 0) + 1;
+  const month = new Date().toISOString().slice(0, 7);
+  stats.byMonth[month] = (stats.byMonth[month] || 0) + 1;
+  stats.fees = [...(stats.fees || []).slice(-99), { v: d.grand, c: d.currency || 'SAR', t: Date.now() }];
+  lsSet(STATS_KEY, stats);
+}
+
+/* ════════════════════════════════
+   5. PINNED ENTRIES
+   ════════════════════════════════ */
+function historyPin(id) {
+  const allHistory = historyLoad();
+  const entry = allHistory.find(e => e.id === id);
+  if (!entry) return;
+  const pinned = lsGet(PINNED_KEY, []);
+  if (pinned.find(e => e.id === id)) {
+    // unpin
+    lsSet(PINNED_KEY, pinned.filter(e => e.id !== id));
+    storageToast(uiLang==='ar' ? '📌 تم إلغاء التثبيت' : '📌 Unpinned');
+  } else {
+    pinned.unshift({ ...entry, pinned: true });
+    lsSet(PINNED_KEY, pinned);
+    storageToast(uiLang==='ar' ? '📌 تم تثبيت السجل' : '📌 Entry pinned');
+  }
+  storageDrawerRender();
+}
+
+function pinnedDelete(id) {
+  lsSet(PINNED_KEY, lsGet(PINNED_KEY,[]).filter(e => e.id !== id));
+  storageDrawerRender();
+}
+
+/* ════════════════════════════════
+   6. EXPIRY — انتهاء صلاحية السجلات
+   ════════════════════════════════ */
+function historyPruneExpired() {
+  const cutoff = Date.now() - MAX_AGE_DAYS * 86400000;
+  const pruned = historyLoad().filter(e => e.id > cutoff);
+  historySave(pruned);
+}
+
+/* ════════════════════════════════
+   HISTORY — Core (with expiry + pinned aware)
+   ════════════════════════════════ */
 function historyLoad() {
   try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
   catch(e) { return []; }
 }
-
 function historySave(list) {
   try { localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); } catch(e) {}
 }
 
 function historySaveEntry() {
-  // لا نحفظ إلا إذا اكتملت رسائل التأكيد
   const arText = document.getElementById('confirmAr').innerText.trim();
   const enText = document.getElementById('confirmEn').innerText.trim();
   if (!arText || !d.grand) return;
-
   const maskVal = (document.getElementById('maskA').value.trim().split('\n')[0] || '').substring(0, 60);
   const segVal  = (document.getElementById('rawSegPost')?.value.trim() || document.getElementById('rawSeg')?.value.trim() || '').split('\n')[0].substring(0, 60);
   const _dp = d.dp !== undefined ? d.dp : 2;
   const fmt = v => v.toFixed(_dp===0?0:_dp===3?3:2);
-
   const entry = {
-    id:        Date.now(),
-    savedAt:   new Date().toLocaleString('ar-EG', {dateStyle:'short', timeStyle:'short'}),
-    mask:      maskVal,
-    segment:   segVal,
-    total:     fmt(d.grand),
-    currency:  d.currency || 'SAR',
-    arText,
-    enText,
+    id: Date.now(),
+    savedAt: new Date().toLocaleString('ar-EG', {dateStyle:'short', timeStyle:'short'}),
+    mask: maskVal, segment: segVal,
+    total: fmt(d.grand), currency: d.currency || 'SAR',
+    airline: _maskAirlineCode || '',
+    flightType: _selectedFlightType || '',
+    arText, enText,
   };
-
   const list = historyLoad();
-  // تجنّب التكرار: إذا نفس الـ mask والـ segment موجودَين بالفعل، حدِّث السجل
   const dupIdx = list.findIndex(e => e.mask === entry.mask && e.segment === entry.segment);
   if (dupIdx !== -1) list.splice(dupIdx, 1);
-
   list.unshift(entry);
   if (list.length > HISTORY_MAX) list.length = HISTORY_MAX;
   historySave(list);
-}
-
-function historyRender() {
-  const list = historyLoad();
-  const container = document.getElementById('historyList');
-  if (!list.length) {
-    container.innerHTML = `<div class="hist-empty"><span data-ar>لا توجد مدخلات محفوظة بعد</span><span data-en>No saved entries yet</span></div>`;
-    applyLangVisibility();
-    return;
-  }
-  container.innerHTML = list.map(e => `
-    <div class="hist-item" id="hitem_${e.id}">
-      <div class="hist-item-body" onclick="historyRestore(${e.id})">
-        <div class="hist-item-title">${e.segment || e.mask || '—'}</div>
-        <div class="hist-item-meta">
-          <span class="hist-item-badge">${e.total} ${e.currency}</span>
-          <span>🕐 ${e.savedAt}</span>
-        </div>
-      </div>
-      <button class="hist-item-del" onclick="historyDelete(${e.id})" title="حذف">✕</button>
-    </div>`).join('');
-  applyLangVisibility();
-}
-
-function historyRestore(id) {
-  const list = historyLoad();
-  const entry = list.find(e => e.id === id);
-  if (!entry) return;
-  // أظهر النصوص في confirmSection مباشرةً
-  document.getElementById('confirmAr').innerText = entry.arText;
-  document.getElementById('confirmEn').innerText = entry.enText;
-  document.getElementById('confirmSection').style.display = 'block';
-  toggleHistoryPanel(); // أغلق لوحة السجل وعُد للنتيجة
-  document.getElementById('confirmSection').scrollIntoView({behavior:'smooth', block:'start'});
+  statsRecord();
 }
 
 function historyDelete(id) {
-  const list = historyLoad().filter(e => e.id !== id);
-  historySave(list);
-  historyRender();
-  // حدّث badge عدد السجلات
+  historySave(historyLoad().filter(e => e.id !== id));
+  storageDrawerRender();
   updateHistoryBadge();
 }
 
 function clearHistory() {
-  const msg = uiLang==='ar' ? 'هل تريد مسح جميع السجلات؟' : 'Clear all history?';
-  if (!confirm(msg)) return;
+  if (!confirm(uiLang==='ar'?'مسح جميع السجلات؟':'Clear all history?')) return;
   localStorage.removeItem(HISTORY_KEY);
-  historyRender();
+  storageDrawerRender();
   updateHistoryBadge();
 }
 
+function historyRestore(id) {
+  const entry = [...historyLoad(), ...lsGet(PINNED_KEY,[])].find(e => e.id === id);
+  if (!entry) return;
+  document.getElementById('confirmAr').innerText = entry.arText;
+  document.getElementById('confirmEn').innerText = entry.enText;
+  document.getElementById('confirmSection').style.display = 'block';
+  storageDrawerClose();
+  document.getElementById('confirmSection').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ════════════════════════════════
+   STORAGE DRAWER — الواجهة الموحّدة
+   tabs: history | pinned | templates | stats
+   ════════════════════════════════ */
+let _drawerOpen  = false;
+let _drawerTab   = 'history';
+let _searchQuery = '';
+let _historyPanelOpen = false;
+
+function storageDrawerOpen(tab = 'history') {
+  _drawerTab = tab;
+  _drawerOpen = true;
+  let drawer = document.getElementById('storageDrawer');
+  if (!drawer) { drawer = _buildDrawer(); document.body.appendChild(drawer); }
+  drawer.style.display = 'flex';
+  storageDrawerRender();
+  requestAnimationFrame(() => { drawer.classList.add('open'); applyLangVisibility(); });
+  document.getElementById('drawerSearch')?.focus();
+}
+
+function storageDrawerClose() {
+  const drawer = document.getElementById('storageDrawer');
+  if (!drawer) return;
+  drawer.classList.remove('open');
+  setTimeout(() => { if(drawer) drawer.style.display = 'none'; }, 280);
+  _drawerOpen = false;
+  _historyPanelOpen = false;
+  document.querySelectorAll('.sb-icon').forEach(el => el.classList.remove('active'));
+}
+
+function storageDrawerToggle(tab = 'history') {
+  if (_drawerOpen && _drawerTab === tab) { storageDrawerClose(); return; }
+  if (_drawerOpen) { _drawerTab = tab; storageDrawerRender(); return; }
+  storageDrawerOpen(tab);
+  document.querySelectorAll('.sb-icon').forEach(el => {
+    el.classList.toggle('active', el.dataset.tip === 'السجل' || el.dataset.tip === 'القوالب');
+  });
+}
+
+function _buildDrawer() {
+  const el = document.createElement('div');
+  el.id = 'storageDrawer';
+  el.innerHTML = `
+    <div class="sd-overlay" onclick="storageDrawerClose()"></div>
+    <div class="sd-panel">
+      <div class="sd-header">
+        <div class="sd-tabs">
+          <button class="sd-tab" data-tab="history"  onclick="storageDrawerRender('history')">
+            🕓 <span data-ar>السجل</span><span data-en>History</span>
+          </button>
+          <button class="sd-tab" data-tab="pinned"   onclick="storageDrawerRender('pinned')">
+            📌 <span data-ar>المثبتة</span><span data-en>Pinned</span>
+          </button>
+          <button class="sd-tab" data-tab="templates" onclick="storageDrawerRender('templates')">
+            📋 <span data-ar>القوالب</span><span data-en>Templates</span>
+          </button>
+          <button class="sd-tab" data-tab="stats"    onclick="storageDrawerRender('stats')">
+            📊 <span data-ar>إحصائيات</span><span data-en>Stats</span>
+          </button>
+        </div>
+        <button class="sd-close" onclick="storageDrawerClose()">✕</button>
+      </div>
+      <div class="sd-search-wrap" id="sdSearchWrap">
+        <div class="sd-search-inner">
+          <svg class="sd-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input id="drawerSearch" class="sd-search"
+            placeholder="ابحث في السجل، الرحلات، المبالغ..."
+            oninput="_searchQuery=this.value; storageDrawerRender(); _sdSearchUpdate(this.value)">
+          <button class="sd-search-clear" id="sdSearchClear" onclick="_sdClearSearch()" title="مسح البحث">✕</button>
+        </div>
+        <div class="sd-search-hint" id="sdSearchHint">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span data-ar>ابحث برقم الرحلة أو اسم الشركة أو المبلغ</span>
+          <span data-en>Search by flight, airline or amount</span>
+        </div>
+      </div>
+      <div id="sd-body" class="sd-body"></div>
+    </div>`;
+  return el;
+}
+
+function storageDrawerRender(tab) {
+  if (tab) _drawerTab = tab;
+  const drawer = document.getElementById('storageDrawer');
+  if (!drawer) return;
+  // highlight active tab
+  drawer.querySelectorAll('.sd-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === _drawerTab));
+  const body = document.getElementById('sd-body');
+  const q = (_searchQuery||'').trim().toLowerCase();
+
+  if (_drawerTab === 'history') {
+    historyPruneExpired(); // ميزة #6
+    const pinned = lsGet(PINNED_KEY, []);
+    let list = historyLoad();
+    if (q) list = list.filter(e =>
+      (e.segment||'').toLowerCase().includes(q) ||
+      (e.mask||'').toLowerCase().includes(q) ||
+      (e.airline||'').toLowerCase().includes(q) ||
+      (e.total||'').includes(q) ||
+      (e.arText||'').includes(q) ||
+      (e.enText||'').toLowerCase().includes(q)
+    );
+    if (!list.length) { body.innerHTML = `<div class="sd-empty">
+      <div style="font-size:2rem;margin-bottom:8px;">🕓</div>
+      <div data-ar>${q?'لا نتائج':'لا توجد سجلات بعد'}</div>
+      <div data-en>${q?'No results':'No entries yet'}</div></div>`;
+      applyLangVisibility(); return;
+    }
+    body.innerHTML = list.map(e => {
+      const isPinned = pinned.find(p => p.id === e.id);
+      return `<div class="sd-item" id="sditem_${e.id}">
+        <div class="sd-item-body" onclick="historyRestore(${e.id})">
+          <div class="sd-item-title">${_highlight(e.segment||e.mask||'—', q)}</div>
+          <div class="sd-item-meta">
+            <span class="sd-badge">${e.total} ${e.currency}</span>
+            ${e.airline?`<span class="sd-chip">${e.airline}</span>`:''}
+            ${e.flightType?`<span class="sd-chip">${e.flightType==='domestic'?'🏠':'🌍'}</span>`:''}
+            <span style="color:var(--faint)">🕐 ${e.savedAt}</span>
+          </div>
+        </div>
+        <div class="sd-item-actions">
+          <button class="sd-act-btn ${isPinned?'pinned':''}" onclick="historyPin(${e.id})" title="${isPinned?'إلغاء تثبيت':'تثبيت'}">📌</button>
+          <button class="sd-act-btn del" onclick="historyDelete(${e.id})" title="حذف">✕</button>
+        </div>
+      </div>`;
+    }).join('');
+
+  } else if (_drawerTab === 'pinned') {
+    let list = lsGet(PINNED_KEY, []);
+    if (q) list = list.filter(e =>
+      (e.segment||'').toLowerCase().includes(q) ||
+      (e.mask||'').toLowerCase().includes(q) ||
+      (e.arText||'').includes(q)
+    );
+    if (!list.length) { body.innerHTML = `<div class="sd-empty">
+      <div style="font-size:2rem;margin-bottom:8px;">📌</div>
+      <div data-ar>${q?'لا نتائج':'لا توجد مدخلات مثبتة — اضغط 📌 على أي سجل'}</div>
+      <div data-en>${q?'No results':'No pinned entries — press 📌 on any entry'}</div></div>`;
+      applyLangVisibility(); return;
+    }
+    body.innerHTML = list.map(e => `
+      <div class="sd-item pinned-item" id="sdpin_${e.id}">
+        <div class="sd-item-body" onclick="historyRestore(${e.id})">
+          <div class="sd-item-title">${_highlight(e.segment||e.mask||'—', q)}</div>
+          <div class="sd-item-meta">
+            <span class="sd-badge">${e.total} ${e.currency}</span>
+            ${e.airline?`<span class="sd-chip">${e.airline}</span>`:''}
+            <span style="color:var(--faint)">🕐 ${e.savedAt}</span>
+          </div>
+        </div>
+        <div class="sd-item-actions">
+          <button class="sd-act-btn del" onclick="pinnedDelete(${e.id})" title="حذف">✕</button>
+        </div>
+      </div>`).join('');
+
+  } else if (_drawerTab === 'templates') {
+    let list = lsGet(TEMPLATES_KEY, []);
+    if (q) list = list.filter(t =>
+      t.name.toLowerCase().includes(q) ||
+      (t.airCode||'').toLowerCase().includes(q)
+    );
+    body.innerHTML = `
+      <div class="sd-tpl-new">
+        <input id="tplNameInput" class="sd-search" placeholder="${uiLang==='ar'?'اسم القالب...':'Template name...'}"
+          style="flex:1" onkeydown="if(event.key==='Enter')templateSave(this.value)">
+        <button class="sd-save-btn" onclick="templateSave(document.getElementById('tplNameInput').value)">
+          💾 <span data-ar>حفظ</span><span data-en>Save</span>
+        </button>
+      </div>
+      ${!list.length ? `<div class="sd-empty">
+        <div style="font-size:2rem;margin-bottom:8px;">📋</div>
+        <div data-ar>${q?'لا نتائج':'لا توجد قوالب — احفظ إعداداتك الحالية'}</div>
+        <div data-en>${q?'No results':'No templates — save your current settings'}</div></div>` :
+      list.map(t => `
+        <div class="sd-item">
+          <div class="sd-item-body" onclick="templateApply(${t.id})">
+            <div class="sd-item-title">${_highlight(t.name, q)} ${t.airCode?`<span class="sd-chip">${t.airCode}</span>`:''}</div>
+            <div class="sd-item-meta">
+              ${t.adtCnt?`<span class="sd-chip">ADT×${t.adtCnt}</span>`:''}
+              ${t.chdCnt?`<span class="sd-chip">CHD×${t.chdCnt}</span>`:''}
+              ${t.infCnt?`<span class="sd-chip">INF×${t.infCnt}</span>`:''}
+              ${t.flightType?`<span class="sd-chip">${t.flightType==='domestic'?'🏠 داخلي':'🌍 دولي'}</span>`:''}
+              <span style="color:var(--faint)">🕐 ${t.savedAt}</span>
+            </div>
+          </div>
+          <div class="sd-item-actions">
+            <button class="sd-act-btn del" onclick="templateDelete(${t.id})" title="حذف">✕</button>
+          </div>
+        </div>`).join('')}`;
+    applyLangVisibility();
+
+  } else if (_drawerTab === 'stats') {
+    const stats = lsGet(STATS_KEY, { total: 0, byAirline: {}, byMonth: {}, fees: [] });
+    const month = new Date().toISOString().slice(0,7);
+    const thisMonth = stats.byMonth?.[month] || 0;
+    const allFees = (stats.fees||[]).filter(f => f.c === (cur||'SAR'));
+    const avgFee = allFees.length ? (allFees.reduce((s,f)=>s+f.v,0)/allFees.length).toFixed(2) : '—';
+    const topAir = Object.entries(stats.byAirline||{}).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const topMonths = Object.entries(stats.byMonth||{}).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,6);
+    body.innerHTML = `
+      <div class="sd-stats-grid">
+        <div class="sd-stat-card">
+          <div class="sd-stat-val">${stats.total||0}</div>
+          <div class="sd-stat-lbl" data-ar>إجمالي التعديلات</div>
+          <div class="sd-stat-lbl" data-en>Total Amendments</div>
+        </div>
+        <div class="sd-stat-card">
+          <div class="sd-stat-val">${thisMonth}</div>
+          <div class="sd-stat-lbl" data-ar>هذا الشهر</div>
+          <div class="sd-stat-lbl" data-en>This Month</div>
+        </div>
+        <div class="sd-stat-card">
+          <div class="sd-stat-val" style="font-size:14px;">${avgFee}</div>
+          <div class="sd-stat-lbl" data-ar>متوسط الرسوم (${cur})</div>
+          <div class="sd-stat-lbl" data-en>Avg Fees (${cur})</div>
+        </div>
+      </div>
+      ${topAir.length ? `
+      <div class="sd-section-title" data-ar>أكثر شركات الطيران</div>
+      <div class="sd-section-title" data-en>Top Airlines</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+        ${topAir.map(([code,cnt]) => {
+          const pct = Math.round(cnt/(stats.total||1)*100);
+          return `<div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:32px;font-weight:700;font-size:11px;">${code}</span>
+            <div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;">
+              <div style="height:100%;width:${pct}%;background:var(--emerald);border-radius:4px;transition:.5s;"></div>
+            </div>
+            <span style="font-size:10px;color:var(--muted);min-width:28px;text-align:end;">${cnt}</span>
+          </div>`;
+        }).join('')}
+      </div>` : ''}
+      ${topMonths.length ? `
+      <div class="sd-section-title" data-ar>النشاط الشهري</div>
+      <div class="sd-section-title" data-en>Monthly Activity</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        ${topMonths.map(([m,cnt]) => {
+          const max = Math.max(...topMonths.map(x=>x[1]));
+          const pct = Math.round(cnt/max*100);
+          return `<div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:54px;font-size:10px;color:var(--muted);">${m}</span>
+            <div style="flex:1;height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden;">
+              <div style="height:100%;width:${pct}%;background:#6366f1;border-radius:4px;transition:.5s;"></div>
+            </div>
+            <span style="font-size:10px;color:var(--muted);min-width:20px;text-align:end;">${cnt}</span>
+          </div>`;
+        }).join('')}
+      </div>` : ''}
+      <div style="margin-top:16px;padding-top:12px;border-top:1px solid var(--border);">
+        <button onclick="if(confirm('مسح كل الإحصائيات؟')){localStorage.removeItem('${STATS_KEY}');storageDrawerRender()}"
+          style="background:none;border:1px solid #fca5a5;color:#ef4444;border-radius:7px;padding:6px 14px;cursor:pointer;font-size:11px;font-family:inherit;">
+          <span data-ar>🗑 مسح الإحصائيات</span><span data-en>🗑 Clear Stats</span>
+        </button>
+      </div>`;
+    applyLangVisibility();
+  }
+  applyLangVisibility();
+}
+
+/* search highlight helper */
+function _highlight(text, q) {
+  if (!q || !text) return text;
+  const safe = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return text.replace(new RegExp(`(${safe})`, 'gi'), '<mark style="background:#fef08a;border-radius:2px;padding:0 1px;">$1</mark>');
+}
+
+/* Search box helpers */
+function _sdSearchUpdate(val) {
+  const wrap = document.getElementById('sdSearchWrap');
+  const hint = document.getElementById('sdSearchHint');
+  if (!wrap) return;
+  if (val && val.trim()) {
+    wrap.classList.add('has-query');
+    if (hint) hint.style.opacity = '0.4';
+  } else {
+    wrap.classList.remove('has-query');
+    if (hint) hint.style.opacity = '1';
+  }
+}
+function _sdClearSearch() {
+  const inp = document.getElementById('drawerSearch');
+  if (!inp) return;
+  inp.value = '';
+  _searchQuery = '';
+  storageDrawerRender();
+  _sdSearchUpdate('');
+  inp.focus();
+}
+
+/* Toast notification */
+function storageToast(msg) {
+  let t = document.getElementById('storageToast');
+  if (!t) {
+    t = document.createElement('div'); t.id = 'storageToast';
+    t.style.cssText = 'position:fixed;bottom:28px;inset-inline-start:50%;transform:translateX(-50%);background:var(--slate);color:#fff;padding:9px 20px;border-radius:20px;font-size:12px;font-weight:600;z-index:9999;pointer-events:none;opacity:0;transition:opacity .2s;white-space:nowrap;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg; t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2200);
+}
+
+/* Badge update */
 function updateHistoryBadge() {
-  const count = historyLoad().length;
+  historyPruneExpired();
+  const count = historyLoad().length + lsGet(PINNED_KEY,[]).length;
   const icon = document.querySelector('.sb-icon[data-tip="السجل"]');
   if (!icon) return;
   let badge = icon.querySelector('.hist-badge');
   if (count === 0) { if (badge) badge.remove(); return; }
   if (!badge) {
-    badge = document.createElement('span');
-    badge.className = 'hist-badge';
-    badge.style.cssText = 'position:absolute;top:4px;right:4px;background:#ef4444;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;pointer-events:none;';
+    badge = document.createElement('span'); badge.className = 'hist-badge';
+    badge.style.cssText = 'position:absolute;top:4px;inset-inline-end:4px;background:#ef4444;color:#fff;border-radius:50%;width:14px;height:14px;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;pointer-events:none;';
+    icon.style.position = 'relative';
     icon.appendChild(badge);
   }
   badge.textContent = count > 9 ? '9+' : count;
 }
 
-let _historyPanelOpen = false;
-function toggleHistoryPanel() {
-  _historyPanelOpen = !_historyPanelOpen;
-  const panel = document.getElementById('historyPanel');
-  panel.style.display = _historyPanelOpen ? 'block' : 'none';
-  if (_historyPanelOpen) {
-    historyRender();
-    panel.scrollIntoView({behavior:'smooth', block:'start'});
-  }
-  // toggle active state on sidebar icon
-  document.querySelectorAll('.sb-icon').forEach(el => {
-    if (el.dataset.tip === 'السجل') el.classList.toggle('active', _historyPanelOpen);
-    else el.classList.remove('active');
-  });
-}
+/* Legacy wrapper for sidebar history icon */
+function toggleHistoryPanel() { storageDrawerToggle('history'); }
+
+/* ══ INIT ══ */
+document.addEventListener('DOMContentLoaded', () => {
+  prefsLoad();
+  draftLoad();
+  updateHistoryBadge();
+  // Draft auto-save hooks
+  document.getElementById('maskA')?.addEventListener('input', draftSchedule);
+  document.getElementById('maskC')?.addEventListener('input', draftSchedule);
+  document.getElementById('maskI')?.addEventListener('input', draftSchedule);
+  document.getElementById('rawSeg')?.addEventListener('input', draftSchedule);
+  // Save prefs on lang/currency change
+  document.getElementById('btnAr')?.addEventListener('click', () => setTimeout(prefsSave, 100));
+  document.getElementById('btnEn')?.addEventListener('click', () => setTimeout(prefsSave, 100));
+});
+
 
 /* ══ PRINT / PDF ══ */
 function printAsPDF() {
@@ -2686,8 +3365,7 @@ processAll = function() {
   }
 };
 
-// تحميل أولي لعداد الشارة
-document.addEventListener('DOMContentLoaded', updateHistoryBadge);
+
 
 function validatePostAccept(){
   clearValidation();
