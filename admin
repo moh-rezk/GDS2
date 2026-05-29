@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Dashboard — Al-Mosafer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root {
+  --bg:        #0b0f1a;
+  --bg2:       #111827;
+  --bg3:       #1a2234;
+  --border:    rgba(255,255,255,0.07);
+  --border-s:  rgba(255,255,255,0.12);
+  --emerald:   #10b981;
+  --emerald-d: #059669;
+  --emerald-x: rgba(16,185,129,0.1);
+  --emerald-b: rgba(16,185,129,0.25);
+  --sky:       #38bdf8;
+  --amber:     #fbbf24;
+  --red:       #f87171;
+  --purple:    #a78bfa;
+  --text:      #f1f5f9;
+  --muted:     #94a3b8;
+  --faint:     #475569;
+  --radius:    12px;
+  --radius-sm: 8px;
+  --mono:      'IBM Plex Mono', monospace;
+  --sans:      'IBM Plex Sans Arabic', sans-serif;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ══ TOP NAV ══ */
+.top-nav {
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-logo {
+  width: 32px; height: 32px;
+  background: var(--emerald);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.nav-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.nav-title span {
+  color: var(--emerald);
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-badge {
+  background: var(--emerald-x);
+  border: 1px solid var(--emerald-b);
+  color: var(--emerald);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.nav-version {
+  font-size: 10px;
+  color: var(--faint);
+  font-family: var(--mono);
+}
+
+/* ══ LAYOUT ══ */
+.shell {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ══ SIDEBAR ══ */
+.sidebar {
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  padding: 16px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+.sidebar-section {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--faint);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 10px 6px;
+  margin-top: 8px;
+}
+.sidebar-section:first-child { margin-top: 0; }
+.sb-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 12px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  transition: .15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: right;
+}
+.sb-item:hover { background: rgba(255,255,255,0.04); color: var(--text); }
+.sb-item.active {
+  background: var(--emerald-x);
+  color: var(--emerald);
+  border: 1px solid var(--emerald-b);
+}
+.sb-item-icon { font-size: 14px; flex-shrink: 0; }
+.sb-item-count {
+  margin-right: auto;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 1px 7px;
+  font-size: 10px;
+  font-family: var(--mono);
+  font-weight: 600;
+}
+.sb-item.active .sb-item-count {
+  background: var(--emerald-b);
+  color: var(--emerald);
+}
+
+/* ══ MAIN ══ */
+.main {
+  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ══ PAGE HEADER ══ */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.page-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 3px;
+}
+.page-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ══ BUTTONS ══ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: .15s;
+  border: none;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--emerald);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--emerald-d); }
+.btn-ghost {
+  background: rgba(255,255,255,0.06);
+  color: var(--muted);
+  border: 1px solid var(--border-s);
+}
+.btn-ghost:hover { background: rgba(255,255,255,0.1); color: var(--text); }
+.btn-danger {
+  background: rgba(248,113,113,0.12);
+  color: var(--red);
+  border: 1px solid rgba(248,113,113,0.25);
+}
+.btn-danger:hover { background: rgba(248,113,113,0.2); }
+.btn-sm { padding: 5px 11px; font-size: 11px; }
+.btn-amber {
+  background: rgba(251,191,36,0.12);
+  color: var(--amber);
+  border: 1px solid rgba(251,191,36,0.25);
+}
+.btn-amber:hover { background: rgba(251,191,36,0.2); }
+
+/* ══ SEARCH / FILTER BAR ══ */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+.search-icon {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--faint);
+  font-size: 13px;
+  pointer-events: none;
+}
+.search-inp {
+  width: 100%;
+  padding: 9px 34px 9px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border-s);
+  border-radius: 9px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 12px;
+  outline: none;
+  transition: .15s;
+}
+.search-inp:focus { border-color: var(--emerald); box-shadow: 0 0 0 3px var(--emerald-x); }
+.search-inp::placeholder { color: var(--faint); }
+.filter-select {
+  padding: 9px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border-s);
+  border-radius: 9px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+}
+.filter-select:focus { border-color: var(--emerald); }
+
+/* ══ TABLE ══ */
+.table-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.table-wrap {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  background: var(--bg3);
+  padding: 10px 14px;
+  text-align: right;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--faint);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 10px 14px;
+  font-size: 12px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.code-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--bg3);
+  border: 1px solid var(--border-s);
+  padding: 2px 8px;
+  border-radius: 5px;
+  color: var(--emerald);
+  letter-spacing: 0.05em;
+}
+.type-badge {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.type-full { background: rgba(56,189,248,0.12); color: var(--sky); border: 1px solid rgba(56,189,248,0.2); }
+.type-lcc  { background: rgba(167,139,250,0.12); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+.type-sa   { background: var(--emerald-x); color: var(--emerald); border: 1px solid var(--emerald-b); }
+.action-btns { display: flex; gap: 5px; }
+
+/* ══ TABLE FOOTER ══ */
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pagination {
+  display: flex;
+  gap: 4px;
+}
+.page-btn {
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--border-s);
+  background: var(--bg3);
+  color: var(--muted);
+  font-size: 11px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: .15s;
+}
+.page-btn:hover { border-color: var(--emerald); color: var(--emerald); }
+.page-btn.active { background: var(--emerald); color: #fff; border-color: var(--emerald); }
+
+/* ══ STATS STRIP ══ */
+.stats-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+@media(max-width:900px){ .stats-strip { grid-template-columns: 1fr 1fr; } }
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.stat-card-val {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--mono);
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+.stat-card-lbl {
+  font-size: 11px;
+  color: var(--muted);
+}
+.stat-card.green .stat-card-val { color: var(--emerald); }
+.stat-card.sky .stat-card-val { color: var(--sky); }
+.stat-card.amber .stat-card-val { color: var(--amber); }
+.stat-card.purple .stat-card-val { color: var(--purple); }
+
+/* ══ MODAL ══ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--bg2);
+  border: 1px solid var(--border-s);
+  border-radius: 16px;
+  width: 520px;
+  max-width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+  animation: modalIn .2s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:scale(.95)translateY(8px)} to{opacity:1;transform:none} }
+.modal-hdr {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.modal-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.modal-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.modal-close {
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.06);
+  border: none; color: var(--muted);
+  cursor: pointer; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: .15s;
+}
+.modal-close:hover { background: rgba(248,113,113,0.15); color: var(--red); }
+.modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+/* ══ FORM ══ */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group.full { grid-column: 1/-1; }
+.form-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+.form-inp, .form-select {
+  padding: 9px 12px;
+  background: var(--bg3);
+  border: 1px solid var(--border-s);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 12px;
+  outline: none;
+  transition: .15s;
+}
+.form-inp:focus, .form-select:focus {
+  border-color: var(--emerald);
+  box-shadow: 0 0 0 3px var(--emerald-x);
+}
+.form-inp::placeholder { color: var(--faint); }
+.form-inp.mono { font-family: var(--mono); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ══ TOAST ══ */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg3);
+  border: 1px solid var(--border-s);
+  color: var(--text);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s;
+  white-space: nowrap;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+#toast.success { border-color: var(--emerald-b); color: var(--emerald); }
+#toast.error   { border-color: rgba(248,113,113,0.3); color: var(--red); }
+#toast.show    { opacity: 1; }
+
+/* ══ EXPORT SECTION ══ */
+.export-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.export-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.export-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+.export-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.json-preview {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--emerald);
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre;
+  margin-top: 12px;
+  display: none;
+}
+
+/* ══ EMPTY STATE ══ */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--faint);
+}
+.empty-icon { font-size: 2.5rem; margin-bottom: 10px; }
+.empty-title { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+.empty-sub { font-size: 12px; line-height: 1.6; }
+
+/* ══ TABS ══ */
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg3);
+  border-radius: 10px;
+  padding: 3px;
+}
+.tab-btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: .15s;
+  white-space: nowrap;
+}
+.tab-btn.active {
+  background: var(--bg2);
+  color: var(--text);
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* ══ NO-SHOW SPECIAL ══ */
+.noshow-rule {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--amber);
+  max-width: 220px;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--faint); border-radius: 3px; }
+
+@media(max-width:768px){
+  .shell { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .stats-strip { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-brand">
+    <div class="nav-logo">✈️</div>
+    <div>
+      <div class="nav-title">Al-Mosafer <span>Admin</span></div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <button class="btn btn-ghost btn-sm" onclick="connectLocalFile()" id="connectBtn" style="padding:4px 8px;font-size:10px; border-color: var(--emerald-b); color: var(--emerald);">🔗 ربط بالملف (تحديث مباشر)</button>
+    <span class="nav-badge" id="connBadge" style="background:rgba(251,191,36,0.12); color:var(--amber); border-color:rgba(251,191,36,0.25);">Local Storage 🟡</span>
+    <span class="nav-version" id="dataVersion">v—</span>
+  </div>
+</nav>
+
+<!-- SHELL -->
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">البيانات الرئيسية</div>
+    <button class="sb-item active" onclick="showTab('overview')" id="sb-overview">
+      <span class="sb-item-icon">📊</span> نظرة عامة
+    </button>
+    <button class="sb-item" onclick="showTab('airports')" id="sb-airports">
+      <span class="sb-item-icon">🏛️</span> المطارات
+      <span class="sb-item-count" id="cnt-airports">—</span>
+    </button>
+    <button class="sb-item" onclick="showTab('airlines')" id="sb-airlines">
+      <span class="sb-item-icon">✈️</span> شركات الطيران
+      <span class="sb-item-count" id="cnt-airlines">—</span>
+    </button>
+    <button class="sb-item" onclick="showTab('noshow')" id="sb-noshow">
+      <span class="sb-item-icon">⏰</span> قواعد النو شو
+      <span class="sb-item-count" id="cnt-noshow">—</span>
+    </button>
+    <button class="sb-item" onclick="showTab('saudi')" id="sb-saudi">
+      <span class="sb-item-icon">🇸🇦</span> المطارات السعودية
+      <span class="sb-item-count" id="cnt-saudi">—</span>
+    </button>
+
+    <div class="sidebar-section">الأدوات</div>
+    <button class="sb-item" onclick="showTab('export')" id="sb-export">
+      <span class="sb-item-icon">💾</span> تصدير البيانات
+    </button>
+    <button class="sb-item" onclick="showTab('import')" id="sb-import">
+      <span class="sb-item-icon">📂</span> استيراد ملف JSON
+    </button>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="mainArea">
+    <!-- filled by JS -->
+  </main>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <div class="modal-hdr">
+      <div>
+        <div class="modal-title" id="modalTitle">—</div>
+        <div class="modal-sub" id="modalSub">—</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"><!-- filled by JS --></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">إلغاء</button>
+      <button class="btn btn-primary" id="modalSave" onclick="saveModal()">💾 حفظ</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ══ STATE ══
+let DB = null;          // the full flight_data object
+let fileHandle = null;  // the File System API handle
+let _modalMode = null;  // 'add-airport' | 'edit-airport' | 'add-airline' | etc.
+let _modalKey  = null;  // the key being edited
+let _currentTab = 'overview';
+
+// Pagination
+const PAGE_SIZE = 20;
+let _airportPage = 1;
+let _airlinePage = 1;
+let _noshowPage  = 1;
+let _airportQ = '', _airportFilter = '';
+let _airlineQ = '', _airlineFilter = '';
+let _noshowQ  = '';
+
+// ══ INIT ══
+window.addEventListener('DOMContentLoaded', () => {
+  // Try to load from localStorage first (previous session edits)
+  const saved = localStorage.getItem('admin_flight_data');
+  if (saved) {
+    try {
+      DB = JSON.parse(saved);
+      toast('✅ تم تحميل البيانات المحفوظة (Local Storage)', 'success');
+    } catch(e) { DB = getDefaultDB(); }
+  } else {
+    DB = getDefaultDB();
+  }
+  refreshCounts();
+  showTab('overview');
+});
+
+function getDefaultDB() {
+  // Minimal structure — user should import their flight_data.json
+  return {
+    airports: {},
+    airlines: {},
+    cityToIATA: {},
+    saudiAirports: [],
+    noShowRules: {},
+    version: '2.1.0',
+    lastUpdated: new Date().toISOString().slice(0,10),
+    description: 'World airports and airlines database for Al-Mosafer LCC Amendment Tool'
+  };
+}
+
+// ══ FILE SYSTEM API ══
+async function connectLocalFile() {
+  try {
+    const [handle] = await window.showOpenFilePicker({
+      types: [{ description: 'JSON Files', accept: {'application/json': ['.json']} }]
+    });
+    fileHandle = handle;
+    const file = await fileHandle.getFile();
+    const text = await file.text();
+    DB = JSON.parse(text);
+    
+    saveDB();
+    refreshCounts();
+    showTab('overview');
+    
+    const badge = document.getElementById('connBadge');
+    badge.innerHTML = 'متصل بالملف 🟢';
+    badge.style.background = 'var(--emerald-x)';
+    badge.style.color = 'var(--emerald)';
+    badge.style.borderColor = 'var(--emerald-b)';
+    document.getElementById('connectBtn').style.display = 'none';
+    
+    toast('✅ تم الربط بنجاح! التعديلات ستُحفظ في الملف مباشرة', 'success');
+  } catch (err) {
+    if (err.name !== 'AbortError') {
+      console.error(err);
+      toast('❌ متصفحك لا يدعم هذه الميزة، أو تم الإلغاء', 'error');
+    }
+  }
+}
+
+async function saveDB() {
+  DB.lastUpdated = new Date().toISOString().slice(0,10);
+  localStorage.setItem('admin_flight_data', JSON.stringify(DB));
+  
+  if (fileHandle) {
+    try {
+      const writable = await fileHandle.createWritable();
+      await writable.write(JSON.stringify(DB, null, 2));
+      await writable.close();
+    } catch (err) {
+      console.error(err);
+      toast('⚠️ تعذر الحفظ في الملف المباشر (تأكد من الصلاحيات)', 'error');
+    }
+  }
+}
+
+function refreshCounts() {
+  document.getElementById('cnt-airports').textContent = Object.keys(DB.airports||{}).length;
+  document.getElementById('cnt-airlines').textContent = Object.keys(DB.airlines||{}).length;
+  document.getElementById('cnt-noshow').textContent   = Object.keys(DB.noShowRules||{}).length;
+  document.getElementById('cnt-saudi').textContent    = (DB.saudiAirports||[]).length;
+  document.getElementById('dataVersion').textContent  = 'v' + (DB.version||'—');
+}
+
+// ══ TAB ROUTING ══
+function showTab(tab) {
+  _currentTab = tab;
+  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('sb-' + tab);
+  if (el) el.classList.add('active');
+
+  const main = document.getElementById('mainArea');
+  if      (tab === 'overview')  main.innerHTML = renderOverview();
+  else if (tab === 'airports')  { main.innerHTML = renderAirportsTab(); bindSearch('airportSearch','airportFilter',tab); }
+  else if (tab === 'airlines')  { main.innerHTML = renderAirlinesTab(); bindSearch('airlineSearch','airlineFilter',tab); }
+  else if (tab === 'noshow')    { main.innerHTML = renderNoShowTab(); bindSearch('noshowSearch',null,tab); }
+  else if (tab === 'saudi')     main.innerHTML = renderSaudiTab();
+  else if (tab === 'export')    main.innerHTML = renderExportTab();
+  else if (tab === 'import')    main.innerHTML = renderImportTab();
+}
+
+function bindSearch(searchId, filterId, tab) {
+  const s = document.getElementById(searchId);
+  const f = filterId ? document.getElementById(filterId) : null;
+  if (s) s.addEventListener('input', () => {
+    if (tab==='airports') { _airportQ=s.value; _airportPage=1; document.getElementById('mainArea').innerHTML=renderAirportsTab(); bindSearch(searchId,filterId,tab); }
+    if (tab==='airlines') { _airlineQ=s.value; _airlinePage=1; document.getElementById('mainArea').innerHTML=renderAirlinesTab(); bindSearch(searchId,filterId,tab); }
+    if (tab==='noshow')   { _noshowQ=s.value;  _noshowPage=1;  document.getElementById('mainArea').innerHTML=renderNoShowTab(); bindSearch(searchId,null,tab); }
+  });
+  if (f) f.addEventListener('change', () => {
+    if (tab==='airports') { _airportFilter=f.value; _airportPage=1; document.getElementById('mainArea').innerHTML=renderAirportsTab(); bindSearch(searchId,filterId,tab); }
+    if (tab==='airlines') { _airlineFilter=f.value; _airlinePage=1; document.getElementById('mainArea').innerHTML=renderAirlinesTab(); bindSearch(searchId,filterId,tab); }
+  });
+}
+
+// ══ OVERVIEW ══
+function renderOverview() {
+  const ap = Object.keys(DB.airports||{}).length;
+  const al = Object.keys(DB.airlines||{}).length;
+  const ns = Object.keys(DB.noShowRules||{}).length;
+  const sa = (DB.saudiAirports||[]).length;
+
+  // Country distribution
+  const countries = {};
+  Object.values(DB.airports||{}).forEach(a => {
+    countries[a.country] = (countries[a.country]||0)+1;
+  });
+  const topC = Object.entries(countries).sort((a,b)=>b[1]-a[1]).slice(0,6);
+
+  const airlineTypes = { full:0, lcc:0, other:0 };
+  Object.values(DB.airlines||{}).forEach(a => {
+    if (a.type==='full') airlineTypes.full++;
+    else if (a.type==='lcc') airlineTypes.lcc++;
+    else airlineTypes.other++;
+  });
+
+  return `
+  <div class="page-header">
+    <div>
+      <div class="page-title">📊 نظرة عامة</div>
+      <div class="page-sub">ملخص البيانات المحفوظة — آخر تحديث: ${DB.lastUpdated||'—'}</div>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat-card green">
+      <div class="stat-card-val">${ap}</div>
+      <div class="stat-card-lbl">🏛️ مطار مسجّل</div>
+    </div>
+    <div class="stat-card sky">
+      <div class="stat-card-val">${al}</div>
+      <div class="stat-card-lbl">✈️ شركة طيران</div>
+    </div>
+    <div class="stat-card amber">
+      <div class="stat-card-val">${ns}</div>
+      <div class="stat-card-lbl">⏰ قاعدة نو شو</div>
+    </div>
+    <div class="stat-card purple">
+      <div class="stat-card-val">${sa}</div>
+      <div class="stat-card-lbl">🇸🇦 مطار سعودي</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex-wrap:wrap;">
+    <div class="table-card" style="padding:18px;">
+      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:12px;">🌍 توزيع المطارات بالدول</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        ${topC.map(([c,n])=>{
+          const pct=Math.round(n/ap*100);
+          return `<div style="display:flex;align-items:center;gap:8px;">
+            <span style="width:30px;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--emerald);">${c}</span>
+            <div style="flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;">
+              <div style="height:100%;width:${pct}%;background:var(--emerald);border-radius:3px;transition:.5s;"></div>
+            </div>
+            <span style="font-size:10px;color:var(--muted);min-width:30px;text-align:left;">${n}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <div class="table-card" style="padding:18px;">
+      <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:12px;">✈️ نوع شركات الطيران</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span class="type-badge type-full">Full Service</span>
+          <span style="font-size:20px;font-weight:700;font-family:var(--mono);color:var(--sky);">${airlineTypes.full}</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span class="type-badge type-lcc">LCC</span>
+          <span style="font-size:20px;font-weight:700;font-family:var(--mono);color:var(--purple);">${airlineTypes.lcc}</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span class="type-badge" style="background:rgba(148,163,184,0.1);color:var(--muted);border:1px solid var(--border-s);">Other</span>
+          <span style="font-size:20px;font-weight:700;font-family:var(--mono);color:var(--muted);">${airlineTypes.other}</span>
+        </div>
+      </div>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);">
+        <div style="font-size:10px;color:var(--faint);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em;">إجراءات سريعة</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn btn-primary btn-sm" onclick="showTab('airports')">+ مطار</button>
+          <button class="btn btn-ghost btn-sm" onclick="showTab('airlines')">+ شركة</button>
+          <button class="btn btn-amber btn-sm" onclick="showTab('noshow')">+ نو شو</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══ AIRPORTS TAB ══
+function renderAirportsTab() {
+  const all = Object.entries(DB.airports||{});
+  const q = _airportQ.toLowerCase();
+  const filtered = all.filter(([code,a]) => {
+    const match = !q || code.toLowerCase().includes(q) || (a.en||'').toLowerCase().includes(q) || (a.ar||'').includes(q) || (a.country||'').toLowerCase().includes(q);
+    const fc = !_airportFilter || a.country === _airportFilter;
+    return match && fc;
+  });
+  const total = filtered.length;
+  const pages = Math.ceil(total/PAGE_SIZE) || 1;
+  _airportPage = Math.min(_airportPage, pages);
+  const slice = filtered.slice((_airportPage-1)*PAGE_SIZE, _airportPage*PAGE_SIZE);
+
+  // Countries for filter
+  const countries = [...new Set(all.map(([,a])=>a.country).filter(Boolean))].sort();
+
+  return `
+  <div class="page-header">
+    <div>
+      <div class="page-title">🏛️ المطارات</div>
+      <div class="page-sub">${total} مطار${q||_airportFilter?' (مفلتر)':''} من أصل ${all.length}</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" onclick="openAddAirport()">+ إضافة مطار</button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="airportSearch" class="search-inp" placeholder="ابحث بالكود، الاسم، الدولة..." value="${_airportQ}">
+    </div>
+    <select id="airportFilter" class="filter-select">
+      <option value="">كل الدول</option>
+      ${countries.map(c=>`<option value="${c}" ${_airportFilter===c?'selected':''}>${c}</option>`).join('')}
+    </select>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>الكود IATA</th>
+            <th>الاسم عربي</th>
+            <th>الاسم إنجليزي</th>
+            <th>المدينة AR</th>
+            <th>المدينة EN</th>
+            <th>الدولة</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${slice.length ? slice.map(([code,a])=>`
+          <tr>
+            <td><span class="code-badge">${code}</span></td>
+            <td>${a.ar||'—'}</td>
+            <td>${a.en||'—'}</td>
+            <td>${a.city_ar||'—'}</td>
+            <td>${a.city_en||'—'}</td>
+            <td><span class="type-badge" style="background:rgba(148,163,184,0.08);color:var(--muted);border:1px solid var(--border);">${a.country||'—'}</span></td>
+            <td>
+              <div class="action-btns">
+                <button class="btn btn-ghost btn-sm" onclick="openEditAirport('${code}')">✏️ تعديل</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteAirport('${code}')">🗑</button>
+              </div>
+            </td>
+          </tr>`).join('') : `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">لا توجد نتائج</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      <span>${(_airportPage-1)*PAGE_SIZE+1}–${Math.min(_airportPage*PAGE_SIZE,total)} من ${total}</span>
+      <div class="pagination">
+        ${renderPager(pages, _airportPage, 'setAirportPage')}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══ AIRLINES TAB ══
+function renderAirlinesTab() {
+  const all = Object.entries(DB.airlines||{});
+  const q = _airlineQ.toLowerCase();
+  const filtered = all.filter(([code,a]) => {
+    const match = !q || code.toLowerCase().includes(q) || (a.en||'').toLowerCase().includes(q) || (a.ar||'').includes(q);
+    const ft = !_airlineFilter || a.type === _airlineFilter;
+    return match && ft;
+  });
+  const total = filtered.length;
+  const pages = Math.ceil(total/PAGE_SIZE) || 1;
+  _airlinePage = Math.min(_airlinePage, pages);
+  const slice = filtered.slice((_airlinePage-1)*PAGE_SIZE, _airlinePage*PAGE_SIZE);
+
+  return `
+  <div class="page-header">
+    <div>
+      <div class="page-title">✈️ شركات الطيران</div>
+      <div class="page-sub">${total} شركة${q||_airlineFilter?' (مفلتر)':''} من أصل ${all.length}</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" onclick="openAddAirline()">+ إضافة شركة</button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="airlineSearch" class="search-inp" placeholder="ابحث بالكود أو الاسم..." value="${_airlineQ}">
+    </div>
+    <select id="airlineFilter" class="filter-select">
+      <option value="">كل الأنواع</option>
+      <option value="full" ${_airlineFilter==='full'?'selected':''}>Full Service</option>
+      <option value="lcc" ${_airlineFilter==='lcc'?'selected':''}>LCC</option>
+    </select>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>الكود IATA</th>
+            <th>الاسم عربي</th>
+            <th>الاسم إنجليزي</th>
+            <th>الدولة</th>
+            <th>النوع</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${slice.length ? slice.map(([code,a])=>`
+          <tr>
+            <td><span class="code-badge">${code}</span></td>
+            <td>${a.ar||'—'}</td>
+            <td>${a.en||'—'}</td>
+            <td><span class="type-badge" style="background:rgba(148,163,184,0.08);color:var(--muted);border:1px solid var(--border);">${a.country||'—'}</span></td>
+            <td>${a.type==='full'?'<span class="type-badge type-full">Full</span>':a.type==='lcc'?'<span class="type-badge type-lcc">LCC</span>':'<span class="type-badge" style="background:rgba(148,163,184,0.08);color:var(--muted);border:1px solid var(--border);">—</span>'}</td>
+            <td>
+              <div class="action-btns">
+                <button class="btn btn-ghost btn-sm" onclick="openEditAirline('${code}')">✏️ تعديل</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteAirline('${code}')">🗑</button>
+              </div>
+            </td>
+          </tr>`).join('') : `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">لا توجد نتائج</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      <span>${(_airlinePage-1)*PAGE_SIZE+1}–${Math.min(_airlinePage*PAGE_SIZE,total)} من ${total}</span>
+      <div class="pagination">
+        ${renderPager(pages, _airlinePage, 'setAirlinePage')}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══ NO-SHOW TAB ══
+function renderNoShowTab() {
+  const all = Object.entries(DB.noShowRules||{});
+  const q = _noshowQ.toLowerCase();
+  const filtered = all.filter(([code,rule]) =>
+    !q || code.toLowerCase().includes(q) || rule.toLowerCase().includes(q) ||
+    (DB.airlines?.[code]?.en||'').toLowerCase().includes(q)
+  );
+  const total = filtered.length;
+  const pages = Math.ceil(total/PAGE_SIZE) || 1;
+  _noshowPage = Math.min(_noshowPage, pages);
+  const slice = filtered.slice((_noshowPage-1)*PAGE_SIZE, _noshowPage*PAGE_SIZE);
+
+  return `
+  <div class="page-header">
+    <div>
+      <div class="page-title">⏰ قواعد النو شو</div>
+      <div class="page-sub">${total} قاعدة${q?' (مفلتر)':''} من أصل ${all.length}</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" onclick="openAddNoShow()">+ إضافة قاعدة</button>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input id="noshowSearch" class="search-inp" placeholder="ابحث بكود الشركة أو القاعدة..." value="${_noshowQ}">
+    </div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>كود الشركة</th>
+            <th>اسم الشركة</th>
+            <th>قاعدة النو شو</th>
+            <th>إجراءات</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${slice.length ? slice.map(([code,rule])=>{
+            const airline = DB.airlines?.[code] || {};
+            return `<tr>
+              <td><span class="code-badge">${code}</span></td>
+              <td>${airline.ar||airline.en||'—'}</td>
+              <td><div class="noshow-rule">${rule}</div></td>
+              <td>
+                <div class="action-btns">
+                  <button class="btn btn-ghost btn-sm" onclick="openEditNoShow('${code}')">✏️ تعديل</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteNoShow('${code}')">🗑</button>
+                </div>
+              </td>
+            </tr>`;
+          }).join('') : `<tr><td colspan="4"><div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-title">لا توجد نتائج</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+    <div class="table-footer">
+      <span>${(_noshowPage-1)*PAGE_SIZE+1}–${Math.min(_noshowPage*PAGE_SIZE,total)} من ${total}</span>
+      <div class="pagination">
+        ${renderPager(pages, _noshowPage, 'setNoShowPage')}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══ SAUDI AIRPORTS TAB ══
+function renderSaudiTab() {
+  const list = DB.saudiAirports || [];
+  return `
+  <div class="page-header">
+    <div>
+      <div class="page-title">🇸🇦 المطارات السعودية</div>
+      <div class="page-sub">قائمة المطارات المحلية — ${list.length} مطار</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-primary" onclick="openAddSaudi()">+ إضافة كود</button>
+    </div>
+  </div>
+  <div class="table-card">
+    <div style="padding:16px;display:flex;flex-wrap:wrap;gap:8px;">
+      ${list.map(code=>{
+        const a = DB.airports?.[code]||{};
+        return `<div style="display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border-s);border-radius:9px;padding:7px 12px;">
+          <span class="code-badge">${code}</span>
+          <span style="font-size:11px;color:var(--muted);">${a.ar||a.en||''}</span>
+          <button class="btn btn-danger btn-sm" style="padding:2px 7px;" onclick="deleteSaudi('${code}')">✕</button>
+        </div>`;
+      }).join('')}
+      ${list.length===0?'<div class="empty-state" style="width:100%;"><div class="empty-icon">🇸🇦</div><div class="empty-title">القائمة فارغة</div></div>':''}
+    </div>
+  </div>`;
+}
+
+// ══ EXPORT TAB ══
+function renderExportTab() {
+  return `
+  <div class="page-header">
+    <div>
+      <div class="page-title">💾 تصدير البيانات</div>
+      <div class="page-sub">إذا لم تكن متصلاً بالملف مباشرة، يمكنك تحميل التعديلات من هنا</div>
+    </div>
+  </div>
+  <div class="export-card">
+    <div class="export-title">📦 تصدير flight_data.json</div>
+    <div class="export-sub">
+      قم بتنزيل الملف المحدّث واستبدل <strong>flight_data.json</strong> الموجود في نفس المجلد.
+    </div>
+    <div class="export-actions">
+      <button class="btn btn-primary" onclick="downloadJSON()">⬇️ تنزيل flight_data.json</button>
+      <button class="btn btn-ghost" onclick="copyJSON()">📋 نسخ للـ Clipboard</button>
+      <button class="btn btn-ghost" onclick="previewJSON()">👁 معاينة</button>
+    </div>
+    <pre class="json-preview" id="jsonPreview"></pre>
+  </div>`;
+}
+
+// ══ IMPORT TAB ══
+function renderImportTab() {
+  return `
+  <div class="page-header">
+    <div>
+      <div class="page-title">📂 استيراد ملف JSON</div>
+      <div class="page-sub">استيراد ملف flight_data.json لتحميل البيانات وتحريرها</div>
+    </div>
+  </div>
+  <div class="export-card">
+    <div class="export-title">📂 رفع ملف flight_data.json</div>
+    <div class="export-sub">اختر ملف JSON من جهازك لتحميل البيانات. سيتم استبدال البيانات الحالية مؤقتاً.</div>
+    <div style="margin-top:12px;">
+      <label style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:var(--bg3);border:1.5px dashed var(--border-s);border-radius:10px;cursor:pointer;color:var(--muted);font-size:12px;transition:.15s;"
+        onmouseover="this.style.borderColor='var(--emerald)'" onmouseout="this.style.borderColor='var(--border-s)'">
+        📁 اختر ملف JSON
+        <input type="file" accept=".json" style="display:none" onchange="importJSON(event)">
+      </label>
+    </div>
+    <div id="importStatus" style="margin-top:12px;font-size:12px;color:var(--muted);"></div>
+  </div>`;
+}
+
+// ══ PAGER ══
+function renderPager(pages, current, fn) {
+  if (pages <= 1) return '';
+  let btns = '';
+  const show = (i) => `<button class="page-btn ${i===current?'active':''}" onclick="${fn}(${i})">${i}</button>`;
+  if (pages <= 7) {
+    for (let i=1;i<=pages;i++) btns+=show(i);
+  } else {
+    btns += show(1);
+    if (current > 3) btns += '<span style="color:var(--faint);padding:0 4px;">…</span>';
+    for (let i=Math.max(2,current-1);i<=Math.min(pages-1,current+1);i++) btns+=show(i);
+    if (current < pages-2) btns += '<span style="color:var(--faint);padding:0 4px;">…</span>';
+    btns += show(pages);
+  }
+  return btns;
+}
+
+function setAirportPage(p) { _airportPage=p; showTab('airports'); }
+function setAirlinePage(p) { _airlinePage=p; showTab('airlines'); }
+function setNoShowPage(p)  { _noshowPage=p;  showTab('noshow'); }
+
+// ══ MODALS — AIRPORTS ══
+function openAddAirport() {
+  _modalMode = 'add-airport'; _modalKey = null;
+  document.getElementById('modalTitle').textContent = '➕ إضافة مطار جديد';
+  document.getElementById('modalSub').textContent = 'أدخل بيانات المطار';
+  document.getElementById('modalBody').innerHTML = airportForm({});
+  document.getElementById('modal').classList.add('open');
+}
+function openEditAirport(code) {
+  _modalMode = 'edit-airport'; _modalKey = code;
+  const a = DB.airports[code] || {};
+  document.getElementById('modalTitle').textContent = `✏️ تعديل مطار — ${code}`;
+  document.getElementById('modalSub').textContent = a.en || '';
+  document.getElementById('modalBody').innerHTML = airportForm(a, code);
+  document.getElementById('modal').classList.add('open');
+}
+function airportForm(a, code) {
+  return `
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">كود IATA *</label>
+      <input id="f_code" class="form-inp mono" placeholder="RUH" maxlength="3" value="${code||''}" ${code?'readonly':''}>
+    </div>
+    <div class="form-group">
+      <label class="form-label">الدولة (كود) *</label>
+      <input id="f_country" class="form-inp mono" placeholder="SA" maxlength="2" value="${a.country||''}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">الاسم عربي *</label>
+      <input id="f_ar" class="form-inp" placeholder="الرياض" value="${a.ar||''}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">الاسم إنجليزي *</label>
+      <input id="f_en" class="form-inp" placeholder="Riyadh" value="${a.en||''}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">المدينة عربي</label>
+      <input id="f_city_ar" class="form-inp" placeholder="الرياض" value="${a.city_ar||''}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">المدينة إنجليزي</label>
+      <input id="f_city_en" class="form-inp" placeholder="Riyadh" value="${a.city_en||''}">
+    </div>
+  </div>`;
+}
+
+// ══ MODALS — AIRLINES ══
+function openAddAirline() {
+  _modalMode = 'add-airline'; _modalKey = null;
+  document.getElementById('modalTitle').textContent = '➕ إضافة شركة طيران';
+  document.getElementById('modalSub').textContent = 'أدخل بيانات الشركة';
+  document.getElementById('modalBody').innerHTML = airlineForm({});
+  document.getElementById('modal').classList.add('open');
+}
+function openEditAirline(code) {
+  _modalMode = 'edit-airline'; _modalKey = code;
+  const a = DB.airlines[code] || {};
+  document.getElementById('modalTitle').textContent = `✏️ تعديل شركة — ${code}`;
+  document.getElementById('modalSub').textContent = a.en || '';
+  document.getElementById('modalBody').innerHTML = airlineForm(a, code);
+  document.getElementById('modal').classList.add('open');
+}
+function airlineForm(a, code) {
+  return `
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">كود IATA *</label>
+      <input id="f_code" class="form-inp mono" placeholder="SV" maxlength="3" value="${code||''}" ${code?'readonly':''}>
+    </div>
+    <div class="form-group">
+      <label class="form-label">الدولة (كود)</label>
+      <input id="f_country" class="form-inp mono" placeholder="SA" maxlength="2" value="${a.country||''}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">الاسم عربي *</label>
+      <input id="f_ar" class="form-inp" placeholder="الخطوط السعودية" value="${a.ar||''}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">الاسم إنجليزي *</label>
+      <input id="f_en" class="form-inp" placeholder="Saudia" value="${a.en||''}">
+    </div>
+    <div class="form-group full">
+      <label class="form-label">النوع</label>
+      <select id="f_type" class="form-select">
+        <option value="full" ${a.type==='full'?'selected':''}>Full Service</option>
+        <option value="lcc"  ${a.type==='lcc'?'selected':''}>LCC (Low Cost)</option>
+      </select>
+    </div>
+  </div>`;
+}
+
+// ══ MODALS — NO-SHOW ══
+function openAddNoShow() {
+  _modalMode = 'add-noshow'; _modalKey = null;
+  document.getElementById('modalTitle').textContent = '➕ إضافة قاعدة نو شو';
+  document.getElementById('modalSub').textContent = 'أدخل الكود والقاعدة';
+  document.getElementById('modalBody').innerHTML = noshowForm('', '');
+  document.getElementById('modal').classList.add('open');
+}
+function openEditNoShow(code) {
+  _modalMode = 'edit-noshow'; _modalKey = code;
+  const rule = DB.noShowRules[code] || '';
+  document.getElementById('modalTitle').textContent = `✏️ تعديل نو شو — ${code}`;
+  document.getElementById('modalSub').textContent = DB.airlines?.[code]?.en || '';
+  document.getElementById('modalBody').innerHTML = noshowForm(code, rule);
+  document.getElementById('modal').classList.add('open');
+}
+function noshowForm(code, rule) {
+  return `
+  <div class="form-row">
+    <div class="form-group">
+      <label class="form-label">كود الشركة *</label>
+      <input id="f_code" class="form-inp mono" placeholder="EK" maxlength="3" value="${code}" ${code?'readonly':''}>
+    </div>
+    <div class="form-group full">
+      <label class="form-label">قاعدة النو شو *</label>
+      <input id="f_rule" class="form-inp" placeholder="مثال: 24 أو Check Rules أو 4 for Economy / 18 for Business" value="${rule}">
+    </div>
+  </div>
+  <div style="background:var(--bg3);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.7;">
+    <strong style="color:var(--amber);">أمثلة على القيم:</strong><br>
+    <code style="font-family:var(--mono);">24</code> — 24 ساعة<br>
+    <code style="font-family:var(--mono);">Departure time</code> — وقت الإقلاع<br>
+    <code style="font-family:var(--mono);">4 for Economy / 18 for Business</code> — حسب الدرجة<br>
+    <code style="font-family:var(--mono);">Check Rules</code> — راجع القواعد
+  </div>`;
+}
+
+// ══ MODALS — SAUDI ══
+function openAddSaudi() {
+  _modalMode = 'add-saudi'; _modalKey = null;
+  document.getElementById('modalTitle').textContent = '➕ إضافة مطار سعودي';
+  document.getElementById('modalSub').textContent = 'أدخل كود IATA للمطار';
+  document.getElementById('modalBody').innerHTML = `
+  <div class="form-group">
+    <label class="form-label">كود IATA *</label>
+    <input id="f_code" class="form-inp mono" placeholder="RUH" maxlength="3">
+  </div>`;
+  document.getElementById('modal').classList.add('open');
+}
+
+// ══ SAVE MODAL ══
+function saveModal() {
+  if (_modalMode === 'add-airport' || _modalMode === 'edit-airport') {
+    const code = (document.getElementById('f_code').value||'').trim().toUpperCase();
+    const ar   = document.getElementById('f_ar').value.trim();
+    const en   = document.getElementById('f_en').value.trim();
+    const country = (document.getElementById('f_country').value||'').trim().toUpperCase();
+    const city_ar = document.getElementById('f_city_ar').value.trim();
+    const city_en = document.getElementById('f_city_en').value.trim();
+    if (!code || !ar || !en) { toast('⚠️ الكود والاسمان مطلوبان', 'error'); return; }
+    DB.airports[code] = { ar, en, city_ar: city_ar||ar, city_en: city_en||en, country };
+    saveDB(); refreshCounts(); closeModal(); toast(`✅ تم حفظ مطار ${code}`, 'success');
+    showTab('airports');
+
+  } else if (_modalMode === 'add-airline' || _modalMode === 'edit-airline') {
+    const code = (document.getElementById('f_code').value||'').trim().toUpperCase();
+    const ar   = document.getElementById('f_ar').value.trim();
+    const en   = document.getElementById('f_en').value.trim();
+    const country = (document.getElementById('f_country').value||'').trim().toUpperCase();
+    const type = document.getElementById('f_type').value;
+    if (!code || !ar || !en) { toast('⚠️ الكود والاسمان مطلوبان', 'error'); return; }
+    DB.airlines[code] = { ar, en, country, type };
+    saveDB(); refreshCounts(); closeModal(); toast(`✅ تم حفظ شركة ${code}`, 'success');
+    showTab('airlines');
+
+  } else if (_modalMode === 'add-noshow' || _modalMode === 'edit-noshow') {
+    const code = (document.getElementById('f_code').value||'').trim().toUpperCase();
+    const rule = document.getElementById('f_rule').value.trim();
+    if (!code || !rule) { toast('⚠️ الكود والقاعدة مطلوبان', 'error'); return; }
+    DB.noShowRules[code] = rule;
+    saveDB(); refreshCounts(); closeModal(); toast(`✅ تم حفظ نو شو ${code}`, 'success');
+    showTab('noshow');
+
+  } else if (_modalMode === 'add-saudi') {
+    const code = (document.getElementById('f_code').value||'').trim().toUpperCase();
+    if (!code) { toast('⚠️ أدخل الكود', 'error'); return; }
+    if (!DB.saudiAirports) DB.saudiAirports = [];
+    if (!DB.saudiAirports.includes(code)) {
+      DB.saudiAirports.push(code);
+      saveDB(); refreshCounts(); closeModal(); toast(`✅ تمت الإضافة: ${code}`, 'success');
+      showTab('saudi');
+    } else { toast('⚠️ الكود موجود مسبقاً', 'error'); }
+  }
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  _modalMode = null; _modalKey = null;
+}
+
+// ══ DELETE FUNCTIONS ══
+function deleteAirport(code) {
+  if (!confirm(`حذف مطار ${code}؟`)) return;
+  delete DB.airports[code];
+  saveDB(); refreshCounts(); toast(`🗑 تم حذف ${code}`, 'success');
+  showTab('airports');
+}
+function deleteAirline(code) {
+  if (!confirm(`حذف شركة ${code}؟`)) return;
+  delete DB.airlines[code];
+  saveDB(); refreshCounts(); toast(`🗑 تم حذف ${code}`, 'success');
+  showTab('airlines');
+}
+function deleteNoShow(code) {
+  if (!confirm(`حذف قاعدة نو شو لـ ${code}؟`)) return;
+  delete DB.noShowRules[code];
+  saveDB(); refreshCounts(); toast(`🗑 تم حذف ${code}`, 'success');
+  showTab('noshow');
+}
+function deleteSaudi(code) {
+  if (!confirm(`إزالة ${code} من قائمة المطارات السعودية؟`)) return;
+  DB.saudiAirports = (DB.saudiAirports||[]).filter(c=>c!==code);
+  saveDB(); refreshCounts(); toast(`🗑 تم حذف ${code}`, 'success');
+  showTab('saudi');
+}
+
+// ══ EXPORT ══
+function getExportJSON() {
+  DB.lastUpdated = new Date().toISOString().slice(0,10);
+  return JSON.stringify(DB, null, 2);
+}
+function downloadJSON() {
+  const blob = new Blob([getExportJSON()], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'flight_data.json';
+  a.click();
+  toast('✅ تم تنزيل flight_data.json', 'success');
+}
+function copyJSON() {
+  navigator.clipboard.writeText(getExportJSON()).then(()=>toast('✅ تم النسخ', 'success'));
+}
+function previewJSON() {
+  const pre = document.getElementById('jsonPreview');
+  if (pre.style.display==='block') { pre.style.display='none'; return; }
+  pre.textContent = getExportJSON().slice(0, 3000) + '\n... (مقتطع)';
+  pre.style.display = 'block';
+}
+
+// ══ IMPORT ══
+function importJSON(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!data.airports || !data.airlines) throw new Error('بنية JSON غير صحيحة');
+      DB = data;
+      saveDB(); refreshCounts();
+      document.getElementById('importStatus').innerHTML =
+        `<span style="color:var(--emerald);">✅ تم الاستيراد بنجاح — ${Object.keys(data.airports).length} مطار، ${Object.keys(data.airlines).length} شركة</span>`;
+      toast('✅ تم الاستيراد بنجاح', 'success');
+      setTimeout(()=>showTab('overview'), 1000);
+    } catch(err) {
+      document.getElementById('importStatus').innerHTML =
+        `<span style="color:var(--red);">❌ خطأ في الملف: ${err.message}</span>`;
+      toast('❌ خطأ في الاستيراد', 'error');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ══ TOAST ══
+function toast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `show ${type}`;
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.className='', 2500);
+}
+
+// Close modal on overlay click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+</script>
+</body>
+</html>
