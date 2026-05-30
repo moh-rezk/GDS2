@@ -80,9 +80,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 /* TABLE */
 .tcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .twrap{overflow-x:auto;}
-table{width:100%;border-collapse:collapse;}
+table{width:100%;border-collapse:collapse;table-layout:auto;}
 th{background:var(--bg3);padding:9px 13px;text-align:right;font-size:10px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.07em;white-space:nowrap;border-bottom:1px solid var(--border);}
-td{padding:9px 13px;font-size:12px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+td{padding:9px 13px;font-size:12px;color:var(--text);border-bottom:1px solid var(--border);vertical-align:middle;white-space:normal;word-break:break-word;direction:rtl;unicode-bidi:embed;}
+td.mono-cell{font-family:var(--mono);white-space:nowrap;direction:ltr;unicode-bidi:embed;width:70px;}
+td.en-cell{direction:ltr;text-align:left;unicode-bidi:embed;}
+td.actions-cell{white-space:nowrap;width:90px;direction:ltr;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:rgba(255,255,255,.02);}
 .code-b{font-family:var(--mono);font-size:11px;font-weight:700;background:var(--bg3);border:1px solid var(--border-s);padding:2px 7px;border-radius:5px;color:var(--em);letter-spacing:.04em;}
@@ -254,6 +257,28 @@ function saveCfg() {
 }
 
 // ══════════════════════════════════════════════
+// UTF-8 SAFE BASE64 HELPERS
+// ══════════════════════════════════════════════
+function b64DecodeUtf8(str) {
+  // فك Base64 مع دعم كامل لـ UTF-8 والعربية
+  return decodeURIComponent(
+    atob(str.replace(/\n/g, ''))
+      .split('')
+      .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+      .join('')
+  );
+}
+
+function b64EncodeUtf8(str) {
+  // تشفير Base64 مع دعم كامل لـ UTF-8 والعربية
+  return btoa(
+    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+      String.fromCharCode(parseInt(p1, 16))
+    )
+  );
+}
+
+// ══════════════════════════════════════════════
 // GITHUB API
 // ══════════════════════════════════════════════
 function ghHeaders() {
@@ -273,7 +298,7 @@ async function loadFromGitHub() {
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
     const json = await res.json();
     fileSHA = json.sha;
-    const decoded = atob(json.content.replace(/\n/g, ''));
+    const decoded = b64DecodeUtf8(json.content);
     DB = JSON.parse(decoded);
     updateStatusUI(true);
     refreshCounts();
@@ -293,7 +318,7 @@ async function pushToGitHub() {
   showSaveBar('loading', 'جاري الحفظ في GitHub...');
   try {
     DB.lastUpdated = new Date().toISOString().slice(0, 10);
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(DB, null, 2))));
+    const content = b64EncodeUtf8(JSON.stringify(DB, null, 2));
     const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${REPO_PATH}`;
     const body = {
       message: `Admin: update flight_data.json [${new Date().toISOString().slice(0,16)}]`,
