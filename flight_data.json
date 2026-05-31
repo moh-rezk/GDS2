@@ -3100,7 +3100,7 @@
     "QR": "3",
     "AT": "24",
     "RJ": "4 for Economy / 18 for business",
-    "SV": "Departure time",
+    "SV": "3",
     "TR": "24",
     "ER": "24",
     "SQ": "24",
@@ -3124,6 +3124,6 @@
     "G8": "8"
   },
   "version": "2.1.0",
-  "lastUpdated": "2026-05-30",
+  "lastUpdated": "2026-05-31",
   "description": "World airports and airlines database for Al-Mosafer LCC Amendment Tool"
 }
