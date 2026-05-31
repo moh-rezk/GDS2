@@ -1,4 +1,3 @@
-
 {
   "version": "3.0.0",
   "lastUpdated": "2026-05-31",
@@ -2736,6 +2735,12 @@
       "en": "Fiji Airways",
       "country": "FJ",
       "type": "full"
+    },
+    "NE": {
+      "ar": "نسمه",
+      "en": "Nasma",
+      "country": "EG",
+      "type": "full"
     }
   },
   "cityToIATA": {
@@ -3774,56 +3779,56 @@
           "rt": 18.4
         },
         "N": {
-          "ow": 10.0,
-          "rt": 16.0
+          "ow": 10,
+          "rt": 16
         }
       },
       "KSA_INT": {
         "curr": "SAR",
         "N": {
-          "ow": 10.0,
-          "rt": 16.0
+          "ow": 10,
+          "rt": 16
         }
       },
       "QTR": {
         "curr": "QAR",
         "N": {
-          "ow": 10.0,
-          "rt": 16.0
+          "ow": 10,
+          "rt": 16
         }
       },
       "UAE": {
         "curr": "AED",
         "N": {
-          "ow": 10.0,
-          "rt": 16.0
+          "ow": 10,
+          "rt": 16
         }
       },
       "BHR_DOM": {
         "curr": "BHD",
         "N": {
-          "ow": 1.0,
+          "ow": 1,
           "rt": 1.6
         }
       },
       "BHR_INT": {
         "curr": "BHD",
         "N": {
-          "ow": 1.0,
+          "ow": 1,
           "rt": 1.6
         }
       },
       "OMN_DOM": {
         "curr": "OMR",
         "N": {
-          "ow": 1.0,
+          "ow": 1,
           "rt": 1.6
         }
       },
       "OMN_INT": {
         "curr": "OMR",
         "N": {
-          "ow": 1.0,
+          "ow": 1,
           "rt": 1.6
         }
       },
@@ -3847,60 +3852,60 @@
         "curr": "SAR",
         "Y": {
           "ow": 11.5,
-          "rt": 23.0
+          "rt": 23
         },
         "N": {
-          "ow": 10.0,
-          "rt": 20.0
+          "ow": 10,
+          "rt": 20
         }
       },
       "KSA_INT": {
         "curr": "SAR",
         "N": {
-          "ow": 10.0,
-          "rt": 20.0
+          "ow": 10,
+          "rt": 20
         }
       },
       "QTR": {
         "curr": "QAR",
         "N": {
-          "ow": 10.0,
-          "rt": 20.0
+          "ow": 10,
+          "rt": 20
         }
       },
       "UAE": {
         "curr": "AED",
         "N": {
-          "ow": 10.0,
-          "rt": 20.0
+          "ow": 10,
+          "rt": 20
         }
       },
       "BHR_DOM": {
         "curr": "BHD",
         "N": {
-          "ow": 1.0,
-          "rt": 2.0
+          "ow": 1,
+          "rt": 2
         }
       },
       "BHR_INT": {
         "curr": "BHD",
         "N": {
-          "ow": 1.0,
-          "rt": 2.0
+          "ow": 1,
+          "rt": 2
         }
       },
       "OMN_DOM": {
         "curr": "OMR",
         "N": {
-          "ow": 1.0,
-          "rt": 2.0
+          "ow": 1,
+          "rt": 2
         }
       },
       "OMN_INT": {
         "curr": "OMR",
         "N": {
-          "ow": 1.0,
-          "rt": 2.0
+          "ow": 1,
+          "rt": 2
         }
       },
       "KWT": {
