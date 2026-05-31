@@ -12,14 +12,12 @@
   --bg:#0b0f1a;--bg2:#111827;--bg3:#1a2234;
   --border:rgba(255,255,255,0.07);--border-s:rgba(255,255,255,0.12);
   --em:#10b981;--em-d:#059669;--em-x:rgba(16,185,129,0.1);--em-b:rgba(16,185,129,0.25);
-  --sky:#38bdf8;--amber:#fbbf24;--red:#f87171;--purple:#a78bfa;
+  --sky:#38bdf8;--amber:#fbbf24;--red:#f87171;--purple:#a78bfa;--teal:#2dd4bf;
   --text:#f1f5f9;--muted:#94a3b8;--faint:#475569;
   --r:12px;--r-s:8px;
   --mono:'IBM Plex Mono',monospace;--sans:'IBM Plex Sans Arabic',sans-serif;
 }
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
-
-/* NAV */
 .nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:54px;position:sticky;top:0;z-index:50;}
 .nav-brand{display:flex;align-items:center;gap:10px;}
 .nav-logo{width:30px;height:30px;background:var(--em);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;}
@@ -27,15 +25,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .nav-title span{color:var(--em);}
 .nav-right{display:flex;align-items:center;gap:8px;}
 .status-dot{width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block;margin-left:5px;}
-.status-dot.ok{background:var(--em);}
-.status-dot.err{background:var(--red);}
+.status-dot.ok{background:var(--em);}.status-dot.err{background:var(--red);}
 .badge{font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;border:1px solid;letter-spacing:.04em;text-transform:uppercase;}
 .badge-amber{background:rgba(251,191,36,.12);color:var(--amber);border-color:rgba(251,191,36,.3);}
 .badge-green{background:var(--em-x);color:var(--em);border-color:var(--em-b);}
 .badge-red{background:rgba(248,113,113,.12);color:var(--red);border-color:rgba(248,113,113,.3);}
-
-/* LAYOUT */
-.shell{display:grid;grid-template-columns:210px 1fr;flex:1;min-height:0;}
+.shell{display:grid;grid-template-columns:220px 1fr;flex:1;min-height:0;}
 .sidebar{background:var(--bg2);border-left:1px solid var(--border);padding:12px 8px;display:flex;flex-direction:column;gap:2px;position:sticky;top:54px;height:calc(100vh - 54px);overflow-y:auto;}
 .sb-sec{font-size:9px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:.1em;padding:10px 10px 5px;margin-top:6px;}
 .sb-sec:first-child{margin-top:0;}
@@ -44,30 +39,18 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .sb-item.active{background:var(--em-x);color:var(--em);border:1px solid var(--em-b);}
 .sb-cnt{margin-right:auto;background:rgba(255,255,255,.08);border-radius:10px;padding:1px 7px;font-size:10px;font-family:var(--mono);font-weight:600;}
 .sb-item.active .sb-cnt{background:var(--em-b);color:var(--em);}
-
 .main{padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:16px;}
-
-
-/* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 15px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:.15s;border:none;white-space:nowrap;}
-.btn-primary{background:var(--em);color:#fff;}
-.btn-primary:hover{background:var(--em-d);}
-.btn-ghost{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border-s);}
-.btn-ghost:hover{background:rgba(255,255,255,.1);color:var(--text);}
-.btn-danger{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.25);}
-.btn-danger:hover{background:rgba(248,113,113,.2);}
-.btn-amber{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.25);}
-.btn-amber:hover{background:rgba(251,191,36,.2);}
-.btn-sm{padding:5px 10px;font-size:11px;}
-.btn-xs{padding:3px 7px;font-size:10px;border-radius:6px;}
-
-/* PAGE HEADER */
+.btn-primary{background:var(--em);color:#fff;}.btn-primary:hover{background:var(--em-d);}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border-s);}.btn-ghost:hover{background:rgba(255,255,255,.1);color:var(--text);}
+.btn-danger{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.25);}.btn-danger:hover{background:rgba(248,113,113,.2);}
+.btn-amber{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.25);}.btn-amber:hover{background:rgba(251,191,36,.2);}
+.btn-teal{background:rgba(45,212,191,.12);color:var(--teal);border:1px solid rgba(45,212,191,.25);}.btn-teal:hover{background:rgba(45,212,191,.2);}
+.btn-sm{padding:5px 10px;font-size:11px;}.btn-xs{padding:3px 7px;font-size:10px;border-radius:6px;}
 .ph{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;}
 .ph-title{font-size:18px;font-weight:700;letter-spacing:-.02em;margin-bottom:2px;}
 .ph-sub{font-size:11px;color:var(--muted);}
 .ph-actions{display:flex;gap:7px;flex-wrap:wrap;}
-
-/* FILTER BAR */
 .fbar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
 .search-wrap{position:relative;flex:1;min-width:180px;}
 .search-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--faint);font-size:12px;pointer-events:none;}
@@ -76,8 +59,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
 .search-inp::placeholder{color:var(--faint);}
 .filter-sel{padding:8px 11px;background:var(--bg3);border:1px solid var(--border-s);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:12px;outline:none;cursor:pointer;}
 .filter-sel:focus{border-color:var(--em);}
-
-/* TABLE */
 .tcard{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;}
 .twrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;table-layout:auto;}
@@ -99,9 +80,7 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .page-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--border-s);background:var(--bg3);color:var(--muted);font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
 .page-btn:hover{border-color:var(--em);color:var(--em);}
 .page-btn.active{background:var(--em);color:#fff;border-color:var(--em);}
-
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;}
 .stat-val{font-size:26px;font-weight:700;font-family:var(--mono);line-height:1;margin-bottom:4px;}
 .stat-lbl{font-size:11px;color:var(--muted);}
@@ -109,11 +88,10 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .stat-card.b .stat-val{color:var(--sky);}
 .stat-card.a .stat-val{color:var(--amber);}
 .stat-card.p .stat-val{color:var(--purple);}
-
-/* MODAL */
+.stat-card.t .stat-val{color:var(--teal);}
 .modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(5px);z-index:200;align-items:center;justify-content:center;padding:20px;}
 .modal-ov.open{display:flex;}
-.modal-box{background:var(--bg2);border:1px solid var(--border-s);border-radius:15px;width:500px;max-width:100%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,.5);animation:mi .2s ease;}
+.modal-box{background:var(--bg2);border:1px solid var(--border-s);border-radius:15px;width:560px;max-width:100%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 32px 80px rgba(0,0,0,.5);animation:mi .2s ease;}
 @keyframes mi{from{opacity:0;transform:scale(.95) translateY(6px)}to{opacity:1;transform:none}}
 .modal-hdr{padding:16px 18px 13px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-shrink:0;}
 .modal-title{font-size:14px;font-weight:700;}
@@ -122,8 +100,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .modal-close:hover{background:rgba(248,113,113,.15);color:var(--red);}
 .modal-body{padding:16px 18px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:12px;}
 .modal-foot{padding:12px 18px;border-top:1px solid var(--border);display:flex;gap:7px;justify-content:flex-end;flex-shrink:0;}
-
-/* FORM */
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .fg{display:flex;flex-direction:column;gap:5px;}
 .fg.full{grid-column:1/-1;}
@@ -132,8 +108,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .fi:focus,.fs:focus{border-color:var(--em);box-shadow:0 0 0 3px var(--em-x);}
 .fi::placeholder{color:var(--faint);}
 .fi.mono{font-family:var(--mono);font-weight:600;letter-spacing:.05em;text-transform:uppercase;}
-
-/* SAVE INDICATOR */
 .save-bar{position:fixed;top:60px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--border-s);padding:8px 18px;border-radius:20px;font-size:12px;font-weight:600;z-index:300;display:flex;align-items:center;gap:8px;opacity:0;transition:opacity .25s;pointer-events:none;box-shadow:0 8px 30px rgba(0,0,0,.4);}
 .save-bar.show{opacity:1;}
 .save-bar.ok{border-color:var(--em-b);color:var(--em);}
@@ -141,28 +115,48 @@ tr:hover td{background:rgba(255,255,255,.02);}
 .save-bar.loading{border-color:var(--border-s);color:var(--amber);}
 .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.15);border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* NOSHOW RULE */
-.ns-rule{font-family:var(--mono);font-size:11px;color:var(--amber);max-width:220px;white-space:normal;line-height:1.4;}
-
-/* EMPTY */
+.ns-rule{font-family:var(--mono);font-size:11px;color:var(--amber);max-width:240px;white-space:normal;line-height:1.4;}
 .empty{text-align:center;padding:40px 16px;color:var(--faint);}
 .empty-icon{font-size:2.2rem;margin-bottom:8px;}
 .empty-title{font-size:13px;font-weight:600;color:var(--muted);margin-bottom:4px;}
-
-/* SAUDI chips */
 .sa-chip{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--border-s);border-radius:9px;padding:6px 11px;}
-
+/* Baggage tabs */
+.tab-bar{display:flex;gap:4px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:4px;width:fit-content;}
+.tab-btn{padding:6px 14px;border-radius:7px;border:none;background:none;color:var(--muted);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--sans);transition:.15s;}
+.tab-btn.active{background:var(--bg2);color:var(--teal);box-shadow:0 1px 4px rgba(0,0,0,.3);}
+.tab-btn:hover:not(.active){color:var(--text);}
+.fee-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;}
+.fee-card{background:var(--bg3);border:1px solid var(--border-s);border-radius:10px;padding:14px;}
+.fee-zone{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.fee-curr{font-size:10px;color:var(--faint);margin-bottom:6px;}
+.fee-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;}
+.fee-lbl{font-size:11px;color:var(--muted);}
+.fee-val{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);}
+.fee-sub{font-size:10px;color:var(--faint);}
+.bag-hours-b{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--teal);background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.2);padding:2px 8px;border-radius:6px;}
+/* Inline editable table */
+.itable th{background:var(--bg3);position:sticky;top:0;z-index:2;}
+.itable td{padding:6px 10px;}
+.itable .zone-cell{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--teal);white-space:nowrap;}
+.itable .curr-cell{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap;}
+.num-inp{width:80px;padding:5px 7px;background:var(--bg);border:1px solid var(--border-s);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:12px;font-weight:600;outline:none;text-align:center;transition:.15s;}
+.num-inp:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(45,212,191,.15);}
+.num-inp:hover{border-color:var(--border-s);background:var(--bg2);}
+.curr-inp{width:54px;padding:5px 7px;background:var(--bg);border:1px solid var(--border-s);border-radius:6px;color:var(--teal);font-family:var(--mono);font-size:11px;font-weight:700;outline:none;text-align:center;text-transform:uppercase;transition:.15s;}
+.curr-inp:focus{border-color:var(--teal);box-shadow:0 0 0 2px rgba(45,212,191,.15);}
+.save-row-btn{padding:4px 10px;border-radius:6px;border:none;background:var(--em-x);color:var(--em);font-size:10px;font-weight:700;cursor:pointer;font-family:var(--sans);transition:.15s;border:1px solid var(--em-b);}
+.save-row-btn:hover{background:var(--em);color:#fff;}
+.save-row-btn.saving{opacity:.6;pointer-events:none;}
+.row-saved{color:var(--em);font-size:10px;font-weight:700;}
+.section-hdr{font-size:13px;font-weight:700;padding:14px 16px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--faint);border-radius:3px;}
-
 @media(max-width:768px){.shell{grid-template-columns:1fr;}.sidebar{display:none;}.stats{grid-template-columns:1fr 1fr;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-brand">
     <div class="nav-logo">✈️</div>
@@ -177,7 +171,6 @@ tr:hover td{background:rgba(255,255,255,.02);}
   </div>
 </nav>
 
-<!-- SHELL -->
 <div class="shell">
   <aside class="sidebar">
     <div class="sb-sec">البيانات</div>
@@ -186,13 +179,14 @@ tr:hover td{background:rgba(255,255,255,.02);}
     <button class="sb-item" onclick="showTab('airlines')" id="sb-airlines">✈️ شركات الطيران <span class="sb-cnt" id="cnt-al">—</span></button>
     <button class="sb-item" onclick="showTab('noshow')" id="sb-noshow">⏰ نو شو <span class="sb-cnt" id="cnt-ns">—</span></button>
     <button class="sb-item" onclick="showTab('saudi')" id="sb-saudi">🇸🇦 المطارات السعودية <span class="sb-cnt" id="cnt-sa">—</span></button>
+    <button class="sb-item" onclick="showTab('baggage')" id="sb-baggage">🧳 المتعة <span class="sb-cnt" id="cnt-bag">—</span></button>
+    <button class="sb-item" onclick="showTab('paxfees')" id="sb-paxfees">💳 رسوم المسافر</button>
     <div class="sb-sec">الإعدادات</div>
     <button class="sb-item" onclick="showTab('setup')" id="sb-setup">⚙️ إعدادات GitHub</button>
   </aside>
   <main class="main" id="mainArea"></main>
 </div>
 
-<!-- MODAL -->
 <div class="modal-ov" id="modal">
   <div class="modal-box">
     <div class="modal-hdr">
@@ -207,213 +201,158 @@ tr:hover td{background:rgba(255,255,255,.02);}
   </div>
 </div>
 
-<!-- SAVE BAR -->
 <div class="save-bar" id="saveBar">
   <div class="spinner" id="saveSpinner"></div>
   <span id="saveMsg">جاري الحفظ...</span>
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-// CONFIG — loaded from localStorage
-// ══════════════════════════════════════════════
-// ── الإعدادات الثابتة للريبو ──────────────────
 const REPO_OWNER  = 'moh-rezk';
 const REPO_NAME   = 'GDS2';
 const REPO_PATH   = 'flight_data.json';
 const REPO_BRANCH = 'main';
-// ─────────────────────────────────────────────
 
 let CFG = JSON.parse(localStorage.getItem('almosafer_cfg') || '{}');
-// CFG: { token } فقط — باقي الإعدادات ثابتة أعلاه
-
 let DB = null;
-let fileSHA = null; // needed for GitHub API PUT
+let fileSHA = null;
 let _modalMode = null;
 let _modalKey  = null;
 let _currentTab = 'overview';
 
 const PAGE_SIZE = 20;
-let _apPage = 1, _alPage = 1, _nsPage = 1;
-let _apQ = '', _apF = '', _alQ = '', _alF = '', _nsQ = '';
+let _apPage=1,_alPage=1,_nsPage=1,_bagAlPage=1;
+let _apQ='',_apF='',_alQ='',_alF='',_nsQ='',_bagAlQ='';
+let _bagSubTab = 'airlines'; // airlines | fees | multiFees | checkIn | checkInMulti
 
-// ══════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
-  if (isCfgOk()) {
-    loadFromGitHub();
-  } else {
-    showTab('setup');
-  }
+  if (isCfgOk()) loadFromGitHub();
+  else showTab('setup');
 });
 
-function isCfgOk() {
-  return !!CFG.token;
+function isCfgOk(){ return !!CFG.token; }
+function saveCfg(){ localStorage.setItem('almosafer_cfg', JSON.stringify({token:CFG.token})); }
+
+function b64DecodeUtf8(str){
+  return decodeURIComponent(atob(str.replace(/\n/g,'')).split('').map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+}
+function b64EncodeUtf8(str){
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,(_,p1)=>String.fromCharCode(parseInt(p1,16))));
 }
 
-function saveCfg() {
-  localStorage.setItem('almosafer_cfg', JSON.stringify({ token: CFG.token }));
+function ghHeaders(){
+  return {'Authorization':`Bearer ${CFG.token}`,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'};
 }
 
-// ══════════════════════════════════════════════
-// UTF-8 SAFE BASE64 HELPERS
-// ══════════════════════════════════════════════
-function b64DecodeUtf8(str) {
-  // فك Base64 مع دعم كامل لـ UTF-8 والعربية
-  return decodeURIComponent(
-    atob(str.replace(/\n/g, ''))
-      .split('')
-      .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-      .join('')
-  );
-}
-
-function b64EncodeUtf8(str) {
-  // تشفير Base64 مع دعم كامل لـ UTF-8 والعربية
-  return btoa(
-    encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (_, p1) =>
-      String.fromCharCode(parseInt(p1, 16))
-    )
-  );
-}
-
-// ══════════════════════════════════════════════
-// GITHUB API
-// ══════════════════════════════════════════════
-function ghHeaders() {
-  return {
-    'Authorization': `Bearer ${CFG.token}`,
-    'Accept': 'application/vnd.github+json',
-    'X-GitHub-Api-Version': '2022-11-28',
-    'Content-Type': 'application/json'
-  };
-}
-
-async function loadFromGitHub() {
-  showSaveBar('loading', 'جاري تحميل البيانات من GitHub...');
-  try {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${REPO_PATH}?ref=${REPO_BRANCH}`;
-    const res = await fetch(url, { headers: ghHeaders() });
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-    const json = await res.json();
-    fileSHA = json.sha;
-    const decoded = b64DecodeUtf8(json.content);
-    DB = JSON.parse(decoded);
+async function loadFromGitHub(){
+  showSaveBar('loading','جاري تحميل البيانات من GitHub...');
+  try{
+    const url=`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${REPO_PATH}?ref=${REPO_BRANCH}`;
+    const res=await fetch(url,{headers:ghHeaders()});
+    if(!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    const json=await res.json();
+    fileSHA=json.sha;
+    DB=JSON.parse(b64DecodeUtf8(json.content));
     updateStatusUI(true);
     refreshCounts();
     showTab('overview');
     hideSaveBar();
-  } catch (err) {
+  }catch(err){
     console.error(err);
     updateStatusUI(false);
-    showSaveBar('err', '❌ فشل التحميل: ' + err.message);
-    setTimeout(hideSaveBar, 4000);
-    if (!DB) showTab('setup');
+    showSaveBar('err','❌ فشل التحميل: '+err.message);
+    setTimeout(hideSaveBar,4000);
+    if(!DB) showTab('setup');
   }
 }
 
-async function pushToGitHub() {
-  if (!isCfgOk()) { showSaveBar('err', '❌ أدخل GitHub Token أولاً'); setTimeout(hideSaveBar,3000); return; }
-  showSaveBar('loading', 'جاري الحفظ في GitHub...');
-  try {
-    DB.lastUpdated = new Date().toISOString().slice(0, 10);
-    const content = b64EncodeUtf8(JSON.stringify(DB, null, 2));
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${REPO_PATH}`;
-    const body = {
-      message: `Admin: update flight_data.json [${new Date().toISOString().slice(0,16)}]`,
-      content,
-      sha: fileSHA,
-      branch: REPO_BRANCH
-    };
-    const res = await fetch(url, { method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body) });
-    if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
-    const data = await res.json();
-    fileSHA = data.content.sha;
-    document.getElementById('dataVer').textContent = 'v' + (DB.version || '—');
-    showSaveBar('ok', '✅ تم الحفظ في GitHub بنجاح!');
-    setTimeout(hideSaveBar, 3000);
-  } catch (err) {
+async function pushToGitHub(){
+  if(!isCfgOk()){showSaveBar('err','❌ أدخل GitHub Token أولاً');setTimeout(hideSaveBar,3000);return;}
+  showSaveBar('loading','جاري الحفظ في GitHub...');
+  try{
+    DB.lastUpdated=new Date().toISOString().slice(0,10);
+    const content=b64EncodeUtf8(JSON.stringify(DB,null,2));
+    const url=`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${REPO_PATH}`;
+    const body={message:`Admin: update flight_data.json [${new Date().toISOString().slice(0,16)}]`,content,sha:fileSHA,branch:REPO_BRANCH};
+    const res=await fetch(url,{method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
+    if(!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
+    const data=await res.json();
+    fileSHA=data.content.sha;
+    document.getElementById('dataVer').textContent='v'+(DB.version||'—');
+    showSaveBar('ok','✅ تم الحفظ في GitHub بنجاح!');
+    setTimeout(hideSaveBar,3000);
+  }catch(err){
     console.error(err);
-    showSaveBar('err', '❌ فشل الحفظ: ' + err.message);
-    setTimeout(hideSaveBar, 5000);
+    showSaveBar('err','❌ فشل الحفظ: '+err.message);
+    setTimeout(hideSaveBar,5000);
   }
 }
 
-function updateStatusUI(ok) {
-  const dot = document.getElementById('statusDot');
-  const badge = document.getElementById('statusBadge');
-  dot.className = 'status-dot ' + (ok ? 'ok' : 'err');
-  badge.className = 'badge ' + (ok ? 'badge-green' : 'badge-red');
-  badge.textContent = ok ? 'متصل بـ GitHub ✓' : 'غير متصل';
-  if (DB) document.getElementById('dataVer').textContent = 'v' + (DB.version || '—');
+function updateStatusUI(ok){
+  const dot=document.getElementById('statusDot');
+  const badge=document.getElementById('statusBadge');
+  dot.className='status-dot '+(ok?'ok':'err');
+  badge.className='badge '+(ok?'badge-green':'badge-red');
+  badge.textContent=ok?'متصل بـ GitHub ✓':'غير متصل';
+  if(DB) document.getElementById('dataVer').textContent='v'+(DB.version||'—');
 }
 
-function refreshCounts() {
-  if (!DB) return;
-  document.getElementById('cnt-ap').textContent = Object.keys(DB.airports || {}).length;
-  document.getElementById('cnt-al').textContent = Object.keys(DB.airlines || {}).length;
-  document.getElementById('cnt-ns').textContent = Object.keys(DB.noShowRules || {}).length;
-  document.getElementById('cnt-sa').textContent = (DB.saudiAirports || []).length;
+function refreshCounts(){
+  if(!DB) return;
+  document.getElementById('cnt-ap').textContent=Object.keys(DB.airports||{}).length;
+  document.getElementById('cnt-al').textContent=Object.keys(DB.airlines||{}).length;
+  document.getElementById('cnt-ns').textContent=Object.keys(DB.noShowRules||{}).length;
+  document.getElementById('cnt-sa').textContent=(DB.saudiAirports||[]).length;
+  document.getElementById('cnt-bag').textContent=Object.keys((DB.baggage||{}).airlines||{}).length;
 }
 
-// ══════════════════════════════════════════════
-// SAVE BAR
-// ══════════════════════════════════════════════
-function showSaveBar(type, msg) {
-  const bar = document.getElementById('saveBar');
-  const spinner = document.getElementById('saveSpinner');
-  document.getElementById('saveMsg').textContent = msg;
-  bar.className = 'save-bar show ' + type;
-  spinner.style.display = type === 'loading' ? 'block' : 'none';
+function showSaveBar(type,msg){
+  const bar=document.getElementById('saveBar');
+  document.getElementById('saveMsg').textContent=msg;
+  bar.className='save-bar show '+type;
+  document.getElementById('saveSpinner').style.display=type==='loading'?'block':'none';
 }
-function hideSaveBar() {
-  document.getElementById('saveBar').className = 'save-bar';
+function hideSaveBar(){document.getElementById('saveBar').className='save-bar';}
+
+// ── TAB ROUTER ──
+function showTab(tab){
+  _currentTab=tab;
+  document.querySelectorAll('.sb-item').forEach(b=>b.classList.remove('active'));
+  const el=document.getElementById('sb-'+tab);
+  if(el) el.classList.add('active');
+  const main=document.getElementById('mainArea');
+  if      (tab==='overview') main.innerHTML=renderOverview();
+  else if (tab==='airports'){main.innerHTML=renderAirports();bindSearch('apSearch','apFilter','airports');}
+  else if (tab==='airlines'){main.innerHTML=renderAirlines();bindSearch('alSearch','alFilter','airlines');}
+  else if (tab==='noshow')  {main.innerHTML=renderNoShow();bindSearch('nsSearch',null,'noshow');}
+  else if (tab==='saudi')    main.innerHTML=renderSaudi();
+  else if (tab==='baggage')  main.innerHTML=renderBaggage();
+  else if (tab==='paxfees')  main.innerHTML=renderPaxFees();
+  else if (tab==='setup')    main.innerHTML=renderSetup();
 }
 
-// ══════════════════════════════════════════════
-// TAB ROUTER
-// ══════════════════════════════════════════════
-function showTab(tab) {
-  _currentTab = tab;
-  document.querySelectorAll('.sb-item').forEach(b => b.classList.remove('active'));
-  const el = document.getElementById('sb-' + tab);
-  if (el) el.classList.add('active');
-  const main = document.getElementById('mainArea');
-  if      (tab === 'overview') main.innerHTML = renderOverview();
-  else if (tab === 'airports') { main.innerHTML = renderAirports(); bindSearch('apSearch','apFilter','airports'); }
-  else if (tab === 'airlines') { main.innerHTML = renderAirlines(); bindSearch('alSearch','alFilter','airlines'); }
-  else if (tab === 'noshow')   { main.innerHTML = renderNoShow(); bindSearch('nsSearch',null,'noshow'); }
-  else if (tab === 'saudi')    main.innerHTML = renderSaudi();
-  else if (tab === 'setup')    main.innerHTML = renderSetup();
-}
-
-function bindSearch(sId, fId, tab) {
-  const s = document.getElementById(sId);
-  const f = fId ? document.getElementById(fId) : null;
-  function refresh() {
-    if (tab==='airports'){_apQ=s.value;_apPage=1;document.getElementById('mainArea').innerHTML=renderAirports();bindSearch(sId,fId,tab);}
-    if (tab==='airlines'){_alQ=s.value;_alPage=1;document.getElementById('mainArea').innerHTML=renderAirlines();bindSearch(sId,fId,tab);}
-    if (tab==='noshow')  {_nsQ=s.value;_nsPage=1;document.getElementById('mainArea').innerHTML=renderNoShow();bindSearch(sId,null,tab);}
+function bindSearch(sId,fId,tab){
+  const s=document.getElementById(sId);
+  const f=fId?document.getElementById(fId):null;
+  function refresh(){
+    if(tab==='airports'){_apQ=s.value;_apPage=1;document.getElementById('mainArea').innerHTML=renderAirports();bindSearch(sId,fId,tab);}
+    if(tab==='airlines'){_alQ=s.value;_alPage=1;document.getElementById('mainArea').innerHTML=renderAirlines();bindSearch(sId,fId,tab);}
+    if(tab==='noshow')  {_nsQ=s.value;_nsPage=1;document.getElementById('mainArea').innerHTML=renderNoShow();bindSearch(sId,null,tab);}
   }
-  if (s) s.addEventListener('input', refresh);
-  if (f) f.addEventListener('change', () => {
-    if (tab==='airports'){_apF=f.value;_apPage=1;document.getElementById('mainArea').innerHTML=renderAirports();bindSearch(sId,fId,tab);}
-    if (tab==='airlines'){_alF=f.value;_alPage=1;document.getElementById('mainArea').innerHTML=renderAirlines();bindSearch(sId,fId,tab);}
+  if(s) s.addEventListener('input',refresh);
+  if(f) f.addEventListener('change',()=>{
+    if(tab==='airports'){_apF=f.value;_apPage=1;document.getElementById('mainArea').innerHTML=renderAirports();bindSearch(sId,fId,tab);}
+    if(tab==='airlines'){_alF=f.value;_alPage=1;document.getElementById('mainArea').innerHTML=renderAirlines();bindSearch(sId,fId,tab);}
   });
 }
 
-// ══════════════════════════════════════════════
-// SETUP TAB
-// ══════════════════════════════════════════════
-function renderSetup() {
-  const connected = isCfgOk();
+// ── SETUP ──
+function renderSetup(){
+  const connected=isCfgOk();
   return `
   <div class="ph"><div>
     <div class="ph-title">⚙️ إعدادات الاتصال</div>
     <div class="ph-sub">أدخل GitHub Token للاتصال بالريبو مباشرةً</div>
   </div></div>
-
   <div class="tcard" style="padding:22px;max-width:500px;">
     <div style="background:var(--em-x);border:1px solid var(--em-b);border-radius:9px;padding:11px 14px;font-size:11px;color:var(--em);margin-bottom:18px;line-height:1.7;">
       🔗 الريبو: <strong style="font-family:var(--mono);">${REPO_OWNER}/${REPO_NAME}</strong><br>
@@ -432,69 +371,49 @@ function renderSetup() {
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
       <button class="btn btn-primary" onclick="saveSetup()">💾 حفظ والاتصال</button>
       <button class="btn btn-ghost" onclick="testConnection()">🔗 اختبار الاتصال</button>
-      ${connected ? `<button class="btn btn-danger" onclick="clearToken()">🗑 حذف التوكن</button>` : ''}
+      ${connected?`<button class="btn btn-danger" onclick="clearToken()">🗑 حذف التوكن</button>`:''}
     </div>
     <div id="setupStatus" style="margin-top:12px;font-size:12px;line-height:1.6;"></div>
   </div>`;
 }
 
-function saveSetup() {
-  CFG.token = document.getElementById('cfg_token').value.trim();
-  if (!CFG.token) {
-    document.getElementById('setupStatus').innerHTML = '<span style="color:var(--red);">❌ أدخل GitHub Token أولاً</span>';
-    return;
-  }
+function saveSetup(){
+  CFG.token=document.getElementById('cfg_token').value.trim();
+  if(!CFG.token){document.getElementById('setupStatus').innerHTML='<span style="color:var(--red);">❌ أدخل GitHub Token أولاً</span>';return;}
   saveCfg();
   loadFromGitHub();
 }
-
-function clearToken() {
-  if (!confirm('هل تريد حذف التوكن المحفوظ؟')) return;
-  CFG.token = '';
-  saveCfg();
-  DB = null;
-  fileSHA = null;
-  updateStatusUI(false);
-  showTab('setup');
+function clearToken(){
+  if(!confirm('هل تريد حذف التوكن المحفوظ؟'))return;
+  CFG.token='';saveCfg();DB=null;fileSHA=null;updateStatusUI(false);showTab('setup');
+}
+async function testConnection(){
+  const token=document.getElementById('cfg_token').value.trim();
+  const st=document.getElementById('setupStatus');
+  if(!token){st.innerHTML='<span style="color:var(--red);">❌ أدخل التوكن أولاً</span>';return;}
+  st.innerHTML='<span style="color:var(--amber);">⏳ جاري الاختبار...</span>';
+  try{
+    const url=`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${REPO_PATH}?ref=${REPO_BRANCH}`;
+    const res=await fetch(url,{headers:{'Authorization':`Bearer ${token}`,'Accept':'application/vnd.github+json'}});
+    if(res.ok){const data=await res.json();st.innerHTML=`<span style="color:var(--em);">✅ الاتصال ناجح! SHA: <code style="font-family:var(--mono);">${data.sha.slice(0,8)}</code></span>`;}
+    else{const err=await res.json();st.innerHTML=`<span style="color:var(--red);">❌ خطأ ${res.status}: ${err.message}</span>`;}
+  }catch(e){st.innerHTML=`<span style="color:var(--red);">❌ ${e.message}</span>`;}
 }
 
-async function testConnection() {
-  const token = document.getElementById('cfg_token').value.trim();
-  const st = document.getElementById('setupStatus');
-  if (!token) { st.innerHTML = '<span style="color:var(--red);">❌ أدخل التوكن أولاً</span>'; return; }
-  st.innerHTML = '<span style="color:var(--amber);">⏳ جاري الاختبار...</span>';
-  try {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${REPO_PATH}?ref=${REPO_BRANCH}`;
-    const res = await fetch(url, {
-      headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
-    });
-    if (res.ok) {
-      const data = await res.json();
-      st.innerHTML = `<span style="color:var(--em);">✅ الاتصال ناجح! الملف موجود — SHA: <code style="font-family:var(--mono);">${data.sha.slice(0,8)}</code></span>`;
-    } else {
-      const err = await res.json();
-      st.innerHTML = `<span style="color:var(--red);">❌ خطأ ${res.status}: ${err.message}</span>`;
-    }
-  } catch (e) {
-    st.innerHTML = `<span style="color:var(--red);">❌ ${e.message}</span>`;
-  }
-}
+// ── OVERVIEW ──
+function renderOverview(){
+  if(!DB) return noDbMsg();
+  const ap=Object.keys(DB.airports||{}).length;
+  const al=Object.keys(DB.airlines||{}).length;
+  const ns=Object.keys(DB.noShowRules||{}).length;
+  const sa=(DB.saudiAirports||[]).length;
+  const bagAl=Object.keys((DB.baggage||{}).airlines||{}).length;
 
-// ══════════════════════════════════════════════
-// OVERVIEW
-// ══════════════════════════════════════════════
-function renderOverview() {
-  if (!DB) return noDbMsg();
-  const ap = Object.keys(DB.airports||{}).length;
-  const al = Object.keys(DB.airlines||{}).length;
-  const ns = Object.keys(DB.noShowRules||{}).length;
-  const sa = (DB.saudiAirports||[]).length;
+  const countries={};
+  Object.values(DB.airports||{}).forEach(a=>{countries[a.country]=(countries[a.country]||0)+1;});
+  const topC=Object.entries(countries).sort((a,b)=>b[1]-a[1]).slice(0,6);
 
-  const countries = {};
-  Object.values(DB.airports||{}).forEach(a => { countries[a.country]=(countries[a.country]||0)+1; });
-  const topC = Object.entries(countries).sort((a,b)=>b[1]-a[1]).slice(0,6);
-
-  const at = {full:0,lcc:0,other:0};
+  const at={full:0,lcc:0,other:0};
   Object.values(DB.airlines||{}).forEach(a=>{if(a.type==='full')at.full++;else if(a.type==='lcc')at.lcc++;else at.other++;});
 
   return `
@@ -504,12 +423,14 @@ function renderOverview() {
   </div>
   <div class="ph-actions">
     <button class="btn btn-primary" onclick="loadFromGitHub()">🔄 تحديث من GitHub</button>
+    <button class="btn btn-ghost" onclick="pushToGitHub()">☁️ حفظ في GitHub</button>
   </div></div>
   <div class="stats">
     <div class="stat-card g"><div class="stat-val">${ap}</div><div class="stat-lbl">🏛️ مطار مسجّل</div></div>
     <div class="stat-card b"><div class="stat-val">${al}</div><div class="stat-lbl">✈️ شركة طيران</div></div>
     <div class="stat-card a"><div class="stat-val">${ns}</div><div class="stat-lbl">⏰ قاعدة نو شو</div></div>
     <div class="stat-card p"><div class="stat-val">${sa}</div><div class="stat-lbl">🇸🇦 مطار سعودي</div></div>
+    <div class="stat-card t"><div class="stat-val">${bagAl}</div><div class="stat-lbl">🧳 شركة متعة</div></div>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
     <div class="tcard" style="padding:16px;">
@@ -536,10 +457,6 @@ function renderOverview() {
           <span class="type-b type-lcc">LCC</span>
           <span style="font-size:18px;font-weight:700;font-family:var(--mono);color:var(--purple);">${at.lcc}</span>
         </div>
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <span class="type-b" style="background:rgba(148,163,184,.1);color:var(--muted);border:1px solid var(--border-s);">Other</span>
-          <span style="font-size:18px;font-weight:700;font-family:var(--mono);color:var(--muted);">${at.other}</span>
-        </div>
       </div>
       <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);">
         <div style="font-size:10px;color:var(--faint);margin-bottom:7px;text-transform:uppercase;letter-spacing:.06em;">إجراءات سريعة</div>
@@ -547,22 +464,21 @@ function renderOverview() {
           <button class="btn btn-primary btn-sm" onclick="showTab('airports');setTimeout(openAddAirport,50)">+ مطار</button>
           <button class="btn btn-ghost btn-sm" onclick="showTab('airlines');setTimeout(openAddAirline,50)">+ شركة</button>
           <button class="btn btn-amber btn-sm" onclick="showTab('noshow');setTimeout(openAddNoShow,50)">+ نو شو</button>
+          <button class="btn btn-teal btn-sm" onclick="showTab('baggage');setTimeout(openAddBagAirline,50)">+ متعة</button>
         </div>
       </div>
     </div>
   </div>`;
 }
 
-// ══════════════════════════════════════════════
-// AIRPORTS
-// ══════════════════════════════════════════════
-function renderAirports() {
-  if (!DB) return noDbMsg();
-  const all = Object.entries(DB.airports||{});
-  const q = _apQ.toLowerCase();
-  const filtered = all.filter(([code,a])=>{
-    const m = !q || code.toLowerCase().includes(q)||(a.en||'').toLowerCase().includes(q)||(a.ar||'').includes(q)||(a.country||'').toLowerCase().includes(q);
-    const f = !_apF || a.country===_apF;
+// ── AIRPORTS ──
+function renderAirports(){
+  if(!DB) return noDbMsg();
+  const all=Object.entries(DB.airports||{});
+  const q=_apQ.toLowerCase();
+  const filtered=all.filter(([code,a])=>{
+    const m=!q||code.toLowerCase().includes(q)||(a.en||'').toLowerCase().includes(q)||(a.ar||'').includes(q)||(a.country||'').toLowerCase().includes(q);
+    const f=!_apF||a.country===_apF;
     return m&&f;
   });
   const total=filtered.length;
@@ -590,8 +506,8 @@ function renderAirports() {
         <tbody>
           ${slice.length?slice.map(([code,a])=>`<tr>
             <td><span class="code-b">${code}</span></td>
-            <td title="${a.ar||''}">${a.ar||'—'}</td>
-            <td title="${a.en||''}">${a.en||'—'}</td>
+            <td>${a.ar||'—'}</td>
+            <td>${a.en||'—'}</td>
             <td>${a.city_ar||'—'}</td><td>${a.city_en||'—'}</td>
             <td><span style="font-size:10px;background:rgba(148,163,184,.08);color:var(--muted);border:1px solid var(--border);padding:2px 7px;border-radius:10px;">${a.country||'—'}</span></td>
             <td><div class="act-btns">
@@ -609,14 +525,12 @@ function renderAirports() {
   </div>`;
 }
 
-// ══════════════════════════════════════════════
-// AIRLINES
-// ══════════════════════════════════════════════
-function renderAirlines() {
-  if (!DB) return noDbMsg();
-  const all = Object.entries(DB.airlines||{});
-  const q = _alQ.toLowerCase();
-  const filtered = all.filter(([code,a])=>{
+// ── AIRLINES ──
+function renderAirlines(){
+  if(!DB) return noDbMsg();
+  const all=Object.entries(DB.airlines||{});
+  const q=_alQ.toLowerCase();
+  const filtered=all.filter(([code,a])=>{
     const m=!q||code.toLowerCase().includes(q)||(a.en||'').toLowerCase().includes(q)||(a.ar||'').includes(q);
     const f=!_alF||a.type===_alF;
     return m&&f;
@@ -664,13 +578,11 @@ function renderAirlines() {
   </div>`;
 }
 
-// ══════════════════════════════════════════════
-// NO-SHOW
-// ══════════════════════════════════════════════
-function renderNoShow() {
-  if (!DB) return noDbMsg();
-  const all = Object.entries(DB.noShowRules||{});
-  const q = _nsQ.toLowerCase();
+// ── NO-SHOW ──
+function renderNoShow(){
+  if(!DB) return noDbMsg();
+  const all=Object.entries(DB.noShowRules||{});
+  const q=_nsQ.toLowerCase();
   const filtered=all.filter(([code,rule])=>!q||code.toLowerCase().includes(q)||rule.toLowerCase().includes(q)||(DB.airlines?.[code]?.en||'').toLowerCase().includes(q));
   const total=filtered.length;
   const pages=Math.ceil(total/PAGE_SIZE)||1;
@@ -712,12 +624,10 @@ function renderNoShow() {
   </div>`;
 }
 
-// ══════════════════════════════════════════════
-// SAUDI
-// ══════════════════════════════════════════════
-function renderSaudi() {
-  if (!DB) return noDbMsg();
-  const list = DB.saudiAirports||[];
+// ── SAUDI ──
+function renderSaudi(){
+  if(!DB) return noDbMsg();
+  const list=DB.saudiAirports||[];
   return `
   <div class="ph">
     <div><div class="ph-title">🇸🇦 المطارات السعودية</div><div class="ph-sub">${list.length} مطار</div></div>
@@ -738,24 +648,157 @@ function renderSaudi() {
   </div>`;
 }
 
-// ══════════════════════════════════════════════
-// PAGER
-// ══════════════════════════════════════════════
-function pager(pages, current, fn) {
-  if (pages<=1) return '';
+// ── BAGGAGE ──
+function renderBaggage(){
+  if(!DB) return noDbMsg();
+  const bag=DB.baggage||{};
+  const subTabs=[
+    {id:'airlines',label:'🛫 شركات المتعة'},
+    {id:'fees',label:'💰 رسوم فردية'},
+    {id:'multiFees',label:'💰 رسوم متعددة'},
+    {id:'checkIn',label:'🎫 Check-in فردي'},
+    {id:'checkInMulti',label:'🎫 Check-in متعدد'},
+  ];
+
+  let content='';
+  if(_bagSubTab==='airlines') content=renderBagAirlines(bag);
+  else if(_bagSubTab==='fees') content=renderFeesTable(bag.feesTable||{},'رسوم المتعة الفردية');
+  else if(_bagSubTab==='multiFees') content=renderFeesTable(bag.multiFeesTable||{},'رسوم المتعة المتعددة');
+  else if(_bagSubTab==='checkIn') content=renderCheckInTable(bag.checkInFeesTable||{},'رسوم Check-in الفردية');
+  else if(_bagSubTab==='checkInMulti') content=renderCheckInTable(bag.checkInMultiFeesTable||{},'رسوم Check-in المتعددة');
+
+  return `
+  <div class="ph">
+    <div><div class="ph-title">🧳 إدارة المتعة</div><div class="ph-sub">الإصدار: ${bag.version||'—'} | آخر تحديث: ${bag.lastUpdated||'—'}</div></div>
+    <div class="ph-actions">
+      ${_bagSubTab==='airlines'?`<button class="btn btn-teal" onclick="openAddBagAirline()">+ إضافة شركة</button>`:''}
+      ${(_bagSubTab==='fees'||_bagSubTab==='multiFees')?`<button class="btn btn-teal" onclick="openAddFee('${_bagSubTab}')">+ إضافة منطقة</button>`:''}
+      ${(_bagSubTab==='checkIn'||_bagSubTab==='checkInMulti')?`<button class="btn btn-teal" onclick="openAddCheckIn('${_bagSubTab}')">+ إضافة منطقة</button>`:''}
+    </div>
+  </div>
+  <div class="tab-bar">
+    ${subTabs.map(t=>`<button class="tab-btn ${_bagSubTab===t.id?'active':''}" onclick="setBagTab('${t.id}')">${t.label}</button>`).join('')}
+  </div>
+  ${content}`;
+}
+
+function setBagTab(t){_bagSubTab=t;document.getElementById('mainArea').innerHTML=renderBaggage();}
+
+function renderBagAirlines(bag){
+  const all=Object.entries(bag.airlines||{});
+  const q=_bagAlQ.toLowerCase();
+  const filtered=all.filter(([code,a])=>!q||code.toLowerCase().includes(q)||(a.name||'').toLowerCase().includes(q)||(a.nameAr||'').includes(q));
+  const total=filtered.length;
+  const pages=Math.ceil(total/PAGE_SIZE)||1;
+  _bagAlPage=Math.min(_bagAlPage,pages);
+  const slice=filtered.slice((_bagAlPage-1)*PAGE_SIZE,_bagAlPage*PAGE_SIZE);
+  return `
+  <div class="fbar">
+    <div class="search-wrap"><span class="search-icon">🔍</span>
+      <input id="bagAlSearch" class="search-inp" placeholder="بحث بالكود أو الاسم..." value="${_bagAlQ}"
+        oninput="_bagAlQ=this.value;_bagAlPage=1;document.getElementById('mainArea').innerHTML=renderBaggage()">
+    </div>
+  </div>
+  <div class="tcard">
+    <div class="twrap">
+      <table>
+        <thead><tr><th>IATA</th><th>الاسم عربي</th><th>الاسم إنجليزي</th><th>ساعات المتعة</th><th>إجراءات</th></tr></thead>
+        <tbody>
+          ${slice.length?slice.map(([code,a])=>`<tr>
+            <td><span class="code-b">${code}</span></td>
+            <td>${a.nameAr||'—'}</td>
+            <td>${a.name||'—'}</td>
+            <td><span class="bag-hours-b">${a.baggageHours||'—'} ساعة</span></td>
+            <td><div class="act-btns">
+              <button class="btn btn-ghost btn-xs" onclick="openEditBagAirline('${code}')">✏️</button>
+              <button class="btn btn-danger btn-xs" onclick="delBagAirline('${code}')">🗑</button>
+            </div></td>
+          </tr>`).join(''):`<tr><td colspan="5"><div class="empty"><div class="empty-icon">🧳</div><div class="empty-title">لا توجد نتائج</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+    <div class="tfooter">
+      <span>${(_bagAlPage-1)*PAGE_SIZE+1}–${Math.min(_bagAlPage*PAGE_SIZE,total)} من ${total}</span>
+      <div class="pagination">${pager(pages,_bagAlPage,'setBagAlPage')}</div>
+    </div>
+  </div>`;
+}
+
+function renderFeesTable(tbl,title){
+  const entries=Object.entries(tbl);
+  if(!entries.length) return `<div class="empty"><div class="empty-icon">💰</div><div class="empty-title">لا توجد بيانات</div></div>`;
+  return `
+  <div class="fee-grid">
+    ${entries.map(([zone,d])=>`
+    <div class="fee-card">
+      <div class="fee-zone">${zone}</div>
+      <div class="fee-curr">العملة: <strong style="color:var(--text);">${d.curr||'—'}</strong></div>
+      <div style="border-top:1px solid var(--border);padding-top:8px;">
+        <div class="fee-row"><span class="fee-lbl">ذهاب فقط (OW)</span><span class="fee-val">${d.ow??'—'}</span></div>
+        <div class="fee-row"><span class="fee-lbl">ذهاب وعودة (RT)</span><span class="fee-val">${d.rt??'—'}</span></div>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:4px;">
+        <button class="btn btn-ghost btn-xs" onclick="openEditFee('${_bagSubTab}','${zone}')">✏️ تعديل</button>
+        <button class="btn btn-danger btn-xs" onclick="delFee('${_bagSubTab}','${zone}')">🗑</button>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function renderCheckInTable(tbl,title){
+  const entries=Object.entries(tbl);
+  if(!entries.length) return `<div class="empty"><div class="empty-icon">🎫</div><div class="empty-title">لا توجد بيانات</div></div>`;
+  return `
+  <div class="fee-grid">
+    ${entries.map(([zone,d])=>{
+      const hasY=d.Y;const hasN=d.N;
+      return`<div class="fee-card">
+        <div class="fee-zone">${zone}</div>
+        <div class="fee-curr">العملة: <strong style="color:var(--text);">${d.curr||'—'}</strong></div>
+        ${hasY?`<div style="border-top:1px solid var(--border);padding-top:8px;margin-top:6px;">
+          <div style="font-size:10px;color:var(--teal);font-weight:700;margin-bottom:4px;">✅ مع حضور</div>
+          <div class="fee-row"><span class="fee-lbl">OW</span><span class="fee-val">${d.Y.ow??'—'}</span></div>
+          <div class="fee-row"><span class="fee-lbl">RT</span><span class="fee-val">${d.Y.rt??'—'}</span></div>
+        </div>`:''}
+        ${hasN?`<div style="border-top:1px solid var(--border);padding-top:8px;margin-top:6px;">
+          <div style="font-size:10px;color:var(--amber);font-weight:700;margin-bottom:4px;">❌ بدون حضور</div>
+          <div class="fee-row"><span class="fee-lbl">OW</span><span class="fee-val">${d.N.ow??'—'}</span></div>
+          <div class="fee-row"><span class="fee-lbl">RT</span><span class="fee-val">${d.N.rt??'—'}</span></div>
+        </div>`:''}
+        <div style="margin-top:8px;display:flex;gap:4px;">
+          <button class="btn btn-ghost btn-xs" onclick="openEditCheckIn('${_bagSubTab}','${zone}')">✏️ تعديل</button>
+          <button class="btn btn-danger btn-xs" onclick="delCheckIn('${_bagSubTab}','${zone}')">🗑</button>
+        </div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+// ── PAGER ──
+function pager(pages,current,fn){
+  if(pages<=1) return '';
   let b='';
   const s=i=>`<button class="page-btn ${i===current?'active':''}" onclick="${fn}(${i})">${i}</button>`;
-  if (pages<=7){for(let i=1;i<=pages;i++)b+=s(i);}
+  if(pages<=7){for(let i=1;i<=pages;i++)b+=s(i);}
   else{b+=s(1);if(current>3)b+='<span style="color:var(--faint);padding:0 3px;">…</span>';for(let i=Math.max(2,current-1);i<=Math.min(pages-1,current+1);i++)b+=s(i);if(current<pages-2)b+='<span style="color:var(--faint);padding:0 3px;">…</span>';b+=s(pages);}
   return b;
 }
 function setApPage(p){_apPage=p;showTab('airports');}
 function setAlPage(p){_alPage=p;showTab('airlines');}
 function setNsPage(p){_nsPage=p;showTab('noshow');}
+function setBagAlPage(p){_bagAlPage=p;document.getElementById('mainArea').innerHTML=renderBaggage();}
 
-// ══════════════════════════════════════════════
-// MODALS — AIRPORTS
-// ══════════════════════════════════════════════
+// ── MODAL HELPERS ──
+function openModal(title,sub,body,hideSave){
+  document.getElementById('mTitle').textContent=title;
+  document.getElementById('mSub').textContent=sub;
+  document.getElementById('mBody').innerHTML=body;
+  document.querySelector('.modal-foot .btn-primary').style.display=hideSave?'none':'';
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');_modalMode=null;_modalKey=null;}
+
+// ── AIRPORT MODALS ──
 function openAddAirport(){_modalMode='add-airport';_modalKey=null;openModal('➕ إضافة مطار جديد','أدخل بيانات المطار',airportForm({}));}
 function openEditAirport(code){_modalMode='edit-airport';_modalKey=code;const a=DB.airports[code]||{};openModal(`✏️ تعديل مطار — ${code}`,a.en||'',airportForm(a,code));}
 function airportForm(a,code){return`
@@ -768,9 +811,7 @@ function airportForm(a,code){return`
   <div class="fg"><label class="fl">المدينة إنجليزي</label><input id="f_city_en" class="fi" placeholder="Riyadh" value="${a.city_en||''}"></div>
 </div>`;}
 
-// ══════════════════════════════════════════════
-// MODALS — AIRLINES
-// ══════════════════════════════════════════════
+// ── AIRLINE MODALS ──
 function openAddAirline(){_modalMode='add-airline';_modalKey=null;openModal('➕ إضافة شركة طيران','أدخل بيانات الشركة',airlineForm({}));}
 function openEditAirline(code){_modalMode='edit-airline';_modalKey=code;const a=DB.airlines[code]||{};openModal(`✏️ تعديل شركة — ${code}`,a.en||'',airlineForm(a,code));}
 function airlineForm(a,code){return`
@@ -787,9 +828,7 @@ function airlineForm(a,code){return`
   </div>
 </div>`;}
 
-// ══════════════════════════════════════════════
-// MODALS — NO-SHOW
-// ══════════════════════════════════════════════
+// ── NO-SHOW MODALS ──
 function openAddNoShow(){_modalMode='add-noshow';_modalKey=null;openModal('➕ إضافة قاعدة نو شو','أدخل الكود والقاعدة',noshowForm('',''));}
 function openEditNoShow(code){_modalMode='edit-noshow';_modalKey=code;const rule=DB.noShowRules[code]||'';openModal(`✏️ تعديل نو شو — ${code}`,DB.airlines?.[code]?.en||'',noshowForm(code,rule));}
 function noshowForm(code,rule){return`
@@ -798,29 +837,82 @@ function noshowForm(code,rule){return`
   <div class="fg full"><label class="fl">قاعدة النو شو *</label><input id="f_rule" class="fi" placeholder="24 / Departure time / Check Rules" value="${rule}"></div>
 </div>
 <div style="background:var(--bg3);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.7;">
-  <strong style="color:var(--amber);">أمثلة:</strong> <code style="font-family:var(--mono);">24</code> · <code style="font-family:var(--mono);">Departure time</code> · <code style="font-family:var(--mono);">4 for Economy / 18 for Business</code> · <code style="font-family:var(--mono);">Check Rules</code>
+  <strong style="color:var(--amber);">أمثلة:</strong> <code style="font-family:var(--mono);">24</code> · <code style="font-family:var(--mono);">Departure time</code> · <code style="font-family:var(--mono);">4 for Economy / 18 for Business</code>
 </div>`;}
 
-// ══════════════════════════════════════════════
-// MODALS — SAUDI
-// ══════════════════════════════════════════════
+// ── SAUDI MODALS ──
 function openAddSaudi(){_modalMode='add-saudi';_modalKey=null;openModal('➕ إضافة مطار سعودي','أدخل كود IATA',`<div class="fg"><label class="fl">كود IATA *</label><input id="f_code" class="fi mono" placeholder="RUH" maxlength="3"></div>`);}
 
-// ══════════════════════════════════════════════
-// MODAL HELPER
-// ══════════════════════════════════════════════
-function openModal(title,sub,body){
-  document.getElementById('mTitle').textContent=title;
-  document.getElementById('mSub').textContent=sub;
-  document.getElementById('mBody').innerHTML=body;
-  document.getElementById('modal').classList.add('open');
-}
-function closeModal(){document.getElementById('modal').classList.remove('open');_modalMode=null;_modalKey=null;}
+// ── BAGGAGE AIRLINE MODALS ──
+function openAddBagAirline(){_modalMode='add-bag-airline';_modalKey=null;openModal('➕ إضافة شركة متعة','بيانات ساعات المتعة',bagAirlineForm({}));}
+function openEditBagAirline(code){_modalMode='edit-bag-airline';_modalKey=code;const a=(DB.baggage?.airlines||{})[code]||{};openModal(`✏️ تعديل شركة متعة — ${code}`,a.name||'',bagAirlineForm(a,code));}
+function bagAirlineForm(a,code){return`
+<div class="frow">
+  <div class="fg"><label class="fl">كود IATA *</label><input id="f_code" class="fi mono" placeholder="SV" maxlength="3" value="${code||''}" ${code?'readonly':''}></div>
+  <div class="fg"><label class="fl">ساعات المتعة *</label><input id="f_hours" class="fi mono" placeholder="6" type="number" min="1" value="${a.baggageHours||''}"></div>
+  <div class="fg"><label class="fl">الاسم عربي</label><input id="f_nameAr" class="fi" placeholder="الخطوط السعودية" value="${a.nameAr||''}"></div>
+  <div class="fg"><label class="fl">الاسم إنجليزي</label><input id="f_name" class="fi" placeholder="Saudia" value="${a.name||''}"></div>
+</div>
+<div style="background:var(--bg3);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.7;">
+  <strong style="color:var(--teal);">ساعات المتعة</strong> = عدد ساعات ما قبل الإقلاع المسموح بإضافة متعة حتى
+</div>`;}
 
-// ══════════════════════════════════════════════
-// SAVE MODAL → GitHub
-// ══════════════════════════════════════════════
+// ── FEE MODALS ──
+function openAddFee(tabKey){
+  _modalMode='add-fee';_modalKey=tabKey;
+  openModal('➕ إضافة منطقة رسوم','أدخل بيانات المنطقة والرسوم',feeForm({},''));
+}
+function openEditFee(tabKey,zone){
+  _modalMode='edit-fee';_modalKey={tab:tabKey,zone};
+  const tbl=tabKey==='fees'?DB.baggage?.feesTable:DB.baggage?.multiFeesTable;
+  const d=(tbl||{})[zone]||{};
+  openModal(`✏️ تعديل رسوم — ${zone}`,'',feeForm(d,zone));
+}
+function feeForm(d,zone){return`
+<div class="frow">
+  <div class="fg full"><label class="fl">كود المنطقة *</label><input id="f_zone" class="fi mono" placeholder="KSA_DOM" value="${zone}" ${zone?'readonly':''}></div>
+  <div class="fg"><label class="fl">العملة *</label><input id="f_curr" class="fi mono" placeholder="SAR" maxlength="3" value="${d.curr||''}"></div>
+  <div class="fg"></div>
+  <div class="fg"><label class="fl">ذهاب فقط OW *</label><input id="f_ow" class="fi mono" type="number" step="0.01" placeholder="23" value="${d.ow??''}"></div>
+  <div class="fg"><label class="fl">ذهاب وعودة RT *</label><input id="f_rt" class="fi mono" type="number" step="0.01" placeholder="40.25" value="${d.rt??''}"></div>
+</div>`;}
+
+// ── CHECK-IN MODALS ──
+function openAddCheckIn(tabKey){
+  _modalMode='add-checkin';_modalKey=tabKey;
+  openModal('➕ إضافة منطقة Check-in','',checkInForm({},''));
+}
+function openEditCheckIn(tabKey,zone){
+  _modalMode='edit-checkin';_modalKey={tab:tabKey,zone};
+  const tbl=tabKey==='checkIn'?DB.baggage?.checkInFeesTable:DB.baggage?.checkInMultiFeesTable;
+  const d=(tbl||{})[zone]||{};
+  openModal(`✏️ تعديل Check-in — ${zone}`,'',checkInForm(d,zone));
+}
+function checkInForm(d,zone){return`
+<div class="frow">
+  <div class="fg full"><label class="fl">كود المنطقة *</label><input id="f_zone" class="fi mono" placeholder="KSA_DOM" value="${zone}" ${zone?'readonly':''}></div>
+  <div class="fg"><label class="fl">العملة *</label><input id="f_curr" class="fi mono" placeholder="SAR" maxlength="3" value="${d.curr||''}"></div>
+  <div class="fg"></div>
+</div>
+<div style="background:var(--bg3);border:1px solid var(--border-s);border-radius:8px;padding:12px;margin-top:4px;">
+  <div style="font-size:10px;color:var(--teal);font-weight:700;margin-bottom:8px;text-transform:uppercase;">✅ مع حضور (Y)</div>
+  <div class="frow">
+    <div class="fg"><label class="fl">OW</label><input id="f_y_ow" class="fi mono" type="number" step="0.01" placeholder="11.5" value="${d.Y?.ow??''}"></div>
+    <div class="fg"><label class="fl">RT</label><input id="f_y_rt" class="fi mono" type="number" step="0.01" placeholder="18.4" value="${d.Y?.rt??''}"></div>
+  </div>
+</div>
+<div style="background:var(--bg3);border:1px solid var(--border-s);border-radius:8px;padding:12px;">
+  <div style="font-size:10px;color:var(--amber);font-weight:700;margin-bottom:8px;text-transform:uppercase;">❌ بدون حضور (N)</div>
+  <div class="frow">
+    <div class="fg"><label class="fl">OW</label><input id="f_n_ow" class="fi mono" type="number" step="0.01" placeholder="10" value="${d.N?.ow??''}"></div>
+    <div class="fg"><label class="fl">RT</label><input id="f_n_rt" class="fi mono" type="number" step="0.01" placeholder="16" value="${d.N?.rt??''}"></div>
+  </div>
+</div>`;}
+
+// ── SAVE MODAL ──
 async function saveModal(){
+  if(!DB.baggage) DB.baggage={airlines:{},feesTable:{},multiFeesTable:{},checkInFeesTable:{},checkInMultiFeesTable:{}};
+
   if(_modalMode==='add-airport'||_modalMode==='edit-airport'){
     const code=(document.getElementById('f_code').value||'').trim().toUpperCase();
     const ar=document.getElementById('f_ar').value.trim();
@@ -830,8 +922,7 @@ async function saveModal(){
     const city_en=document.getElementById('f_city_en').value.trim();
     if(!code||!ar||!en){alert('الكود والاسمان مطلوبان');return;}
     DB.airports[code]={ar,en,city_ar:city_ar||ar,city_en:city_en||en,country};
-    refreshCounts();closeModal();showTab('airports');
-    await pushToGitHub();
+    refreshCounts();closeModal();showTab('airports');await pushToGitHub();
 
   }else if(_modalMode==='add-airline'||_modalMode==='edit-airline'){
     const code=(document.getElementById('f_code').value||'').trim().toUpperCase();
@@ -841,42 +932,335 @@ async function saveModal(){
     const type=document.getElementById('f_type').value;
     if(!code||!ar||!en){alert('الكود والاسمان مطلوبان');return;}
     DB.airlines[code]={ar,en,country,type};
-    refreshCounts();closeModal();showTab('airlines');
-    await pushToGitHub();
+    refreshCounts();closeModal();showTab('airlines');await pushToGitHub();
 
   }else if(_modalMode==='add-noshow'||_modalMode==='edit-noshow'){
     const code=(document.getElementById('f_code').value||'').trim().toUpperCase();
     const rule=document.getElementById('f_rule').value.trim();
     if(!code||!rule){alert('الكود والقاعدة مطلوبان');return;}
     DB.noShowRules[code]=rule;
-    refreshCounts();closeModal();showTab('noshow');
-    await pushToGitHub();
+    refreshCounts();closeModal();showTab('noshow');await pushToGitHub();
 
   }else if(_modalMode==='add-saudi'){
     const code=(document.getElementById('f_code').value||'').trim().toUpperCase();
     if(!code){alert('أدخل الكود');return;}
-    if(!DB.saudiAirports)DB.saudiAirports=[];
+    if(!DB.saudiAirports) DB.saudiAirports=[];
     if(DB.saudiAirports.includes(code)){alert('الكود موجود مسبقاً');return;}
     DB.saudiAirports.push(code);
-    refreshCounts();closeModal();showTab('saudi');
+    refreshCounts();closeModal();showTab('saudi');await pushToGitHub();
+
+  }else if(_modalMode==='add-bag-airline'||_modalMode==='edit-bag-airline'){
+    const code=(document.getElementById('f_code').value||'').trim().toUpperCase();
+    const hours=parseFloat(document.getElementById('f_hours').value);
+    const nameAr=document.getElementById('f_nameAr').value.trim();
+    const name=document.getElementById('f_name').value.trim();
+    if(!code||isNaN(hours)){alert('الكود وساعات المتعة مطلوبان');return;}
+    DB.baggage.airlines[code]={nameAr,name,baggageHours:hours};
+    refreshCounts();closeModal();_bagSubTab='airlines';document.getElementById('mainArea').innerHTML=renderBaggage();
+    await pushToGitHub();
+
+  }else if(_modalMode==='add-fee'||_modalMode==='edit-fee'){
+    const zone=(document.getElementById('f_zone').value||'').trim().toUpperCase();
+    const curr=(document.getElementById('f_curr').value||'').trim().toUpperCase();
+    const ow=parseFloat(document.getElementById('f_ow').value);
+    const rt=parseFloat(document.getElementById('f_rt').value);
+    if(!zone||!curr||isNaN(ow)||isNaN(rt)){alert('جميع الحقول مطلوبة');return;}
+    const tabKey=typeof _modalKey==='string'?_modalKey:_modalKey.tab;
+    const tblKey=tabKey==='fees'?'feesTable':'multiFeesTable';
+    if(!DB.baggage[tblKey]) DB.baggage[tblKey]={};
+    DB.baggage[tblKey][zone]={curr,ow,rt};
+    closeModal();_bagSubTab=tabKey;document.getElementById('mainArea').innerHTML=renderBaggage();
+    await pushToGitHub();
+
+  }else if(_modalMode==='add-checkin'||_modalMode==='edit-checkin'){
+    const zone=(document.getElementById('f_zone').value||'').trim().toUpperCase();
+    const curr=(document.getElementById('f_curr').value||'').trim().toUpperCase();
+    if(!zone||!curr){alert('المنطقة والعملة مطلوبتان');return;}
+    const y_ow=parseFloat(document.getElementById('f_y_ow').value);
+    const y_rt=parseFloat(document.getElementById('f_y_rt').value);
+    const n_ow=parseFloat(document.getElementById('f_n_ow').value);
+    const n_rt=parseFloat(document.getElementById('f_n_rt').value);
+    const entry={curr};
+    if(!isNaN(y_ow)&&!isNaN(y_rt)) entry.Y={ow:y_ow,rt:y_rt};
+    if(!isNaN(n_ow)&&!isNaN(n_rt)) entry.N={ow:n_ow,rt:n_rt};
+    const tabKey=typeof _modalKey==='string'?_modalKey:_modalKey.tab;
+    const tblKey=tabKey==='checkIn'?'checkInFeesTable':'checkInMultiFeesTable';
+    if(!DB.baggage[tblKey]) DB.baggage[tblKey]={};
+    DB.baggage[tblKey][zone]=entry;
+    closeModal();_bagSubTab=tabKey;document.getElementById('mainArea').innerHTML=renderBaggage();
     await pushToGitHub();
   }
 }
 
-// ══════════════════════════════════════════════
-// DELETE → GitHub
-// ══════════════════════════════════════════════
+// ── DELETE ──
 async function delAirport(code){if(!confirm(`حذف مطار ${code}؟`))return;delete DB.airports[code];refreshCounts();showTab('airports');await pushToGitHub();}
 async function delAirline(code){if(!confirm(`حذف شركة ${code}؟`))return;delete DB.airlines[code];refreshCounts();showTab('airlines');await pushToGitHub();}
 async function delNoShow(code){if(!confirm(`حذف قاعدة نو شو لـ ${code}؟`))return;delete DB.noShowRules[code];refreshCounts();showTab('noshow');await pushToGitHub();}
 async function delSaudi(code){if(!confirm(`إزالة ${code}؟`))return;DB.saudiAirports=(DB.saudiAirports||[]).filter(c=>c!==code);refreshCounts();showTab('saudi');await pushToGitHub();}
+async function delBagAirline(code){if(!confirm(`حذف شركة متعة ${code}؟`))return;if(DB.baggage?.airlines)delete DB.baggage.airlines[code];refreshCounts();_bagSubTab='airlines';document.getElementById('mainArea').innerHTML=renderBaggage();await pushToGitHub();}
+async function delFee(tabKey,zone){if(!confirm(`حذف منطقة ${zone}؟`))return;const k=tabKey==='fees'?'feesTable':'multiFeesTable';if(DB.baggage?.[k])delete DB.baggage[k][zone];_bagSubTab=tabKey;document.getElementById('mainArea').innerHTML=renderBaggage();await pushToGitHub();}
+async function delCheckIn(tabKey,zone){if(!confirm(`حذف منطقة Check-in ${zone}؟`))return;const k=tabKey==='checkIn'?'checkInFeesTable':'checkInMultiFeesTable';if(DB.baggage?.[k])delete DB.baggage[k][zone];_bagSubTab=tabKey;document.getElementById('mainArea').innerHTML=renderBaggage();await pushToGitHub();}
 
-// ══════════════════════════════════════════════
-// HELPERS
-// ══════════════════════════════════════════════
+// ── PAX FEES (inline editable) ──
+function renderPaxFees(){
+  if(!DB) return noDbMsg();
+  const bag=DB.baggage||{};
+  const fees     = bag.feesTable||{};
+  const ciSingle = bag.checkInFeesTable||{};
+  const ciMulti  = bag.checkInMultiFeesTable||{};
+
+  // collect all zones across all 3 tables
+  const allZones=[...new Set([...Object.keys(fees),...Object.keys(ciSingle),...Object.keys(ciMulti)])].sort();
+
+  return `
+  <div class="ph">
+    <div>
+      <div class="ph-title">💳 رسوم المسافر</div>
+      <div class="ph-sub">تعديل مباشر على رسوم المتعة الفردية ورسوم Check-in — ${allZones.length} منطقة</div>
+    </div>
+    <div class="ph-actions">
+      <button class="btn btn-primary" onclick="saveAllPaxFees()">☁️ حفظ الكل في GitHub</button>
+      <button class="btn btn-teal" onclick="openAddPaxZone()">+ إضافة منطقة</button>
+    </div>
+  </div>
+
+  <!-- ══ TABLE 1: feesTable ══ -->
+  <div class="tcard">
+    <div class="section-hdr">
+      <span>💰 رسوم المتعة الفردية <span style="color:var(--faint);font-size:11px;font-weight:400;">(feesTable)</span></span>
+      <span style="font-size:10px;color:var(--muted);">${Object.keys(fees).length} منطقة</span>
+    </div>
+    <div class="twrap">
+      <table class="itable">
+        <thead><tr>
+          <th>المنطقة</th><th>العملة</th>
+          <th>OW <span style="font-weight:400;color:var(--faint);">ذهاب</span></th>
+          <th>RT <span style="font-weight:400;color:var(--faint);">ذهاب+عودة</span></th>
+          <th>إجراءات</th>
+        </tr></thead>
+        <tbody>
+          ${Object.keys(fees).length ? Object.entries(fees).map(([zone,d])=>`
+          <tr id="fees-row-${zone}">
+            <td class="zone-cell">${zone}</td>
+            <td><input class="curr-inp" id="fees-curr-${zone}" value="${d.curr||''}" placeholder="SAR" maxlength="3" oninput="this.value=this.value.toUpperCase()"></td>
+            <td><input class="num-inp" id="fees-ow-${zone}" type="number" step="0.01" value="${d.ow??''}" placeholder="0.00"></td>
+            <td><input class="num-inp" id="fees-rt-${zone}" type="number" step="0.01" value="${d.rt??''}" placeholder="0.00"></td>
+            <td>
+              <div class="act-btns">
+                <button class="save-row-btn" id="fees-savebtn-${zone}" onclick="saveFeesRow('${zone}')">💾 حفظ</button>
+                <button class="btn btn-danger btn-xs" onclick="delPaxZone('fees','${zone}')">🗑</button>
+              </div>
+            </td>
+          </tr>`).join('') : `<tr><td colspan="5"><div class="empty"><div class="empty-icon">💰</div><div class="empty-title">لا توجد بيانات</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ TABLE 2: checkInFeesTable ══ -->
+  <div class="tcard">
+    <div class="section-hdr">
+      <span>🎫 رسوم Check-in الفردية <span style="color:var(--faint);font-size:11px;font-weight:400;">(checkInFeesTable)</span></span>
+      <span style="font-size:10px;color:var(--muted);">${Object.keys(ciSingle).length} منطقة</span>
+    </div>
+    <div class="twrap">
+      <table class="itable">
+        <thead><tr>
+          <th>المنطقة</th><th>العملة</th>
+          <th colspan="2" style="background:rgba(45,212,191,.06);color:var(--teal);">✅ مع حضور (Y)</th>
+          <th colspan="2" style="background:rgba(251,191,36,.06);color:var(--amber);">❌ بدون حضور (N)</th>
+          <th>إجراءات</th>
+        </tr>
+        <tr>
+          <th></th><th></th>
+          <th style="background:rgba(45,212,191,.04);color:var(--faint);">OW</th>
+          <th style="background:rgba(45,212,191,.04);color:var(--faint);">RT</th>
+          <th style="background:rgba(251,191,36,.04);color:var(--faint);">OW</th>
+          <th style="background:rgba(251,191,36,.04);color:var(--faint);">RT</th>
+          <th></th>
+        </tr></thead>
+        <tbody>
+          ${Object.keys(ciSingle).length ? Object.entries(ciSingle).map(([zone,d])=>`
+          <tr id="ci-row-${zone}">
+            <td class="zone-cell">${zone}</td>
+            <td><input class="curr-inp" id="ci-curr-${zone}" value="${d.curr||''}" placeholder="SAR" maxlength="3" oninput="this.value=this.value.toUpperCase()"></td>
+            <td style="background:rgba(45,212,191,.03);"><input class="num-inp" id="ci-y-ow-${zone}" type="number" step="0.01" value="${d.Y?.ow??''}" placeholder="—"></td>
+            <td style="background:rgba(45,212,191,.03);"><input class="num-inp" id="ci-y-rt-${zone}" type="number" step="0.01" value="${d.Y?.rt??''}" placeholder="—"></td>
+            <td style="background:rgba(251,191,36,.03);"><input class="num-inp" id="ci-n-ow-${zone}" type="number" step="0.01" value="${d.N?.ow??''}" placeholder="—"></td>
+            <td style="background:rgba(251,191,36,.03);"><input class="num-inp" id="ci-n-rt-${zone}" type="number" step="0.01" value="${d.N?.rt??''}" placeholder="—"></td>
+            <td>
+              <div class="act-btns">
+                <button class="save-row-btn" id="ci-savebtn-${zone}" onclick="saveCiRow('single','${zone}')">💾 حفظ</button>
+                <button class="btn btn-danger btn-xs" onclick="delPaxZone('checkIn','${zone}')">🗑</button>
+              </div>
+            </td>
+          </tr>`).join('') : `<tr><td colspan="7"><div class="empty"><div class="empty-icon">🎫</div><div class="empty-title">لا توجد بيانات</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══ TABLE 3: checkInMultiFeesTable ══ -->
+  <div class="tcard">
+    <div class="section-hdr">
+      <span>🎫 رسوم Check-in المتعددة <span style="color:var(--faint);font-size:11px;font-weight:400;">(checkInMultiFeesTable)</span></span>
+      <span style="font-size:10px;color:var(--muted);">${Object.keys(ciMulti).length} منطقة</span>
+    </div>
+    <div class="twrap">
+      <table class="itable">
+        <thead><tr>
+          <th>المنطقة</th><th>العملة</th>
+          <th colspan="2" style="background:rgba(45,212,191,.06);color:var(--teal);">✅ مع حضور (Y)</th>
+          <th colspan="2" style="background:rgba(251,191,36,.06);color:var(--amber);">❌ بدون حضور (N)</th>
+          <th>إجراءات</th>
+        </tr>
+        <tr>
+          <th></th><th></th>
+          <th style="background:rgba(45,212,191,.04);color:var(--faint);">OW</th>
+          <th style="background:rgba(45,212,191,.04);color:var(--faint);">RT</th>
+          <th style="background:rgba(251,191,36,.04);color:var(--faint);">OW</th>
+          <th style="background:rgba(251,191,36,.04);color:var(--faint);">RT</th>
+          <th></th>
+        </tr></thead>
+        <tbody>
+          ${Object.keys(ciMulti).length ? Object.entries(ciMulti).map(([zone,d])=>`
+          <tr id="cim-row-${zone}">
+            <td class="zone-cell">${zone}</td>
+            <td><input class="curr-inp" id="cim-curr-${zone}" value="${d.curr||''}" placeholder="SAR" maxlength="3" oninput="this.value=this.value.toUpperCase()"></td>
+            <td style="background:rgba(45,212,191,.03);"><input class="num-inp" id="cim-y-ow-${zone}" type="number" step="0.01" value="${d.Y?.ow??''}" placeholder="—"></td>
+            <td style="background:rgba(45,212,191,.03);"><input class="num-inp" id="cim-y-rt-${zone}" type="number" step="0.01" value="${d.Y?.rt??''}" placeholder="—"></td>
+            <td style="background:rgba(251,191,36,.03);"><input class="num-inp" id="cim-n-ow-${zone}" type="number" step="0.01" value="${d.N?.ow??''}" placeholder="—"></td>
+            <td style="background:rgba(251,191,36,.03);"><input class="num-inp" id="cim-n-rt-${zone}" type="number" step="0.01" value="${d.N?.rt??''}" placeholder="—"></td>
+            <td>
+              <div class="act-btns">
+                <button class="save-row-btn" id="cim-savebtn-${zone}" onclick="saveCiRow('multi','${zone}')">💾 حفظ</button>
+                <button class="btn btn-danger btn-xs" onclick="delPaxZone('checkInMulti','${zone}')">🗑</button>
+              </div>
+            </td>
+          </tr>`).join('') : `<tr><td colspan="7"><div class="empty"><div class="empty-icon">🎫</div><div class="empty-title">لا توجد بيانات</div></div></td></tr>`}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+// ── PAX FEES inline save helpers ──
+function _ensureBag(){if(!DB.baggage)DB.baggage={airlines:{},feesTable:{},multiFeesTable:{},checkInFeesTable:{},checkInMultiFeesTable:{}};}
+
+function _flashBtn(btnId,success){
+  const btn=document.getElementById(btnId);
+  if(!btn)return;
+  btn.textContent=success?'✅ تم':'❌ خطأ';
+  btn.classList.add('saving');
+  setTimeout(()=>{btn.textContent='💾 حفظ';btn.classList.remove('saving');},2000);
+}
+
+async function saveFeesRow(zone){
+  _ensureBag();
+  const curr=(document.getElementById(`fees-curr-${zone}`)?.value||'').toUpperCase();
+  const ow=parseFloat(document.getElementById(`fees-ow-${zone}`)?.value);
+  const rt=parseFloat(document.getElementById(`fees-rt-${zone}`)?.value);
+  if(!curr||isNaN(ow)||isNaN(rt)){alert('أدخل جميع القيم');return;}
+  DB.baggage.feesTable[zone]={curr,ow,rt};
+  await pushToGitHub();
+  _flashBtn(`fees-savebtn-${zone}`,true);
+}
+
+async function saveCiRow(type,zone){
+  _ensureBag();
+  const prefix=type==='single'?'ci':'cim';
+  const tblKey=type==='single'?'checkInFeesTable':'checkInMultiFeesTable';
+  const curr=(document.getElementById(`${prefix}-curr-${zone}`)?.value||'').toUpperCase();
+  if(!curr){alert('أدخل العملة');return;}
+  const y_ow=parseFloat(document.getElementById(`${prefix}-y-ow-${zone}`)?.value);
+  const y_rt=parseFloat(document.getElementById(`${prefix}-y-rt-${zone}`)?.value);
+  const n_ow=parseFloat(document.getElementById(`${prefix}-n-ow-${zone}`)?.value);
+  const n_rt=parseFloat(document.getElementById(`${prefix}-n-rt-${zone}`)?.value);
+  const entry={curr};
+  if(!isNaN(y_ow)&&!isNaN(y_rt)) entry.Y={ow:y_ow,rt:y_rt};
+  if(!isNaN(n_ow)&&!isNaN(n_rt)) entry.N={ow:n_ow,rt:n_rt};
+  DB.baggage[tblKey][zone]=entry;
+  await pushToGitHub();
+  _flashBtn(`${prefix}-savebtn-${zone}`,true);
+}
+
+async function saveAllPaxFees(){
+  _ensureBag();
+  const bag=DB.baggage;
+  // fees
+  for(const zone of Object.keys(bag.feesTable||{})){
+    const curr=(document.getElementById(`fees-curr-${zone}`)?.value||'').toUpperCase();
+    const ow=parseFloat(document.getElementById(`fees-ow-${zone}`)?.value);
+    const rt=parseFloat(document.getElementById(`fees-rt-${zone}`)?.value);
+    if(curr&&!isNaN(ow)&&!isNaN(rt)) bag.feesTable[zone]={curr,ow,rt};
+  }
+  // ci single
+  for(const zone of Object.keys(bag.checkInFeesTable||{})){
+    const curr=(document.getElementById(`ci-curr-${zone}`)?.value||'').toUpperCase();
+    if(!curr) continue;
+    const y_ow=parseFloat(document.getElementById(`ci-y-ow-${zone}`)?.value);
+    const y_rt=parseFloat(document.getElementById(`ci-y-rt-${zone}`)?.value);
+    const n_ow=parseFloat(document.getElementById(`ci-n-ow-${zone}`)?.value);
+    const n_rt=parseFloat(document.getElementById(`ci-n-rt-${zone}`)?.value);
+    const entry={curr};
+    if(!isNaN(y_ow)&&!isNaN(y_rt)) entry.Y={ow:y_ow,rt:y_rt};
+    if(!isNaN(n_ow)&&!isNaN(n_rt)) entry.N={ow:n_ow,rt:n_rt};
+    bag.checkInFeesTable[zone]=entry;
+  }
+  // ci multi
+  for(const zone of Object.keys(bag.checkInMultiFeesTable||{})){
+    const curr=(document.getElementById(`cim-curr-${zone}`)?.value||'').toUpperCase();
+    if(!curr) continue;
+    const y_ow=parseFloat(document.getElementById(`cim-y-ow-${zone}`)?.value);
+    const y_rt=parseFloat(document.getElementById(`cim-y-rt-${zone}`)?.value);
+    const n_ow=parseFloat(document.getElementById(`cim-n-ow-${zone}`)?.value);
+    const n_rt=parseFloat(document.getElementById(`cim-n-rt-${zone}`)?.value);
+    const entry={curr};
+    if(!isNaN(y_ow)&&!isNaN(y_rt)) entry.Y={ow:y_ow,rt:y_rt};
+    if(!isNaN(n_ow)&&!isNaN(n_rt)) entry.N={ow:n_ow,rt:n_rt};
+    bag.checkInMultiFeesTable[zone]=entry;
+  }
+  await pushToGitHub();
+}
+
+async function delPaxZone(tableType,zone){
+  if(!confirm(`حذف منطقة ${zone} من ${tableType}؟`))return;
+  _ensureBag();
+  if(tableType==='fees') delete DB.baggage.feesTable[zone];
+  else if(tableType==='checkIn') delete DB.baggage.checkInFeesTable[zone];
+  else if(tableType==='checkInMulti') delete DB.baggage.checkInMultiFeesTable[zone];
+  await pushToGitHub();
+  document.getElementById('mainArea').innerHTML=renderPaxFees();
+}
+
+function openAddPaxZone(){
+  _modalMode='add-paxzone';_modalKey=null;
+  openModal('➕ إضافة منطقة رسوم','أدخل بيانات المنطقة الجديدة',`
+  <div class="fg full" style="margin-bottom:8px;">
+    <label class="fl">كود المنطقة *</label>
+    <input id="f_zone" class="fi mono" placeholder="KSA_DOM" oninput="this.value=this.value.toUpperCase()">
+  </div>
+  <div class="fg full" style="margin-bottom:8px;">
+    <label class="fl">العملة *</label>
+    <input id="f_curr" class="fi mono" placeholder="SAR" maxlength="3" oninput="this.value=this.value.toUpperCase()">
+  </div>
+  <div class="fg full">
+    <label class="fl">أضف إلى</label>
+    <select id="f_pax_target" class="fs">
+      <option value="all">الثلاثة جداول (feesTable + checkIn + checkInMulti)</option>
+      <option value="fees">feesTable فقط</option>
+      <option value="checkIn">checkInFeesTable فقط</option>
+      <option value="checkInMulti">checkInMultiFeesTable فقط</option>
+    </select>
+  </div>
+  <div style="background:var(--bg3);border-radius:8px;padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.6;">
+    ستُضاف المنطقة بقيم صفر — عدّلها مباشرة من الجدول بعد الإضافة
+  </div>`);
+}
+
+
 function noDbMsg(){return`<div class="empty" style="margin-top:60px;"><div class="empty-icon">🔗</div><div class="empty-title">لم يتم تحميل البيانات</div><div style="font-size:12px;color:var(--muted);margin-top:6px;">أدخل GitHub Token للاتصال بالريبو</div><div style="margin-top:16px;"><button class="btn btn-primary" onclick="showTab('setup')">⚙️ إعدادات الاتصال</button></div></div>`;}
 
-// Close modal on overlay click
 document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 </script>
 </body>
