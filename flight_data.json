@@ -1,4 +1,8 @@
+
 {
+  "version": "3.0.0",
+  "lastUpdated": "2026-05-31",
+  "description": "Merged database: GDS policy base + LCCC filter + Baggage fees — Al-Mosafer",
   "airports": {
     "RUH": {
       "ar": "الرياض",
@@ -1812,62 +1816,6 @@
       "city_ar": "كرايستشيرش",
       "city_en": "Christchurch",
       "country": "NZ"
-    },
-    "HAS": {
-      "ar": "حائل",
-      "en": "Hail",
-      "city_ar": "حائل",
-      "city_en": "Hail",
-      "country": "SA"
-    },
-    "ELQ": {
-      "ar": "القصيم",
-      "en": "Qassim",
-      "city_ar": "بريدة",
-      "city_en": "Buraydah",
-      "country": "SA"
-    },
-    "HBT": {
-      "ar": "سكاكا",
-      "en": "Sakaka",
-      "city_ar": "سكاكا",
-      "city_en": "Sakaka",
-      "country": "SA"
-    },
-    "AQI": {
-      "ar": "حفر الباطن",
-      "en": "Hafr Al-Batin",
-      "city_ar": "حفر الباطن",
-      "city_en": "Hafr Al-Batin",
-      "country": "SA"
-    },
-    "KMX": {
-      "ar": "خميس مشيط",
-      "en": "Khamis Mushait",
-      "city_ar": "خميس مشيط",
-      "city_en": "Khamis Mushait",
-      "country": "SA"
-    },
-    "MJH": {
-      "ar": "محايل عسير",
-      "en": "Muhayil Asir",
-      "city_ar": "محايل عسير",
-      "city_en": "Muhayil Asir",
-      "country": "SA"
-    },
-    "SHB": {
-      "ar": "نيوم",
-      "en": "NEOM Bay",
-      "city_ar": "نيوم",
-      "city_en": "NEOM",
-      "country": "SA"
-    },
-    "RAH": {
-      "ar": "رجال ألمع",
-      "en": "Rijal Almaa",
-      "city_ar": "رجال ألمع",
-      "city_en": "Rijal Almaa",
-      "country": "SA"
     }
   },
   "airlines": {
@@ -1890,12 +1838,6 @@
       "type": "lcc"
     },
     "G9": {
-      "ar": "العربية للطيران",
-      "en": "Air Arabia",
-      "country": "AE",
-      "type": "lcc"
-    },
-    "9P": {
       "ar": "العربية للطيران",
       "en": "Air Arabia",
       "country": "AE",
@@ -2794,12 +2736,6 @@
       "en": "Fiji Airways",
       "country": "FJ",
       "type": "full"
-    },
-    "NE": {
-      "ar": "نسمه",
-      "en": "Nasma",
-      "country": "EG",
-      "type": "full"
     }
   },
   "cityToIATA": {
@@ -3000,29 +2936,7 @@
     "سيول": "ICN",
     "طوكيو": "NRT",
     "نيويورك": "JFK",
-    "لوس أنجلوس": "LAX",
-    "hail": "HAS",
-    "qassim": "ELQ",
-    "buraydah": "ELQ",
-    "buraidah": "ELQ",
-    "sakaka": "HBT",
-    "hafr al-batin": "AQI",
-    "hafr albatin": "AQI",
-    "khamis mushait": "KMX",
-    "khamis mushayt": "KMX",
-    "muhayil": "MJH",
-    "neom": "SHB",
-    "rijal almaa": "RAH",
-    "حائل": "HAS",
-    "القصيم": "ELQ",
-    "بريدة": "ELQ",
-    "سكاكا": "HBT",
-    "حفر الباطن": "AQI",
-    "خميس مشيط": "KMX",
-    "محايل": "MJH",
-    "محايل عسير": "MJH",
-    "نيوم": "SHB",
-    "رجال ألمع": "RAH"
+    "لوس أنجلوس": "LAX"
   },
   "saudiAirports": [
     "RUH",
@@ -3046,27 +2960,16 @@
     "AKH",
     "TUI",
     "ULH",
-    "URY",
-    "HAS",
-    "ELQ",
-    "HBT",
-    "AQI",
-    "KMX",
-    "MJH",
-    "SHB",
-    "RAH"
+    "URY"
   ],
   "noShowRules": {
     "A3": "4",
     "AH": "3",
     "AC": "2",
     "AI": "24",
-    "MK": "24",
     "SM": "24",
     "AZ": "3",
     "UJ": "24",
-    "GP": "148 or 48 or 4 Check Rules",
-    "UH": "24",
     "OS": "24",
     "J2": "1",
     "BA": "6",
@@ -3081,8 +2984,6 @@
     "XY": "4",
     "GA": "3",
     "GF": "24",
-    "R5": "24",
-    "RQ": "24",
     "KQ": "24",
     "AF": "1",
     "KL": "1",
@@ -3090,9 +2991,7 @@
     "LH": "1",
     "MH": "3",
     "ME": "24 or 48 or 1 Check Rules",
-    "NE": "24 or 48 Check Rules",
     "NP": "24 or 48 or 72 Check Rules",
-    "BJ": "24",
     "WY": "3",
     "PK": "4",
     "PC": "2",
@@ -3102,7 +3001,6 @@
     "RJ": "4 for Economy / 18 for business",
     "SV": "3",
     "TR": "24",
-    "ER": "24",
     "SQ": "24",
     "UL": "24",
     "LX": "24",
@@ -3112,18 +3010,913 @@
     "F3": "4",
     "6E": "4",
     "G9": "24",
-    "9P": "24",
     "E5": "24",
     "3L": "24",
     "3O": "Updated on Ticket Copy",
     "IX": "Before 96 - before 24 - less than 24 Check rules",
-    "J5": "Departure time",
     "J9": "8",
     "FR": "2 for reissue / Non refundable",
     "OV": "24",
     "G8": "8"
   },
-  "version": "2.1.0",
-  "lastUpdated": "2026-05-31",
-  "description": "World airports and airlines database for Al-Mosafer LCC Amendment Tool"
+  "baggage": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-05-31",
+    "description": "AlMosafer Services — Airline No-Show & Baggage Window Data",
+    "airlines": {
+      "SV": {
+        "name": "Saudi Arabian Airlines",
+        "nameAr": "الخطوط السعودية",
+        "baggageHours": 6
+      },
+      "XY": {
+        "name": "flynas",
+        "nameAr": "طيران ناس",
+        "baggageHours": 12
+      },
+      "F3": {
+        "name": "flyadeal",
+        "nameAr": "طيران أديل",
+        "baggageHours": 6
+      },
+      "FZ": {
+        "name": "flydubai",
+        "nameAr": "فلاي دبي",
+        "baggageHours": 24
+      },
+      "G9": {
+        "name": "Air Arabia",
+        "nameAr": "العربية للطيران",
+        "baggageHours": 24
+      },
+      "E5": {
+        "name": "Air Arabia Egypt",
+        "nameAr": "العربية للطيران مصر",
+        "baggageHours": 24
+      },
+      "J5": {
+        "name": "Air Arabia AUH",
+        "nameAr": "العربية أبوظبي",
+        "baggageHours": 24
+      },
+      "EK": {
+        "name": "Emirates",
+        "nameAr": "طيران الإمارات",
+        "baggageHours": 6
+      },
+      "EY": {
+        "name": "Etihad Airways",
+        "nameAr": "الاتحاد",
+        "baggageHours": 6
+      },
+      "QR": {
+        "name": "Qatar Airways",
+        "nameAr": "قطر للطيران",
+        "baggageHours": 3
+      },
+      "GF": {
+        "name": "Gulf Air",
+        "nameAr": "طيران الخليج",
+        "baggageHours": 24
+      },
+      "KU": {
+        "name": "Kuwait Airways",
+        "nameAr": "الخطوط الكويتية",
+        "baggageHours": 24
+      },
+      "WY": {
+        "name": "Oman Air",
+        "nameAr": "الخطوط العُمانية",
+        "baggageHours": 24
+      },
+      "J9": {
+        "name": "Jazeera Airways",
+        "nameAr": "طيران الجزيرة",
+        "baggageHours": 24
+      },
+      "OV": {
+        "name": "SalamAir",
+        "nameAr": "سلام إير",
+        "baggageHours": 24
+      },
+      "RJ": {
+        "name": "Royal Jordanian",
+        "nameAr": "الملكية الأردنية",
+        "baggageHours": 24
+      },
+      "ME": {
+        "name": "Middle East Airlines",
+        "nameAr": "طيران الشرق الأوسط",
+        "baggageHours": 24
+      },
+      "MS": {
+        "name": "EgyptAir",
+        "nameAr": "مصر للطيران",
+        "baggageHours": 48
+      },
+      "NP": {
+        "name": "Nile Air",
+        "nameAr": "النيل للطيران",
+        "baggageHours": 24
+      },
+      "SM": {
+        "name": "Air Cairo",
+        "nameAr": "إير كايرو",
+        "baggageHours": 8
+      },
+      "UJ": {
+        "name": "AlMasria",
+        "nameAr": "المصرية العالمية",
+        "baggageHours": 24
+      },
+      "6E": {
+        "name": "IndiGo",
+        "nameAr": "إنديغو",
+        "baggageHours": 24
+      },
+      "AI": {
+        "name": "Air India",
+        "nameAr": "إير إنديا",
+        "baggageHours": 24
+      },
+      "IX": {
+        "name": "Air India Express",
+        "nameAr": "إير إنديا إكسبريس",
+        "baggageHours": 24
+      },
+      "SG": {
+        "name": "SpiceJet",
+        "nameAr": "سبايسجيت",
+        "baggageHours": 24
+      },
+      "PK": {
+        "name": "PIA",
+        "nameAr": "باكستان إنترناشيونال",
+        "baggageHours": 6
+      },
+      "UK": {
+        "name": "Vistara",
+        "nameAr": "فيستارا",
+        "baggageHours": 24
+      },
+      "AK": {
+        "name": "AirAsia",
+        "nameAr": "إير آسيا",
+        "baggageHours": 4
+      },
+      "MH": {
+        "name": "Malaysia Airlines",
+        "nameAr": "ماليزيا إيرلاينز",
+        "baggageHours": 24
+      },
+      "SQ": {
+        "name": "Singapore Airlines",
+        "nameAr": "سنغافورة إيرلاينز",
+        "baggageHours": 24
+      },
+      "CX": {
+        "name": "Cathay Pacific",
+        "nameAr": "كاثاي باسيفيك",
+        "baggageHours": 24
+      },
+      "TK": {
+        "name": "Turkish Airlines",
+        "nameAr": "الخطوط التركية",
+        "baggageHours": 12
+      },
+      "PC": {
+        "name": "Pegasus",
+        "nameAr": "بيغاسوس",
+        "baggageHours": 24
+      },
+      "FR": {
+        "name": "Ryanair",
+        "nameAr": "رايان إير",
+        "baggageHours": 2
+      },
+      "U2": {
+        "name": "easyJet",
+        "nameAr": "إيزي جيت",
+        "baggageHours": 2
+      },
+      "W6": {
+        "name": "Wizz Air",
+        "nameAr": "ويز إير",
+        "baggageHours": 3
+      },
+      "LH": {
+        "name": "Lufthansa",
+        "nameAr": "لوفتهانزا",
+        "baggageHours": 24
+      },
+      "AF": {
+        "name": "Air France",
+        "nameAr": "الخطوط الفرنسية",
+        "baggageHours": 24
+      },
+      "BA": {
+        "name": "British Airways",
+        "nameAr": "بريتيش إيرويز",
+        "baggageHours": 24
+      },
+      "ET": {
+        "name": "Ethiopian Airlines",
+        "nameAr": "إثيوبيا إيرلاينز",
+        "baggageHours": 6
+      },
+      "KQ": {
+        "name": "Kenya Airways",
+        "nameAr": "كينيا إيرويز",
+        "baggageHours": 6
+      },
+      "DEFAULT": {
+        "name": "Unknown Airline",
+        "nameAr": "شركة طيران",
+        "baggageHours": 24
+      }
+    },
+    "airports": {
+      "RUH": {
+        "ar": "الرياض",
+        "en": "Riyadh",
+        "country": "SA"
+      },
+      "JED": {
+        "ar": "جدة",
+        "en": "Jeddah",
+        "country": "SA"
+      },
+      "DMM": {
+        "ar": "الدمام",
+        "en": "Dammam",
+        "country": "SA"
+      },
+      "MED": {
+        "ar": "المدينة المنورة",
+        "en": "Madinah",
+        "country": "SA"
+      },
+      "TIF": {
+        "ar": "الطائف",
+        "en": "Taif",
+        "country": "SA"
+      },
+      "AHB": {
+        "ar": "أبها",
+        "en": "Abha",
+        "country": "SA"
+      },
+      "GIZ": {
+        "ar": "جازان",
+        "en": "Jazan",
+        "country": "SA"
+      },
+      "YNB": {
+        "ar": "ينبع",
+        "en": "Yanbu",
+        "country": "SA"
+      },
+      "TUU": {
+        "ar": "تبوك",
+        "en": "Tabuk",
+        "country": "SA"
+      },
+      "EAM": {
+        "ar": "نجران",
+        "en": "Najran",
+        "country": "SA"
+      },
+      "HOF": {
+        "ar": "الأحساء",
+        "en": "Al-Ahsa",
+        "country": "SA"
+      },
+      "ABT": {
+        "ar": "الباحة",
+        "en": "Al-Baha",
+        "country": "SA"
+      },
+      "BHH": {
+        "ar": "بيشة",
+        "en": "Bisha",
+        "country": "SA"
+      },
+      "HAS": {
+        "ar": "حائل",
+        "en": "Hail",
+        "country": "SA"
+      },
+      "ELQ": {
+        "ar": "القصيم",
+        "en": "Qassim",
+        "country": "SA"
+      },
+      "WAE": {
+        "ar": "وادي الدواسر",
+        "en": "Wadi Al-Dawasir",
+        "country": "SA"
+      },
+      "SHW": {
+        "ar": "شرورة",
+        "en": "Sharurah",
+        "country": "SA"
+      },
+      "RAE": {
+        "ar": "رفحاء",
+        "en": "Rafha",
+        "country": "SA"
+      },
+      "DXB": {
+        "ar": "دبي",
+        "en": "Dubai",
+        "country": "AE"
+      },
+      "AUH": {
+        "ar": "أبوظبي",
+        "en": "Abu Dhabi",
+        "country": "AE"
+      },
+      "SHJ": {
+        "ar": "الشارقة",
+        "en": "Sharjah",
+        "country": "AE"
+      },
+      "RKT": {
+        "ar": "رأس الخيمة",
+        "en": "Ras Al Khaimah",
+        "country": "AE"
+      },
+      "KWI": {
+        "ar": "الكويت",
+        "en": "Kuwait City",
+        "country": "KW"
+      },
+      "DOH": {
+        "ar": "الدوحة",
+        "en": "Doha",
+        "country": "QA"
+      },
+      "BAH": {
+        "ar": "البحرين",
+        "en": "Bahrain",
+        "country": "BH"
+      },
+      "MCT": {
+        "ar": "مسقط",
+        "en": "Muscat",
+        "country": "OM"
+      },
+      "SLL": {
+        "ar": "صلالة",
+        "en": "Salalah",
+        "country": "OM"
+      },
+      "AMM": {
+        "ar": "عمّان",
+        "en": "Amman",
+        "country": "JO"
+      },
+      "BEY": {
+        "ar": "بيروت",
+        "en": "Beirut",
+        "country": "LB"
+      },
+      "CAI": {
+        "ar": "القاهرة",
+        "en": "Cairo",
+        "country": "EG"
+      },
+      "ALX": {
+        "ar": "الإسكندرية",
+        "en": "Alexandria",
+        "country": "EG"
+      },
+      "HRG": {
+        "ar": "الغردقة",
+        "en": "Hurghada",
+        "country": "EG"
+      },
+      "SSH": {
+        "ar": "شرم الشيخ",
+        "en": "Sharm El Sheikh",
+        "country": "EG"
+      },
+      "LXR": {
+        "ar": "الأقصر",
+        "en": "Luxor",
+        "country": "EG"
+      },
+      "ASW": {
+        "ar": "أسوان",
+        "en": "Aswan",
+        "country": "EG"
+      },
+      "HMB": {
+        "ar": "سوهاج",
+        "en": "Sohag",
+        "country": "EG"
+      },
+      "BOM": {
+        "ar": "مومباي",
+        "en": "Mumbai",
+        "country": "IN"
+      },
+      "DEL": {
+        "ar": "دلهي",
+        "en": "Delhi",
+        "country": "IN"
+      },
+      "BLR": {
+        "ar": "بنغالور",
+        "en": "Bengaluru",
+        "country": "IN"
+      },
+      "MAA": {
+        "ar": "تشيناي",
+        "en": "Chennai",
+        "country": "IN"
+      },
+      "HYD": {
+        "ar": "حيدراباد",
+        "en": "Hyderabad",
+        "country": "IN"
+      },
+      "CCJ": {
+        "ar": "كاليكوت",
+        "en": "Kozhikode",
+        "country": "IN"
+      },
+      "COK": {
+        "ar": "كوتشي",
+        "en": "Kochi",
+        "country": "IN"
+      },
+      "TRV": {
+        "ar": "تيروفانانتابورام",
+        "en": "Thiruvananthapuram",
+        "country": "IN"
+      },
+      "AMD": {
+        "ar": "أحمداباد",
+        "en": "Ahmedabad",
+        "country": "IN"
+      },
+      "GOI": {
+        "ar": "غوا",
+        "en": "Goa",
+        "country": "IN"
+      },
+      "CCU": {
+        "ar": "كولكاتا",
+        "en": "Kolkata",
+        "country": "IN"
+      },
+      "ATQ": {
+        "ar": "أمريتسار",
+        "en": "Amritsar",
+        "country": "IN"
+      },
+      "KHI": {
+        "ar": "كراتشي",
+        "en": "Karachi",
+        "country": "PK"
+      },
+      "LHE": {
+        "ar": "لاهور",
+        "en": "Lahore",
+        "country": "PK"
+      },
+      "ISB": {
+        "ar": "إسلام آباد",
+        "en": "Islamabad",
+        "country": "PK"
+      },
+      "DAC": {
+        "ar": "دكا",
+        "en": "Dhaka",
+        "country": "BD"
+      },
+      "KTM": {
+        "ar": "كاتماندو",
+        "en": "Kathmandu",
+        "country": "NP"
+      },
+      "CMB": {
+        "ar": "كولومبو",
+        "en": "Colombo",
+        "country": "LK"
+      },
+      "SIN": {
+        "ar": "سنغافورة",
+        "en": "Singapore",
+        "country": "SG"
+      },
+      "KUL": {
+        "ar": "كوالالمبور",
+        "en": "Kuala Lumpur",
+        "country": "MY"
+      },
+      "BKK": {
+        "ar": "بانكوك",
+        "en": "Bangkok",
+        "country": "TH"
+      },
+      "HKT": {
+        "ar": "فوكيت",
+        "en": "Phuket",
+        "country": "TH"
+      },
+      "CGK": {
+        "ar": "جاكرتا",
+        "en": "Jakarta",
+        "country": "ID"
+      },
+      "DPS": {
+        "ar": "بالي",
+        "en": "Bali",
+        "country": "ID"
+      },
+      "MNL": {
+        "ar": "مانيلا",
+        "en": "Manila",
+        "country": "PH"
+      },
+      "ICN": {
+        "ar": "سيول",
+        "en": "Seoul",
+        "country": "KR"
+      },
+      "NRT": {
+        "ar": "طوكيو ناريتا",
+        "en": "Tokyo Narita",
+        "country": "JP"
+      },
+      "HND": {
+        "ar": "طوكيو هانيدا",
+        "en": "Tokyo Haneda",
+        "country": "JP"
+      },
+      "HKG": {
+        "ar": "هونغ كونغ",
+        "en": "Hong Kong",
+        "country": "HK"
+      },
+      "LHR": {
+        "ar": "لندن هيثرو",
+        "en": "London Heathrow",
+        "country": "GB"
+      },
+      "LGW": {
+        "ar": "لندن غاتويك",
+        "en": "London Gatwick",
+        "country": "GB"
+      },
+      "CDG": {
+        "ar": "باريس شارل ديغول",
+        "en": "Paris CDG",
+        "country": "FR"
+      },
+      "FRA": {
+        "ar": "فرانكفورت",
+        "en": "Frankfurt",
+        "country": "DE"
+      },
+      "MUC": {
+        "ar": "ميونخ",
+        "en": "Munich",
+        "country": "DE"
+      },
+      "AMS": {
+        "ar": "أمستردام",
+        "en": "Amsterdam",
+        "country": "NL"
+      },
+      "ZRH": {
+        "ar": "زيوريخ",
+        "en": "Zurich",
+        "country": "CH"
+      },
+      "FCO": {
+        "ar": "روما فيوميتشينو",
+        "en": "Rome Fiumicino",
+        "country": "IT"
+      },
+      "MXP": {
+        "ar": "ميلانو",
+        "en": "Milan",
+        "country": "IT"
+      },
+      "BCN": {
+        "ar": "برشلونة",
+        "en": "Barcelona",
+        "country": "ES"
+      },
+      "MAD": {
+        "ar": "مدريد",
+        "en": "Madrid",
+        "country": "ES"
+      },
+      "IST": {
+        "ar": "إسطنبول",
+        "en": "Istanbul",
+        "country": "TR"
+      },
+      "SAW": {
+        "ar": "إسطنبول صبيحة",
+        "en": "Istanbul Sabiha",
+        "country": "TR"
+      },
+      "ADD": {
+        "ar": "أديس أبابا",
+        "en": "Addis Ababa",
+        "country": "ET"
+      },
+      "NBO": {
+        "ar": "نيروبي",
+        "en": "Nairobi",
+        "country": "KE"
+      },
+      "JNB": {
+        "ar": "جوهانسبرغ",
+        "en": "Johannesburg",
+        "country": "ZA"
+      },
+      "JFK": {
+        "ar": "نيويورك جي إف كيه",
+        "en": "New York JFK",
+        "country": "US"
+      },
+      "LAX": {
+        "ar": "لوس أنجلوس",
+        "en": "Los Angeles",
+        "country": "US"
+      },
+      "SYD": {
+        "ar": "سيدني",
+        "en": "Sydney",
+        "country": "AU"
+      },
+      "MEL": {
+        "ar": "ملبورن",
+        "en": "Melbourne",
+        "country": "AU"
+      }
+    },
+    "feesTable": {
+      "KSA_DOM": {
+        "curr": "SAR",
+        "ow": 23,
+        "rt": 40.25
+      },
+      "KSA_INT": {
+        "curr": "SAR",
+        "ow": 20,
+        "rt": 35
+      },
+      "UAE": {
+        "curr": "AED",
+        "ow": 20,
+        "rt": 35
+      },
+      "KWT": {
+        "curr": "KWD",
+        "ow": 2,
+        "rt": 3.5
+      },
+      "BHR_DOM": {
+        "curr": "BHD",
+        "ow": 2.3,
+        "rt": 4.02
+      },
+      "BHR_INT": {
+        "curr": "BHD",
+        "ow": 2,
+        "rt": 3.5
+      },
+      "OMN_DOM": {
+        "curr": "OMR",
+        "ow": 2.3,
+        "rt": 2.02
+      },
+      "OMN_INT": {
+        "curr": "OMR",
+        "ow": 2,
+        "rt": 3.5
+      },
+      "QTR": {
+        "curr": "QAR",
+        "ow": 20,
+        "rt": 35
+      },
+      "INT": {
+        "curr": "USD",
+        "ow": 5.3,
+        "rt": 9.3
+      }
+    },
+    "multiFeesTable": {
+      "KSA_DOM": {
+        "curr": "SAR",
+        "ow": 23,
+        "rt": 46
+      },
+      "KSA_INT": {
+        "curr": "SAR",
+        "ow": 20,
+        "rt": 40
+      },
+      "UAE": {
+        "curr": "AED",
+        "ow": 20,
+        "rt": 40
+      },
+      "KWT": {
+        "curr": "KWD",
+        "ow": 2,
+        "rt": 4
+      },
+      "BHR_DOM": {
+        "curr": "BHD",
+        "ow": 2.3,
+        "rt": 4.6
+      },
+      "BHR_INT": {
+        "curr": "BHD",
+        "ow": 2,
+        "rt": 4
+      },
+      "OMN_DOM": {
+        "curr": "OMR",
+        "ow": 2.3,
+        "rt": 4.6
+      },
+      "OMN_INT": {
+        "curr": "OMR",
+        "ow": 2,
+        "rt": 4
+      },
+      "QTR": {
+        "curr": "QAR",
+        "ow": 20,
+        "rt": 40
+      },
+      "INT": {
+        "curr": "USD",
+        "ow": 5.3,
+        "rt": 10.6
+      }
+    },
+    "checkInFeesTable": {
+      "KSA_DOM": {
+        "curr": "SAR",
+        "Y": {
+          "ow": 11.5,
+          "rt": 18.4
+        },
+        "N": {
+          "ow": 10.0,
+          "rt": 16.0
+        }
+      },
+      "KSA_INT": {
+        "curr": "SAR",
+        "N": {
+          "ow": 10.0,
+          "rt": 16.0
+        }
+      },
+      "QTR": {
+        "curr": "QAR",
+        "N": {
+          "ow": 10.0,
+          "rt": 16.0
+        }
+      },
+      "UAE": {
+        "curr": "AED",
+        "N": {
+          "ow": 10.0,
+          "rt": 16.0
+        }
+      },
+      "BHR_DOM": {
+        "curr": "BHD",
+        "N": {
+          "ow": 1.0,
+          "rt": 1.6
+        }
+      },
+      "BHR_INT": {
+        "curr": "BHD",
+        "N": {
+          "ow": 1.0,
+          "rt": 1.6
+        }
+      },
+      "OMN_DOM": {
+        "curr": "OMR",
+        "N": {
+          "ow": 1.0,
+          "rt": 1.6
+        }
+      },
+      "OMN_INT": {
+        "curr": "OMR",
+        "N": {
+          "ow": 1.0,
+          "rt": 1.6
+        }
+      },
+      "KWT": {
+        "curr": "KWD",
+        "N": {
+          "ow": 0.8,
+          "rt": 1.3
+        }
+      },
+      "INT": {
+        "curr": "USD",
+        "N": {
+          "ow": 2.7,
+          "rt": 4.3
+        }
+      }
+    },
+    "checkInMultiFeesTable": {
+      "KSA_DOM": {
+        "curr": "SAR",
+        "Y": {
+          "ow": 11.5,
+          "rt": 23.0
+        },
+        "N": {
+          "ow": 10.0,
+          "rt": 20.0
+        }
+      },
+      "KSA_INT": {
+        "curr": "SAR",
+        "N": {
+          "ow": 10.0,
+          "rt": 20.0
+        }
+      },
+      "QTR": {
+        "curr": "QAR",
+        "N": {
+          "ow": 10.0,
+          "rt": 20.0
+        }
+      },
+      "UAE": {
+        "curr": "AED",
+        "N": {
+          "ow": 10.0,
+          "rt": 20.0
+        }
+      },
+      "BHR_DOM": {
+        "curr": "BHD",
+        "N": {
+          "ow": 1.0,
+          "rt": 2.0
+        }
+      },
+      "BHR_INT": {
+        "curr": "BHD",
+        "N": {
+          "ow": 1.0,
+          "rt": 2.0
+        }
+      },
+      "OMN_DOM": {
+        "curr": "OMR",
+        "N": {
+          "ow": 1.0,
+          "rt": 2.0
+        }
+      },
+      "OMN_INT": {
+        "curr": "OMR",
+        "N": {
+          "ow": 1.0,
+          "rt": 2.0
+        }
+      },
+      "KWT": {
+        "curr": "KWD",
+        "N": {
+          "ow": 0.8,
+          "rt": 1.6
+        }
+      },
+      "INT": {
+        "curr": "USD",
+        "N": {
+          "ow": 2.7,
+          "rt": 5.4
+        }
+      }
+    }
+  }
 }
