@@ -2755,6 +2755,12 @@
       "en": "Nasma",
       "country": "EG",
       "type": "full"
+    },
+    "BS": {
+      "ar": "الخطوط الجوية البنغالية",
+      "en": "BANGLA AIRLINES",
+      "country": "BD",
+      "type": "full"
     }
   },
   "cityToIATA": {
