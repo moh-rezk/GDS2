@@ -1829,6 +1829,13 @@
       "city_ar": "القصيم",
       "city_en": "Al Qassim",
       "country": "SA"
+    },
+    "DHA": {
+      "ar": "دكا",
+      "en": "Dhaka",
+      "city_ar": "دكا",
+      "city_en": "Dhaka",
+      "country": "BD"
     }
   },
   "airlines": {
