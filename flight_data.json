@@ -1822,6 +1822,13 @@
       "city_ar": "طرابزون",
       "city_en": "Trabzon",
       "country": "TK"
+    },
+    "ELQ": {
+      "ar": "القصيم",
+      "en": "Al Qassim",
+      "city_ar": "القصيم",
+      "city_en": "Al Qassim",
+      "country": "SA"
     }
   },
   "airlines": {
