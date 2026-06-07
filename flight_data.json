@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-05-31",
+  "lastUpdated": "2026-06-07",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -1815,6 +1815,13 @@
       "city_ar": "كرايستشيرش",
       "city_en": "Christchurch",
       "country": "NZ"
+    },
+    "TZX": {
+      "ar": "طرابزون",
+      "en": "Trabzon",
+      "city_ar": "طرابزون",
+      "city_en": "Trabzon",
+      "country": "TK"
     }
   },
   "airlines": {
