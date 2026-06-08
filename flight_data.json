@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-07",
+  "lastUpdated": "2026-06-08",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3049,7 +3049,8 @@
     "J9": "8",
     "FR": "2 for reissue / Non refundable",
     "OV": "24",
-    "G8": "8"
+    "G8": "8",
+    "RX": "6"
   },
   "baggage": {
     "version": "1.0.0",
