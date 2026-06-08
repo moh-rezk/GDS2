@@ -2768,6 +2768,12 @@
       "en": "BANGLA AIRLINES",
       "country": "BD",
       "type": "full"
+    },
+    "RX": {
+      "ar": "طيران الرياض",
+      "en": "Riyadh Air",
+      "country": "SA",
+      "type": "full"
     }
   },
   "cityToIATA": {
