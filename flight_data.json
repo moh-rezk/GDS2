@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-08",
+  "lastUpdated": "2026-06-09",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -2773,6 +2773,12 @@
       "ar": "طيران الرياض",
       "en": "Riyadh Air",
       "country": "SA",
+      "type": "full"
+    },
+    "UX": {
+      "ar": "Air Europa",
+      "en": "Air Europa",
+      "country": "MA",
       "type": "full"
     }
   },
