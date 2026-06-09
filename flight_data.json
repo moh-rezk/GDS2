@@ -2780,6 +2780,12 @@
       "en": "Air Europa",
       "country": "MA",
       "type": "full"
+    },
+    "9P": {
+      "ar": "Fly Jinnah",
+      "en": "Fly Jinnah",
+      "country": "PK",
+      "type": "full"
     }
   },
   "cityToIATA": {
