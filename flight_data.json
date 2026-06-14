@@ -1,7 +1,7 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-09",
-  "description": "Merged database: GDS policy base + LCCC filter + Baggage fees — Al-Mosafer",
+  "lastUpdated": "2026-06-14",
+  "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
       "ar": "الرياض",
@@ -1836,6 +1836,1742 @@
       "city_ar": "دكا",
       "city_en": "Dhaka",
       "country": "BD"
+    },
+    "MIR": {
+      "ar": "المنستير",
+      "en": "Monastir",
+      "city_ar": "المنستير",
+      "city_en": "Monastir",
+      "country": "TN"
+    },
+    "RBA": {
+      "ar": "الرباط",
+      "en": "Rabat",
+      "city_ar": "الرباط",
+      "city_en": "Rabat",
+      "country": "MA"
+    },
+    "TIP": {
+      "ar": "طرابلس",
+      "en": "Tripoli",
+      "city_ar": "طرابلس",
+      "city_en": "Tripoli",
+      "country": "LY"
+    },
+    "ABJ": {
+      "ar": "أبيدجان",
+      "en": "Abidjan",
+      "city_ar": "أبيدجان",
+      "city_en": "Abidjan",
+      "country": "CI"
+    },
+    "KAN": {
+      "ar": "كانو",
+      "en": "Kano",
+      "city_ar": "كانو",
+      "city_en": "Kano",
+      "country": "NG"
+    },
+    "CMN2": {
+      "ar": "دوالا",
+      "en": "Douala",
+      "city_ar": "دوالا",
+      "city_en": "Douala",
+      "country": "CM"
+    },
+    "DLA": {
+      "ar": "دوالا",
+      "en": "Douala",
+      "city_ar": "دوالا",
+      "city_en": "Douala",
+      "country": "CM"
+    },
+    "NSI": {
+      "ar": "يوندي",
+      "en": "Yaounde",
+      "city_ar": "يوندي",
+      "city_en": "Yaounde",
+      "country": "CM"
+    },
+    "FIH": {
+      "ar": "كينشاسا",
+      "en": "Kinshasa",
+      "city_ar": "كينشاسا",
+      "city_en": "Kinshasa",
+      "country": "CD"
+    },
+    "JRO": {
+      "ar": "كيليمنجارو",
+      "en": "Kilimanjaro",
+      "city_ar": "آروشا",
+      "city_en": "Arusha",
+      "country": "TZ"
+    },
+    "BJM": {
+      "ar": "بوجومبورا",
+      "en": "Bujumbura",
+      "city_ar": "بوجومبورا",
+      "city_en": "Bujumbura",
+      "country": "BI"
+    },
+    "TNR": {
+      "ar": "أنتاناناريفو",
+      "en": "Antananarivo",
+      "city_ar": "أنتاناناريفو",
+      "city_en": "Antananarivo",
+      "country": "MG"
+    },
+    "HRE": {
+      "ar": "هراري",
+      "en": "Harare",
+      "city_ar": "هراري",
+      "city_en": "Harare",
+      "country": "ZW"
+    },
+    "LAD": {
+      "ar": "لواندا",
+      "en": "Luanda",
+      "city_ar": "لواندا",
+      "city_en": "Luanda",
+      "country": "AO"
+    },
+    "LUN": {
+      "ar": "لوساكا",
+      "en": "Lusaka",
+      "city_ar": "لوساكا",
+      "city_en": "Lusaka",
+      "country": "ZM"
+    },
+    "BLZ": {
+      "ar": "بلانتاير",
+      "en": "Blantyre",
+      "city_ar": "بلانتاير",
+      "city_en": "Blantyre",
+      "country": "MW"
+    },
+    "MPM": {
+      "ar": "مابوتو",
+      "en": "Maputo",
+      "city_ar": "مابوتو",
+      "city_en": "Maputo",
+      "country": "MZ"
+    },
+    "WDH": {
+      "ar": "ويندهوك",
+      "en": "Windhoek",
+      "city_ar": "ويندهوك",
+      "city_en": "Windhoek",
+      "country": "NA"
+    },
+    "GBE": {
+      "ar": "غابورون",
+      "en": "Gaborone",
+      "city_ar": "غابورون",
+      "city_en": "Gaborone",
+      "country": "BW"
+    },
+    "MRU": {
+      "ar": "موريشيوس",
+      "en": "Mauritius",
+      "city_ar": "بورت لويس",
+      "city_en": "Port Louis",
+      "country": "MU"
+    },
+    "SEZ": {
+      "ar": "سيشل",
+      "en": "Seychelles",
+      "city_ar": "فيكتوريا",
+      "city_en": "Victoria",
+      "country": "SC"
+    },
+    "MGQ": {
+      "ar": "مقديشو",
+      "en": "Mogadishu",
+      "city_ar": "مقديشو",
+      "city_en": "Mogadishu",
+      "country": "SO"
+    },
+    "JIB": {
+      "ar": "جيبوتي",
+      "en": "Djibouti",
+      "city_ar": "جيبوتي",
+      "city_en": "Djibouti",
+      "country": "DJ"
+    },
+    "ASM": {
+      "ar": "أسمرة",
+      "en": "Asmara",
+      "city_ar": "أسمرة",
+      "city_en": "Asmara",
+      "country": "ER"
+    },
+    "BJL": {
+      "ar": "بانجول",
+      "en": "Banjul",
+      "city_ar": "بانجول",
+      "city_en": "Banjul",
+      "country": "GM"
+    },
+    "FNA": {
+      "ar": "فريتاون",
+      "en": "Freetown",
+      "city_ar": "فريتاون",
+      "city_en": "Freetown",
+      "country": "SL"
+    },
+    "OUA": {
+      "ar": "واغادوغو",
+      "en": "Ouagadougou",
+      "city_ar": "واغادوغو",
+      "city_en": "Ouagadougou",
+      "country": "BF"
+    },
+    "BKO": {
+      "ar": "باماكو",
+      "en": "Bamako",
+      "city_ar": "باماكو",
+      "city_en": "Bamako",
+      "country": "ML"
+    },
+    "NIM": {
+      "ar": "نيامي",
+      "en": "Niamey",
+      "city_ar": "نيامي",
+      "city_en": "Niamey",
+      "country": "NE"
+    },
+    "NDJ": {
+      "ar": "نجامينا",
+      "en": "N'Djamena",
+      "city_ar": "نجامينا",
+      "city_en": "N'Djamena",
+      "country": "TD"
+    },
+    "LFW": {
+      "ar": "لومي",
+      "en": "Lome",
+      "city_ar": "لومي",
+      "city_en": "Lome",
+      "country": "TG"
+    },
+    "LBV": {
+      "ar": "ليبرفيل",
+      "en": "Libreville",
+      "city_ar": "ليبرفيل",
+      "city_en": "Libreville",
+      "country": "GA"
+    },
+    "BZV": {
+      "ar": "برازافيل",
+      "en": "Brazzaville",
+      "city_ar": "برازافيل",
+      "city_en": "Brazzaville",
+      "country": "CG"
+    },
+    "MYR": {
+      "ar": "مالابو",
+      "en": "Malabo",
+      "city_ar": "مالابو",
+      "city_en": "Malabo",
+      "country": "GQ"
+    },
+    "CGP": {
+      "ar": "شيتاغونغ",
+      "en": "Chittagong",
+      "city_ar": "شيتاغونغ",
+      "city_en": "Chittagong",
+      "country": "BD"
+    },
+    "PBH": {
+      "ar": "تيمفو",
+      "en": "Paro",
+      "city_ar": "تيمفو",
+      "city_en": "Thimphu",
+      "country": "BT"
+    },
+    "KBL": {
+      "ar": "كابول",
+      "en": "Kabul",
+      "city_ar": "كابول",
+      "city_en": "Kabul",
+      "country": "AF"
+    },
+    "MDL": {
+      "ar": "ماندالاي",
+      "en": "Mandalay",
+      "city_ar": "ماندالاي",
+      "city_en": "Mandalay",
+      "country": "MM"
+    },
+    "VTE": {
+      "ar": "فينتيان",
+      "en": "Vientiane",
+      "city_ar": "فينتيان",
+      "city_en": "Vientiane",
+      "country": "LA"
+    },
+    "LPQ": {
+      "ar": "لوانغ برابانغ",
+      "en": "Luang Prabang",
+      "city_ar": "لوانغ برابانغ",
+      "city_en": "Luang Prabang",
+      "country": "LA"
+    },
+    "CXR": {
+      "ar": "نها ترانغ",
+      "en": "Nha Trang",
+      "city_ar": "نها ترانغ",
+      "city_en": "Nha Trang",
+      "country": "VN"
+    },
+    "PQC": {
+      "ar": "فو كووك",
+      "en": "Phu Quoc",
+      "city_ar": "فو كووك",
+      "city_en": "Phu Quoc",
+      "country": "VN"
+    },
+    "BWN": {
+      "ar": "بندر سيري بيغاوان",
+      "en": "Bandar Seri Begawan",
+      "city_ar": "بندر سيري بيغاوان",
+      "city_en": "Bandar Seri Begawan",
+      "country": "BN"
+    },
+    "JOG": {
+      "ar": "يوغياكارتا",
+      "en": "Yogyakarta",
+      "city_ar": "يوغياكارتا",
+      "city_en": "Yogyakarta",
+      "country": "ID"
+    },
+    "UPG": {
+      "ar": "ماكاسار",
+      "en": "Makassar",
+      "city_ar": "ماكاسار",
+      "city_en": "Makassar",
+      "country": "ID"
+    },
+    "MDC": {
+      "ar": "ماناتو",
+      "en": "Manado",
+      "city_ar": "ماناتو",
+      "city_en": "Manado",
+      "country": "ID"
+    },
+    "LOP": {
+      "ar": "لمبوك",
+      "en": "Lombok",
+      "city_ar": "لمبوك",
+      "city_en": "Lombok",
+      "country": "ID"
+    },
+    "DVO": {
+      "ar": "دافاو",
+      "en": "Davao",
+      "city_ar": "دافاو",
+      "city_en": "Davao",
+      "country": "PH"
+    },
+    "ILO": {
+      "ar": "إيلويلو",
+      "en": "Iloilo",
+      "city_ar": "إيلويلو",
+      "city_en": "Iloilo",
+      "country": "PH"
+    },
+    "PEN": {
+      "ar": "بينانغ",
+      "en": "Penang",
+      "city_ar": "بينانغ",
+      "city_en": "Penang",
+      "country": "MY"
+    },
+    "KCH": {
+      "ar": "كوتشينغ",
+      "en": "Kuching",
+      "city_ar": "كوتشينغ",
+      "city_en": "Kuching",
+      "country": "MY"
+    },
+    "BKI": {
+      "ar": "كوتا كينابالو",
+      "en": "Kota Kinabalu",
+      "city_ar": "كوتا كينابالو",
+      "city_en": "Kota Kinabalu",
+      "country": "MY"
+    },
+    "JHB": {
+      "ar": "جوهر بهرو",
+      "en": "Johor Bahru",
+      "city_ar": "جوهر بهرو",
+      "city_en": "Johor Bahru",
+      "country": "MY"
+    },
+    "PKX": {
+      "ar": "بكين داكسينغ",
+      "en": "Beijing Daxing",
+      "city_ar": "بكين",
+      "city_en": "Beijing",
+      "country": "CN"
+    },
+    "CSX": {
+      "ar": "تشانغشا",
+      "en": "Changsha",
+      "city_ar": "تشانغشا",
+      "city_en": "Changsha",
+      "country": "CN"
+    },
+    "WUH": {
+      "ar": "ووهان",
+      "en": "Wuhan",
+      "city_ar": "ووهان",
+      "city_en": "Wuhan",
+      "country": "CN"
+    },
+    "KMG": {
+      "ar": "كونمينغ",
+      "en": "Kunming",
+      "city_ar": "كونمينغ",
+      "city_en": "Kunming",
+      "country": "CN"
+    },
+    "HGH": {
+      "ar": "هانغتشو",
+      "en": "Hangzhou",
+      "city_ar": "هانغتشو",
+      "city_en": "Hangzhou",
+      "country": "CN"
+    },
+    "NKG": {
+      "ar": "نانجينغ",
+      "en": "Nanjing",
+      "city_ar": "نانجينغ",
+      "city_en": "Nanjing",
+      "country": "CN"
+    },
+    "TSN": {
+      "ar": "تيانجين",
+      "en": "Tianjin",
+      "city_ar": "تيانجين",
+      "city_en": "Tianjin",
+      "country": "CN"
+    },
+    "CGO": {
+      "ar": "تشنغتشو",
+      "en": "Zhengzhou",
+      "city_ar": "تشنغتشو",
+      "city_en": "Zhengzhou",
+      "country": "CN"
+    },
+    "SHE": {
+      "ar": "شنيانغ",
+      "en": "Shenyang",
+      "city_ar": "شنيانغ",
+      "city_en": "Shenyang",
+      "country": "CN"
+    },
+    "DLC": {
+      "ar": "دالييان",
+      "en": "Dalian",
+      "city_ar": "دالييان",
+      "city_en": "Dalian",
+      "country": "CN"
+    },
+    "HAK": {
+      "ar": "هايكو",
+      "en": "Haikou",
+      "city_ar": "هايكو",
+      "city_en": "Haikou",
+      "country": "CN"
+    },
+    "SYX": {
+      "ar": "سانيا",
+      "en": "Sanya",
+      "city_ar": "سانيا",
+      "city_en": "Sanya",
+      "country": "CN"
+    },
+    "MFM": {
+      "ar": "ماكاو",
+      "en": "Macau",
+      "city_ar": "ماكاو",
+      "city_en": "Macau",
+      "country": "MO"
+    },
+    "TSA": {
+      "ar": "تايبيه سونغشان",
+      "en": "Taipei Songshan",
+      "city_ar": "تايبيه",
+      "city_en": "Taipei",
+      "country": "TW"
+    },
+    "CJU": {
+      "ar": "جيجو",
+      "en": "Jeju",
+      "city_ar": "جيجو",
+      "city_en": "Jeju",
+      "country": "KR"
+    },
+    "ITM": {
+      "ar": "أوساكا إيتامي",
+      "en": "Osaka Itami",
+      "city_ar": "أوساكا",
+      "city_en": "Osaka",
+      "country": "JP"
+    },
+    "FUK": {
+      "ar": "فوكووكا",
+      "en": "Fukuoka",
+      "city_ar": "فوكووكا",
+      "city_en": "Fukuoka",
+      "country": "JP"
+    },
+    "OKA": {
+      "ar": "أوكيناوا",
+      "en": "Okinawa",
+      "city_ar": "أوكيناوا",
+      "city_en": "Okinawa",
+      "country": "JP"
+    },
+    "ULN": {
+      "ar": "أولان باتور",
+      "en": "Ulaanbaatar",
+      "city_ar": "أولان باتور",
+      "city_en": "Ulaanbaatar",
+      "country": "MN"
+    },
+    "FRU": {
+      "ar": "بيشكيك",
+      "en": "Bishkek",
+      "city_ar": "بيشكيك",
+      "city_en": "Bishkek",
+      "country": "KG"
+    },
+    "ASB": {
+      "ar": "عشق آباد",
+      "en": "Ashgabat",
+      "city_ar": "عشق آباد",
+      "city_en": "Ashgabat",
+      "country": "TM"
+    },
+    "DYU": {
+      "ar": "دوشانبي",
+      "en": "Dushanbe",
+      "city_ar": "دوشانبي",
+      "city_en": "Dushanbe",
+      "country": "TJ"
+    },
+    "SKD": {
+      "ar": "سمرقند",
+      "en": "Samarkand",
+      "city_ar": "سمرقند",
+      "city_en": "Samarkand",
+      "country": "UZ"
+    },
+    "BHK": {
+      "ar": "بخارى",
+      "en": "Bukhara",
+      "city_ar": "بخارى",
+      "city_en": "Bukhara",
+      "country": "UZ"
+    },
+    "HFA": {
+      "ar": "حيفا",
+      "en": "Haifa",
+      "city_ar": "حيفا",
+      "city_en": "Haifa",
+      "country": "IL"
+    },
+    "ETH": {
+      "ar": "إيلات",
+      "en": "Eilat",
+      "city_ar": "إيلات",
+      "city_en": "Eilat",
+      "country": "IL"
+    },
+    "SAN": {
+      "ar": "سان دييغو",
+      "en": "San Diego",
+      "city_ar": "سان دييغو",
+      "city_en": "San Diego",
+      "country": "US"
+    },
+    "ADE": {
+      "ar": "عدن",
+      "en": "Aden",
+      "city_ar": "عدن",
+      "city_en": "Aden",
+      "country": "YE"
+    },
+    "LIS": {
+      "ar": "لشبونة",
+      "en": "Lisbon",
+      "city_ar": "لشبونة",
+      "city_en": "Lisbon",
+      "country": "PT"
+    },
+    "OPO": {
+      "ar": "بورتو",
+      "en": "Porto",
+      "city_ar": "بورتو",
+      "city_en": "Porto",
+      "country": "PT"
+    },
+    "FAO": {
+      "ar": "فارو",
+      "en": "Faro",
+      "city_ar": "فارو",
+      "city_en": "Faro",
+      "country": "PT"
+    },
+    "DUB": {
+      "ar": "دبلن",
+      "en": "Dublin",
+      "city_ar": "دبلن",
+      "city_en": "Dublin",
+      "country": "IE"
+    },
+    "BFS": {
+      "ar": "بلفاست",
+      "en": "Belfast",
+      "city_ar": "بلفاست",
+      "city_en": "Belfast",
+      "country": "GB"
+    },
+    "EDI": {
+      "ar": "إدنبره",
+      "en": "Edinburgh",
+      "city_ar": "إدنبره",
+      "city_en": "Edinburgh",
+      "country": "GB"
+    },
+    "LBA": {
+      "ar": "ليدز",
+      "en": "Leeds Bradford",
+      "city_ar": "ليدز",
+      "city_en": "Leeds",
+      "country": "GB"
+    },
+    "NCL": {
+      "ar": "نيوكاسل",
+      "en": "Newcastle",
+      "city_ar": "نيوكاسل",
+      "city_en": "Newcastle",
+      "country": "GB"
+    },
+    "LTN": {
+      "ar": "لندن لوتون",
+      "en": "London Luton",
+      "city_ar": "لندن",
+      "city_en": "London",
+      "country": "GB"
+    },
+    "SVQ": {
+      "ar": "إشبيلية",
+      "en": "Seville",
+      "city_ar": "إشبيلية",
+      "city_en": "Seville",
+      "country": "ES"
+    },
+    "AGP": {
+      "ar": "ملقا",
+      "en": "Malaga",
+      "city_ar": "ملقا",
+      "city_en": "Malaga",
+      "country": "ES"
+    },
+    "PMI": {
+      "ar": "مايوركا",
+      "en": "Palma Mallorca",
+      "city_ar": "مايوركا",
+      "city_en": "Mallorca",
+      "country": "ES"
+    },
+    "IBZ": {
+      "ar": "إيبيزا",
+      "en": "Ibiza",
+      "city_ar": "إيبيزا",
+      "city_en": "Ibiza",
+      "country": "ES"
+    },
+    "TFS": {
+      "ar": "جزر الكناري",
+      "en": "Tenerife South",
+      "city_ar": "تنريفي",
+      "city_en": "Tenerife",
+      "country": "ES"
+    },
+    "LPA": {
+      "ar": "لاس بالماس",
+      "en": "Las Palmas Gran Canaria",
+      "city_ar": "لاس بالماس",
+      "city_en": "Las Palmas",
+      "country": "ES"
+    },
+    "NTE": {
+      "ar": "نانت",
+      "en": "Nantes",
+      "city_ar": "نانت",
+      "city_en": "Nantes",
+      "country": "FR"
+    },
+    "LYS": {
+      "ar": "ليون",
+      "en": "Lyon",
+      "city_ar": "ليون",
+      "city_en": "Lyon",
+      "country": "FR"
+    },
+    "BOD": {
+      "ar": "بوردو",
+      "en": "Bordeaux",
+      "city_ar": "بوردو",
+      "city_en": "Bordeaux",
+      "country": "FR"
+    },
+    "TLS": {
+      "ar": "تولوز",
+      "en": "Toulouse",
+      "city_ar": "تولوز",
+      "city_en": "Toulouse",
+      "country": "FR"
+    },
+    "BSL": {
+      "ar": "بازل ملهاوس",
+      "en": "Basel Mulhouse",
+      "city_ar": "بازل",
+      "city_en": "Basel",
+      "country": "CH"
+    },
+    "STR": {
+      "ar": "شتوتغارت",
+      "en": "Stuttgart",
+      "city_ar": "شتوتغارت",
+      "city_en": "Stuttgart",
+      "country": "DE"
+    },
+    "NUE": {
+      "ar": "نورنبرغ",
+      "en": "Nuremberg",
+      "city_ar": "نورنبرغ",
+      "city_en": "Nuremberg",
+      "country": "DE"
+    },
+    "CGN": {
+      "ar": "كولونيا",
+      "en": "Cologne",
+      "city_ar": "كولونيا",
+      "city_en": "Cologne",
+      "country": "DE"
+    },
+    "VCE": {
+      "ar": "البندقية",
+      "en": "Venice",
+      "city_ar": "البندقية",
+      "city_en": "Venice",
+      "country": "IT"
+    },
+    "BLQ": {
+      "ar": "بولونيا",
+      "en": "Bologna",
+      "city_ar": "بولونيا",
+      "city_en": "Bologna",
+      "country": "IT"
+    },
+    "PSA": {
+      "ar": "بيزا",
+      "en": "Pisa",
+      "city_ar": "بيزا",
+      "city_en": "Pisa",
+      "country": "IT"
+    },
+    "NAP": {
+      "ar": "نابولي",
+      "en": "Naples",
+      "city_ar": "نابولي",
+      "city_en": "Naples",
+      "country": "IT"
+    },
+    "CTA": {
+      "ar": "كاتانيا",
+      "en": "Catania",
+      "city_ar": "كاتانيا",
+      "city_en": "Catania",
+      "country": "IT"
+    },
+    "PMO": {
+      "ar": "باليرمو",
+      "en": "Palermo",
+      "city_ar": "باليرمو",
+      "city_en": "Palermo",
+      "country": "IT"
+    },
+    "BRI": {
+      "ar": "باري",
+      "en": "Bari",
+      "city_ar": "باري",
+      "city_en": "Bari",
+      "country": "IT"
+    },
+    "AMS2": {
+      "ar": "روتردام",
+      "en": "Rotterdam",
+      "city_ar": "روتردام",
+      "city_en": "Rotterdam",
+      "country": "NL"
+    },
+    "RTM": {
+      "ar": "روتردام",
+      "en": "Rotterdam",
+      "city_ar": "روتردام",
+      "city_en": "Rotterdam",
+      "country": "NL"
+    },
+    "EIN": {
+      "ar": "أيندهوفن",
+      "en": "Eindhoven",
+      "city_ar": "أيندهوفن",
+      "city_en": "Eindhoven",
+      "country": "NL"
+    },
+    "ANR": {
+      "ar": "أنتورب",
+      "en": "Antwerp",
+      "city_ar": "أنتورب",
+      "city_en": "Antwerp",
+      "country": "BE"
+    },
+    "LUX": {
+      "ar": "لوكسمبورغ",
+      "en": "Luxembourg",
+      "city_ar": "لوكسمبورغ",
+      "city_en": "Luxembourg",
+      "country": "LU"
+    },
+    "SZG": {
+      "ar": "سالزبورغ",
+      "en": "Salzburg",
+      "city_ar": "سالزبورغ",
+      "city_en": "Salzburg",
+      "country": "AT"
+    },
+    "INN": {
+      "ar": "إنسبروك",
+      "en": "Innsbruck",
+      "city_ar": "إنسبروك",
+      "city_en": "Innsbruck",
+      "country": "AT"
+    },
+    "ZAG": {
+      "ar": "زغرب",
+      "en": "Zagreb",
+      "city_ar": "زغرب",
+      "city_en": "Zagreb",
+      "country": "HR"
+    },
+    "SPU": {
+      "ar": "سبليت",
+      "en": "Split",
+      "city_ar": "سبليت",
+      "city_en": "Split",
+      "country": "HR"
+    },
+    "DBV": {
+      "ar": "دوبروفنيك",
+      "en": "Dubrovnik",
+      "city_ar": "دوبروفنيك",
+      "city_en": "Dubrovnik",
+      "country": "HR"
+    },
+    "LJU": {
+      "ar": "ليوبليانا",
+      "en": "Ljubljana",
+      "city_ar": "ليوبليانا",
+      "city_en": "Ljubljana",
+      "country": "SI"
+    },
+    "BEG": {
+      "ar": "بلغراد",
+      "en": "Belgrade",
+      "city_ar": "بلغراد",
+      "city_en": "Belgrade",
+      "country": "RS"
+    },
+    "SKP": {
+      "ar": "سكوبيه",
+      "en": "Skopje",
+      "city_ar": "سكوبيه",
+      "city_en": "Skopje",
+      "country": "MK"
+    },
+    "TIA": {
+      "ar": "تيرانا",
+      "en": "Tirana",
+      "city_ar": "تيرانا",
+      "city_en": "Tirana",
+      "country": "AL"
+    },
+    "POD": {
+      "ar": "بودغوريتسا",
+      "en": "Podgorica",
+      "city_ar": "بودغوريتسا",
+      "city_en": "Podgorica",
+      "country": "ME"
+    },
+    "SJJ": {
+      "ar": "سراييفو",
+      "en": "Sarajevo",
+      "city_ar": "سراييفو",
+      "city_en": "Sarajevo",
+      "country": "BA"
+    },
+    "PRN": {
+      "ar": "بريشتينا",
+      "en": "Pristina",
+      "city_ar": "بريشتينا",
+      "city_en": "Pristina",
+      "country": "XK"
+    },
+    "RIX": {
+      "ar": "ريغا",
+      "en": "Riga",
+      "city_ar": "ريغا",
+      "city_en": "Riga",
+      "country": "LV"
+    },
+    "TLL": {
+      "ar": "تالين",
+      "en": "Tallinn",
+      "city_ar": "تالين",
+      "city_en": "Tallinn",
+      "country": "EE"
+    },
+    "VNO": {
+      "ar": "فيلنيوس",
+      "en": "Vilnius",
+      "city_ar": "فيلنيوس",
+      "city_en": "Vilnius",
+      "country": "LT"
+    },
+    "KRK": {
+      "ar": "كراكوف",
+      "en": "Krakow",
+      "city_ar": "كراكوف",
+      "city_en": "Krakow",
+      "country": "PL"
+    },
+    "GDN": {
+      "ar": "غدانسك",
+      "en": "Gdansk",
+      "city_ar": "غدانسك",
+      "city_en": "Gdansk",
+      "country": "PL"
+    },
+    "KTW": {
+      "ar": "كاتوفيتسه",
+      "en": "Katowice",
+      "city_ar": "كاتوفيتسه",
+      "city_en": "Katowice",
+      "country": "PL"
+    },
+    "BTS": {
+      "ar": "براتيسلافا",
+      "en": "Bratislava",
+      "city_ar": "براتيسلافا",
+      "city_en": "Bratislava",
+      "country": "SK"
+    },
+    "MSQ": {
+      "ar": "مينسك",
+      "en": "Minsk",
+      "city_ar": "مينسك",
+      "city_en": "Minsk",
+      "country": "BY"
+    },
+    "KBP": {
+      "ar": "كييف",
+      "en": "Kyiv Boryspil",
+      "city_ar": "كييف",
+      "city_en": "Kyiv",
+      "country": "UA"
+    },
+    "IEV": {
+      "ar": "كييف إيغور",
+      "en": "Kyiv Igor Sikorsky",
+      "city_ar": "كييف",
+      "city_en": "Kyiv",
+      "country": "UA"
+    },
+    "ODS": {
+      "ar": "أوديسا",
+      "en": "Odesa",
+      "city_ar": "أوديسا",
+      "city_en": "Odesa",
+      "country": "UA"
+    },
+    "RKV": {
+      "ar": "ريكيافيك",
+      "en": "Reykjavik",
+      "city_ar": "ريكيافيك",
+      "city_en": "Reykjavik",
+      "country": "IS"
+    },
+    "KEF": {
+      "ar": "ريكيافيك كيفلافيك",
+      "en": "Reykjavik Keflavik",
+      "city_ar": "ريكيافيك",
+      "city_en": "Reykjavik",
+      "country": "IS"
+    },
+    "BGO": {
+      "ar": "برغن",
+      "en": "Bergen",
+      "city_ar": "برغن",
+      "city_en": "Bergen",
+      "country": "NO"
+    },
+    "TRD": {
+      "ar": "تروندهايم",
+      "en": "Trondheim",
+      "city_ar": "تروندهايم",
+      "city_en": "Trondheim",
+      "country": "NO"
+    },
+    "GOT": {
+      "ar": "غوتنبرغ",
+      "en": "Gothenburg",
+      "city_ar": "غوتنبرغ",
+      "city_en": "Gothenburg",
+      "country": "SE"
+    },
+    "MMX": {
+      "ar": "مالمو",
+      "en": "Malmo",
+      "city_ar": "مالمو",
+      "city_en": "Malmo",
+      "country": "SE"
+    },
+    "OUL": {
+      "ar": "أولو",
+      "en": "Oulu",
+      "city_ar": "أولو",
+      "city_en": "Oulu",
+      "country": "FI"
+    },
+    "TMP": {
+      "ar": "تامبيري",
+      "en": "Tampere",
+      "city_ar": "تامبيري",
+      "city_en": "Tampere",
+      "country": "FI"
+    },
+    "VRN": {
+      "ar": "فيرونا",
+      "en": "Verona",
+      "city_ar": "فيرونا",
+      "city_en": "Verona",
+      "country": "IT"
+    },
+    "GRO": {
+      "ar": "جيرونا",
+      "en": "Girona",
+      "city_ar": "جيرونا",
+      "city_en": "Girona",
+      "country": "ES"
+    },
+    "RHO": {
+      "ar": "رودس",
+      "en": "Rhodes",
+      "city_ar": "رودس",
+      "city_en": "Rhodes",
+      "country": "GR"
+    },
+    "HER": {
+      "ar": "هيراكليون",
+      "en": "Heraklion",
+      "city_ar": "هيراكليون",
+      "city_en": "Heraklion",
+      "country": "GR"
+    },
+    "CFU": {
+      "ar": "كورفو",
+      "en": "Corfu",
+      "city_ar": "كورفو",
+      "city_en": "Corfu",
+      "country": "GR"
+    },
+    "MLA": {
+      "ar": "مالطا",
+      "en": "Malta",
+      "city_ar": "فاليتا",
+      "city_en": "Valletta",
+      "country": "MT"
+    },
+    "NIC": {
+      "ar": "نيقوسيا",
+      "en": "Nicosia",
+      "city_ar": "نيقوسيا",
+      "city_en": "Nicosia",
+      "country": "CY"
+    },
+    "LCA": {
+      "ar": "لارنكا",
+      "en": "Larnaca",
+      "city_ar": "لارنكا",
+      "city_en": "Larnaca",
+      "country": "CY"
+    },
+    "PFO": {
+      "ar": "بافوس",
+      "en": "Paphos",
+      "city_ar": "بافوس",
+      "city_en": "Paphos",
+      "country": "CY"
+    },
+    "GZT": {
+      "ar": "غازي عنتاب",
+      "en": "Gaziantep",
+      "city_ar": "غازي عنتاب",
+      "city_en": "Gaziantep",
+      "country": "TR"
+    },
+    "ADA": {
+      "ar": "أضنة",
+      "en": "Adana",
+      "city_ar": "أضنة",
+      "city_en": "Adana",
+      "country": "TR"
+    },
+    "KYA": {
+      "ar": "قونية",
+      "en": "Konya",
+      "city_ar": "قونية",
+      "city_en": "Konya",
+      "country": "TR"
+    },
+    "BJV": {
+      "ar": "بودروم",
+      "en": "Bodrum",
+      "city_ar": "بودروم",
+      "city_en": "Bodrum",
+      "country": "TR"
+    },
+    "DLM": {
+      "ar": "دالامان",
+      "en": "Dalaman",
+      "city_ar": "دالامان",
+      "city_en": "Dalaman",
+      "country": "TR"
+    },
+    "HOU": {
+      "ar": "هيوستن هوبي",
+      "en": "Houston Hobby",
+      "city_ar": "هيوستن",
+      "city_en": "Houston",
+      "country": "US"
+    },
+    "PHL": {
+      "ar": "فيلادلفيا",
+      "en": "Philadelphia",
+      "city_ar": "فيلادلفيا",
+      "city_en": "Philadelphia",
+      "country": "US"
+    },
+    "TPA": {
+      "ar": "تامبا",
+      "en": "Tampa",
+      "city_ar": "تامبا",
+      "city_en": "Tampa",
+      "country": "US"
+    },
+    "SLC": {
+      "ar": "سولت ليك سيتي",
+      "en": "Salt Lake City",
+      "city_ar": "سولت ليك سيتي",
+      "city_en": "Salt Lake City",
+      "country": "US"
+    },
+    "PDX": {
+      "ar": "بورتلاند",
+      "en": "Portland",
+      "city_ar": "بورتلاند",
+      "city_en": "Portland",
+      "country": "US"
+    },
+    "SJC": {
+      "ar": "سان خوسيه",
+      "en": "San Jose",
+      "city_ar": "سان خوسيه",
+      "city_en": "San Jose",
+      "country": "US"
+    },
+    "OAK": {
+      "ar": "أوكلاند",
+      "en": "Oakland",
+      "city_ar": "أوكلاند",
+      "city_en": "Oakland",
+      "country": "US"
+    },
+    "AUS": {
+      "ar": "أوستن",
+      "en": "Austin",
+      "city_ar": "أوستن",
+      "city_en": "Austin",
+      "country": "US"
+    },
+    "BNA": {
+      "ar": "ناشفيل",
+      "en": "Nashville",
+      "city_ar": "ناشفيل",
+      "city_en": "Nashville",
+      "country": "US"
+    },
+    "STL": {
+      "ar": "سانت لويس",
+      "en": "St. Louis",
+      "city_ar": "سانت لويس",
+      "city_en": "St. Louis",
+      "country": "US"
+    },
+    "RDU": {
+      "ar": "رالي دورهام",
+      "en": "Raleigh Durham",
+      "city_ar": "رالي",
+      "city_en": "Raleigh",
+      "country": "US"
+    },
+    "BWI": {
+      "ar": "بالتيمور",
+      "en": "Baltimore",
+      "city_ar": "بالتيمور",
+      "city_en": "Baltimore",
+      "country": "US"
+    },
+    "YYC": {
+      "ar": "كالغاري",
+      "en": "Calgary",
+      "city_ar": "كالغاري",
+      "city_en": "Calgary",
+      "country": "CA"
+    },
+    "YEG": {
+      "ar": "إدمونتون",
+      "en": "Edmonton",
+      "city_ar": "إدمونتون",
+      "city_en": "Edmonton",
+      "country": "CA"
+    },
+    "YOW": {
+      "ar": "أوتاوا",
+      "en": "Ottawa",
+      "city_ar": "أوتاوا",
+      "city_en": "Ottawa",
+      "country": "CA"
+    },
+    "YHZ": {
+      "ar": "هاليفاكس",
+      "en": "Halifax",
+      "city_ar": "هاليفاكس",
+      "city_en": "Halifax",
+      "country": "CA"
+    },
+    "GDL": {
+      "ar": "غوادالاخارا",
+      "en": "Guadalajara",
+      "city_ar": "غوادالاخارا",
+      "city_en": "Guadalajara",
+      "country": "MX"
+    },
+    "MTY": {
+      "ar": "مونتيري",
+      "en": "Monterrey",
+      "city_ar": "مونتيري",
+      "city_en": "Monterrey",
+      "country": "MX"
+    },
+    "SJD": {
+      "ar": "لوس كابوس",
+      "en": "Los Cabos",
+      "city_ar": "لوس كابوس",
+      "city_en": "Los Cabos",
+      "country": "MX"
+    },
+    "PVR": {
+      "ar": "بويرتو فالارتا",
+      "en": "Puerto Vallarta",
+      "city_ar": "بويرتو فالارتا",
+      "city_en": "Puerto Vallarta",
+      "country": "MX"
+    },
+    "MRS2": {
+      "ar": "مازاتلان",
+      "en": "Mazatlan",
+      "city_ar": "مازاتلان",
+      "city_en": "Mazatlan",
+      "country": "MX"
+    },
+    "MZT": {
+      "ar": "مازاتلان",
+      "en": "Mazatlan",
+      "city_ar": "مازاتلان",
+      "city_en": "Mazatlan",
+      "country": "MX"
+    },
+    "ACA": {
+      "ar": "أكابولكو",
+      "en": "Acapulco",
+      "city_ar": "أكابولكو",
+      "city_en": "Acapulco",
+      "country": "MX"
+    },
+    "MBJ": {
+      "ar": "مونتيغو باي",
+      "en": "Montego Bay",
+      "city_ar": "مونتيغو باي",
+      "city_en": "Montego Bay",
+      "country": "JM"
+    },
+    "KIN": {
+      "ar": "كينغستون",
+      "en": "Kingston",
+      "city_ar": "كينغستون",
+      "city_en": "Kingston",
+      "country": "JM"
+    },
+    "PUJ": {
+      "ar": "بونتا كانا",
+      "en": "Punta Cana",
+      "city_ar": "بونتا كانا",
+      "city_en": "Punta Cana",
+      "country": "DO"
+    },
+    "SDQ": {
+      "ar": "سانتو دومينغو",
+      "en": "Santo Domingo",
+      "city_ar": "سانتو دومينغو",
+      "city_en": "Santo Domingo",
+      "country": "DO"
+    },
+    "HAV": {
+      "ar": "هافانا",
+      "en": "Havana",
+      "city_ar": "هافانا",
+      "city_en": "Havana",
+      "country": "CU"
+    },
+    "NAS": {
+      "ar": "ناساو",
+      "en": "Nassau",
+      "city_ar": "ناساو",
+      "city_en": "Nassau",
+      "country": "BS"
+    },
+    "SJU": {
+      "ar": "سان خوان",
+      "en": "San Juan",
+      "city_ar": "سان خوان",
+      "city_en": "San Juan",
+      "country": "PR"
+    },
+    "BGI": {
+      "ar": "بريدجتاون",
+      "en": "Bridgetown",
+      "city_ar": "بريدجتاون",
+      "city_en": "Bridgetown",
+      "country": "BB"
+    },
+    "POS": {
+      "ar": "بورت أوف سبين",
+      "en": "Port of Spain",
+      "city_ar": "بورت أوف سبين",
+      "city_en": "Port of Spain",
+      "country": "TT"
+    },
+    "GCM": {
+      "ar": "جزر كايمان",
+      "en": "Grand Cayman",
+      "city_ar": "جزر كايمان",
+      "city_en": "Grand Cayman",
+      "country": "KY"
+    },
+    "ANU": {
+      "ar": "أنتيغوا",
+      "en": "Antigua",
+      "city_ar": "أنتيغوا",
+      "city_en": "Antigua",
+      "country": "AG"
+    },
+    "SXM": {
+      "ar": "سانت مارتن",
+      "en": "Sint Maarten",
+      "city_ar": "سانت مارتن",
+      "city_en": "Sint Maarten",
+      "country": "SX"
+    },
+    "GUA": {
+      "ar": "غواتيمالا سيتي",
+      "en": "Guatemala City",
+      "city_ar": "غواتيمالا سيتي",
+      "city_en": "Guatemala City",
+      "country": "GT"
+    },
+    "SAL": {
+      "ar": "سان سلفادور",
+      "en": "San Salvador",
+      "city_ar": "سان سلفادور",
+      "city_en": "San Salvador",
+      "country": "SV"
+    },
+    "TGU": {
+      "ar": "تيغوسيغالبا",
+      "en": "Tegucigalpa",
+      "city_ar": "تيغوسيغالبا",
+      "city_en": "Tegucigalpa",
+      "country": "HN"
+    },
+    "MGA": {
+      "ar": "ماناغوا",
+      "en": "Managua",
+      "city_ar": "ماناغوا",
+      "city_en": "Managua",
+      "country": "NI"
+    },
+    "SJO": {
+      "ar": "سان خوسيه",
+      "en": "San Jose",
+      "city_ar": "سان خوسيه",
+      "city_en": "San Jose",
+      "country": "CR"
+    },
+    "PTY": {
+      "ar": "باناما سيتي",
+      "en": "Panama City",
+      "city_ar": "باناما سيتي",
+      "city_en": "Panama City",
+      "country": "PA"
+    },
+    "CGH": {
+      "ar": "ساو باولو كونغونياس",
+      "en": "Sao Paulo Congonhas",
+      "city_ar": "ساو باولو",
+      "city_en": "Sao Paulo",
+      "country": "BR"
+    },
+    "SSA": {
+      "ar": "سالفادور",
+      "en": "Salvador",
+      "city_ar": "سالفادور",
+      "city_en": "Salvador",
+      "country": "BR"
+    },
+    "FOR": {
+      "ar": "فورتاليزا",
+      "en": "Fortaleza",
+      "city_ar": "فورتاليزا",
+      "city_en": "Fortaleza",
+      "country": "BR"
+    },
+    "REC": {
+      "ar": "ريسيفي",
+      "en": "Recife",
+      "city_ar": "ريسيفي",
+      "city_en": "Recife",
+      "country": "BR"
+    },
+    "POA": {
+      "ar": "بورتو أليغري",
+      "en": "Porto Alegre",
+      "city_ar": "بورتو أليغري",
+      "city_en": "Porto Alegre",
+      "country": "BR"
+    },
+    "MAN2": {
+      "ar": "ماناوس",
+      "en": "Manaus",
+      "city_ar": "ماناوس",
+      "city_en": "Manaus",
+      "country": "BR"
+    },
+    "MAO": {
+      "ar": "ماناوس",
+      "en": "Manaus",
+      "city_ar": "ماناوس",
+      "city_en": "Manaus",
+      "country": "BR"
+    },
+    "AEP": {
+      "ar": "بوينس آيريس إيروبارك",
+      "en": "Buenos Aires Aeroparque",
+      "city_ar": "بوينس آيريس",
+      "city_en": "Buenos Aires",
+      "country": "AR"
+    },
+    "COR": {
+      "ar": "قرطبة",
+      "en": "Cordoba",
+      "city_ar": "قرطبة",
+      "city_en": "Cordoba",
+      "country": "AR"
+    },
+    "MDZ": {
+      "ar": "ميندوزا",
+      "en": "Mendoza",
+      "city_ar": "ميندوزا",
+      "city_en": "Mendoza",
+      "country": "AR"
+    },
+    "BRC": {
+      "ar": "باريلوتشي",
+      "en": "Bariloche",
+      "city_ar": "باريلوتشي",
+      "city_en": "Bariloche",
+      "country": "AR"
+    },
+    "USH": {
+      "ar": "أوشوايا",
+      "en": "Ushuaia",
+      "city_ar": "أوشوايا",
+      "city_en": "Ushuaia",
+      "country": "AR"
+    },
+    "PMC": {
+      "ar": "بويرتو مونت",
+      "en": "Puerto Montt",
+      "city_ar": "بويرتو مونت",
+      "city_en": "Puerto Montt",
+      "country": "CL"
+    },
+    "IQT": {
+      "ar": "إيكيتوس",
+      "en": "Iquitos",
+      "city_ar": "إيكيتوس",
+      "city_en": "Iquitos",
+      "country": "PE"
+    },
+    "CUZ": {
+      "ar": "كوزكو",
+      "en": "Cusco",
+      "city_ar": "كوزكو",
+      "city_en": "Cusco",
+      "country": "PE"
+    },
+    "MDE": {
+      "ar": "ميديين",
+      "en": "Medellin",
+      "city_ar": "ميديين",
+      "city_en": "Medellin",
+      "country": "CO"
+    },
+    "CTG": {
+      "ar": "كارتاخينا",
+      "en": "Cartagena",
+      "city_ar": "كارتاخينا",
+      "city_en": "Cartagena",
+      "country": "CO"
+    },
+    "CLO": {
+      "ar": "كالي",
+      "en": "Cali",
+      "city_ar": "كالي",
+      "city_en": "Cali",
+      "country": "CO"
+    },
+    "CCS": {
+      "ar": "كاراكاس",
+      "en": "Caracas",
+      "city_ar": "كاراكاس",
+      "city_en": "Caracas",
+      "country": "VE"
+    },
+    "UIO": {
+      "ar": "كيتو",
+      "en": "Quito",
+      "city_ar": "كيتو",
+      "city_en": "Quito",
+      "country": "EC"
+    },
+    "GYE": {
+      "ar": "غواياكيل",
+      "en": "Guayaquil",
+      "city_ar": "غواياكيل",
+      "city_en": "Guayaquil",
+      "country": "EC"
+    },
+    "LPB": {
+      "ar": "لاباز",
+      "en": "La Paz",
+      "city_ar": "لاباز",
+      "city_en": "La Paz",
+      "country": "BO"
+    },
+    "ASU": {
+      "ar": "أسونسيون",
+      "en": "Asuncion",
+      "city_ar": "أسونسيون",
+      "city_en": "Asuncion",
+      "country": "PY"
+    },
+    "MVD": {
+      "ar": "مونتيفيديو",
+      "en": "Montevideo",
+      "city_ar": "مونتيفيديو",
+      "city_en": "Montevideo",
+      "country": "UY"
+    },
+    "GEO": {
+      "ar": "جورج تاون",
+      "en": "Georgetown",
+      "city_ar": "جورج تاون",
+      "city_en": "Georgetown",
+      "country": "GY"
+    },
+    "PBM": {
+      "ar": "باراماريبو",
+      "en": "Paramaribo",
+      "city_ar": "باراماريبو",
+      "city_en": "Paramaribo",
+      "country": "SR"
+    },
+    "CAY": {
+      "ar": "كايين",
+      "en": "Cayenne",
+      "city_ar": "كايين",
+      "city_en": "Cayenne",
+      "country": "GF"
+    },
+    "ZQN": {
+      "ar": "كوينزتاون",
+      "en": "Queenstown",
+      "city_ar": "كوينزتاون",
+      "city_en": "Queenstown",
+      "country": "NZ"
+    },
+    "ADL": {
+      "ar": "أديلايد",
+      "en": "Adelaide",
+      "city_ar": "أديلايد",
+      "city_en": "Adelaide",
+      "country": "AU"
+    },
+    "CBR": {
+      "ar": "كانبيرا",
+      "en": "Canberra",
+      "city_ar": "كانبيرا",
+      "city_en": "Canberra",
+      "country": "AU"
+    },
+    "CNS": {
+      "ar": "كيرنز",
+      "en": "Cairns",
+      "city_ar": "كيرنز",
+      "city_en": "Cairns",
+      "country": "AU"
+    },
+    "OOL": {
+      "ar": "كولد كوست",
+      "en": "Gold Coast",
+      "city_ar": "كولد كوست",
+      "city_en": "Gold Coast",
+      "country": "AU"
+    },
+    "DRW": {
+      "ar": "داروين",
+      "en": "Darwin",
+      "city_ar": "داروين",
+      "city_en": "Darwin",
+      "country": "AU"
+    },
+    "HBA": {
+      "ar": "هوبارت",
+      "en": "Hobart",
+      "city_ar": "هوبارت",
+      "city_en": "Hobart",
+      "country": "AU"
+    },
+    "PPT": {
+      "ar": "بابيتي",
+      "en": "Papeete",
+      "city_ar": "بابيتي",
+      "city_en": "Papeete",
+      "country": "PF"
+    },
+    "NOU": {
+      "ar": "نوميا",
+      "en": "Noumea",
+      "city_ar": "نوميا",
+      "city_en": "Noumea",
+      "country": "NC"
+    },
+    "SUV": {
+      "ar": "سوفا",
+      "en": "Suva",
+      "city_ar": "سوفا",
+      "city_en": "Suva",
+      "country": "FJ"
+    },
+    "NAN": {
+      "ar": "نادي",
+      "en": "Nadi",
+      "city_ar": "نادي",
+      "city_en": "Nadi",
+      "country": "FJ"
+    },
+    "APW": {
+      "ar": "أبيا",
+      "en": "Apia",
+      "city_ar": "أبيا",
+      "city_en": "Apia",
+      "country": "WS"
+    },
+    "TBU": {
+      "ar": "نيوكوالوفا",
+      "en": "Nukualofa",
+      "city_ar": "نيوكوالوفا",
+      "city_en": "Nuku'alofa",
+      "country": "TO"
+    },
+    "VLI": {
+      "ar": "بورت فيلا",
+      "en": "Port Vila",
+      "city_ar": "بورت فيلا",
+      "city_en": "Port Vila",
+      "country": "VU"
+    },
+    "HIR": {
+      "ar": "هونيارا",
+      "en": "Honiara",
+      "city_ar": "هونيارا",
+      "city_en": "Honiara",
+      "country": "SB"
+    },
+    "GUM": {
+      "ar": "غوام",
+      "en": "Guam",
+      "city_ar": "غوام",
+      "city_en": "Guam",
+      "country": "GU"
+    },
+    "PNI": {
+      "ar": "باليكير",
+      "en": "Pohnpei",
+      "city_ar": "باليكير",
+      "city_en": "Palikir",
+      "country": "FM"
+    },
+    "ANC": {
+      "ar": "أنكوريج",
+      "en": "Anchorage",
+      "city_ar": "أنكوريج",
+      "city_en": "Anchorage",
+      "country": "US"
+    },
+    "HNL": {
+      "ar": "هونولولو",
+      "en": "Honolulu",
+      "city_ar": "هونولولو",
+      "city_en": "Honolulu",
+      "country": "US"
     }
   },
   "airlines": {
@@ -2785,6 +4521,690 @@
       "ar": "Fly Jinnah",
       "en": "Fly Jinnah",
       "country": "PK",
+      "type": "full"
+    },
+    "XT": {
+      "ar": "إكسبريس إير",
+      "en": "Express Air Cargo",
+      "country": "NG",
+      "type": "lcc"
+    },
+    "UG": {
+      "ar": "تيوني إير",
+      "en": "Tunisair Express",
+      "country": "TN",
+      "type": "lcc"
+    },
+    "7T": {
+      "ar": "توس أير الجزائر",
+      "en": "Tassili Airlines",
+      "country": "DZ",
+      "type": "lcc"
+    },
+    "GQ": {
+      "ar": "سكاي إكسبريس",
+      "en": "Sky Express",
+      "country": "GR",
+      "type": "lcc"
+    },
+    "ET2": {
+      "ar": "أثيوبيان اكسبريس",
+      "en": "Ethiopian Express",
+      "country": "ET",
+      "type": "lcc"
+    },
+    "5H": {
+      "ar": "فايف فورتي إير",
+      "en": "Five Forty Aviation",
+      "country": "KE",
+      "type": "lcc"
+    },
+    "P2": {
+      "ar": "طيران بيكس",
+      "en": "Peaks Air",
+      "country": "MZ",
+      "type": "lcc"
+    },
+    "TC": {
+      "ar": "طيران تنزانيا",
+      "en": "Air Tanzania",
+      "country": "TZ",
+      "type": "full"
+    },
+    "WT": {
+      "ar": "نيجيريان إيغل",
+      "en": "Nigerian Eagle Airlines",
+      "country": "NG",
+      "type": "lcc"
+    },
+    "W3": {
+      "ar": "إيريك إير",
+      "en": "Arik Air",
+      "country": "NG",
+      "type": "full"
+    },
+    "V5": {
+      "ar": "هيريتاج إير",
+      "en": "Heritage Air",
+      "country": "NG",
+      "type": "lcc"
+    },
+    "9J": {
+      "ar": "دانا إير",
+      "en": "Dana Air",
+      "country": "NG",
+      "type": "lcc"
+    },
+    "8Z": {
+      "ar": "تولو إير",
+      "en": "Tullo Aviation",
+      "country": "NG",
+      "type": "lcc"
+    },
+    "ZB": {
+      "ar": "كوريج إير",
+      "en": "Courage Aviation",
+      "country": "GH",
+      "type": "lcc"
+    },
+    "H3": {
+      "ar": "هامين إير",
+      "en": "Hamin Air",
+      "country": "IR",
+      "type": "lcc"
+    },
+    "B9": {
+      "ar": "إير إيران",
+      "en": "Air Iran",
+      "country": "IR",
+      "type": "lcc"
+    },
+    "Y9": {
+      "ar": "كيش إير",
+      "en": "Kish Air",
+      "country": "IR",
+      "type": "lcc"
+    },
+    "I3": {
+      "ar": "إيران إير تور",
+      "en": "Iran Airtour",
+      "country": "IR",
+      "type": "lcc"
+    },
+    "QB": {
+      "ar": "طيران قسط",
+      "en": "Qeshm Air",
+      "country": "IR",
+      "type": "lcc"
+    },
+    "ZV": {
+      "ar": "إير إيف",
+      "en": "AIR VIA",
+      "country": "BG",
+      "type": "lcc"
+    },
+    "B2": {
+      "ar": "بيلافيا",
+      "en": "Belavia",
+      "country": "BY",
+      "type": "full"
+    },
+    "9W": {
+      "ar": "جت إيروايز",
+      "en": "Jet Airways",
+      "country": "IN",
+      "type": "full"
+    },
+    "IT": {
+      "ar": "فيستارا",
+      "en": "Vistara",
+      "country": "IN",
+      "type": "full"
+    },
+    "S5": {
+      "ar": "ستار إير",
+      "en": "Star Air",
+      "country": "IN",
+      "type": "lcc"
+    },
+    "S1": {
+      "ar": "بلو داي",
+      "en": "Blue Dart Aviation",
+      "country": "IN",
+      "type": "lcc"
+    },
+    "2T": {
+      "ar": "ترو جيت",
+      "en": "TruJet",
+      "country": "IN",
+      "type": "lcc"
+    },
+    "DN": {
+      "ar": "دناتا إير",
+      "en": "Danata Air",
+      "country": "IN",
+      "type": "lcc"
+    },
+    "VM": {
+      "ar": "رات بانشي",
+      "en": "Raat Banshy",
+      "country": "IN",
+      "type": "lcc"
+    },
+    "BL": {
+      "ar": "إندو باسيفيك إير",
+      "en": "Pacific Airlines",
+      "country": "VN",
+      "type": "lcc"
+    },
+    "QH": {
+      "ar": "بامبو إيروايز",
+      "en": "Bamboo Airways",
+      "country": "VN",
+      "type": "full"
+    },
+    "OQ": {
+      "ar": "سيترافان",
+      "en": "Citilink",
+      "country": "ID",
+      "type": "lcc"
+    },
+    "QG": {
+      "ar": "سيتيلينك",
+      "en": "Citilink",
+      "country": "ID",
+      "type": "lcc"
+    },
+    "RI": {
+      "ar": "ماندالا إير",
+      "en": "Mandala Airlines",
+      "country": "ID",
+      "type": "lcc"
+    },
+    "XN": {
+      "ar": "إكس إير",
+      "en": "Xair",
+      "country": "ID",
+      "type": "lcc"
+    },
+    "IN": {
+      "ar": "إيرنيسيا",
+      "en": "Nam Air",
+      "country": "ID",
+      "type": "lcc"
+    },
+    "KD": {
+      "ar": "دريم إير",
+      "en": "KD Air",
+      "country": "MY",
+      "type": "lcc"
+    },
+    "MH2": {
+      "ar": "ماليزيا إيرلاينز",
+      "en": "Malaysia Airlines",
+      "country": "MY",
+      "type": "full"
+    },
+    "OD": {
+      "ar": "باتيك إير",
+      "en": "Batik Air Malaysia",
+      "country": "MY",
+      "type": "lcc"
+    },
+    "FY": {
+      "ar": "فايرفلاي",
+      "en": "Firefly",
+      "country": "MY",
+      "type": "lcc"
+    },
+    "MV": {
+      "ar": "إير مالديف",
+      "en": "Air Maldives",
+      "country": "MV",
+      "type": "full"
+    },
+    "Q2": {
+      "ar": "مالديفيان",
+      "en": "Maldivian",
+      "country": "MV",
+      "type": "full"
+    },
+    "YS": {
+      "ar": "ريجيونال",
+      "en": "Regional Air",
+      "country": "YE",
+      "type": "lcc"
+    },
+    "ZM": {
+      "ar": "إير مانس",
+      "en": "Air Manas",
+      "country": "KG",
+      "type": "full"
+    },
+    "T5": {
+      "ar": "تركمنستان إيرلاينز",
+      "en": "Turkmenistan Airlines",
+      "country": "TM",
+      "type": "full"
+    },
+    "DV": {
+      "ar": "سكات إير",
+      "en": "SCAT Airlines",
+      "country": "KZ",
+      "type": "lcc"
+    },
+    "7J": {
+      "ar": "هيمي إير",
+      "en": "Hemi Air",
+      "country": "KZ",
+      "type": "lcc"
+    },
+    "Z9": {
+      "ar": "بيك إير",
+      "en": "Bek Air",
+      "country": "KZ",
+      "type": "lcc"
+    },
+    "S2": {
+      "ar": "جيت كونيكت",
+      "en": "JetConnect",
+      "country": "NZ",
+      "type": "lcc"
+    },
+    "ZL": {
+      "ar": "ريجيونال إكسبريس",
+      "en": "Rex Airlines",
+      "country": "AU",
+      "type": "lcc"
+    },
+    "TL": {
+      "ar": "إيرنورث",
+      "en": "Airnorth",
+      "country": "AU",
+      "type": "lcc"
+    },
+    "OL": {
+      "ar": "وينيبيغو إير",
+      "en": "Winair",
+      "country": "SX",
+      "type": "lcc"
+    },
+    "W9": {
+      "ar": "وورلد2فلاي",
+      "en": "World2Fly",
+      "country": "ES",
+      "type": "lcc"
+    },
+    "V7": {
+      "ar": "فولوتيا",
+      "en": "Volotea",
+      "country": "ES",
+      "type": "lcc"
+    },
+    "D8": {
+      "ar": "نورويجيان",
+      "en": "Norwegian Air Sweden",
+      "country": "SE",
+      "type": "lcc"
+    },
+    "DY": {
+      "ar": "نورويجيان",
+      "en": "Norwegian",
+      "country": "NO",
+      "type": "lcc"
+    },
+    "WW": {
+      "ar": "وينج",
+      "en": "Wing Airlines",
+      "country": "NO",
+      "type": "lcc"
+    },
+    "BM": {
+      "ar": "بي أم أيبيريان",
+      "en": "bmi Regional",
+      "country": "GB",
+      "type": "lcc"
+    },
+    "BE": {
+      "ar": "فلايبي",
+      "en": "Flybe",
+      "country": "GB",
+      "type": "lcc"
+    },
+    "6B": {
+      "ar": "تيتان إيروايز",
+      "en": "TUI Airlines Scandinavia",
+      "country": "SE",
+      "type": "lcc"
+    },
+    "OR": {
+      "ar": "تي يو آي فلاي نيدرلاند",
+      "en": "TUI fly Netherlands",
+      "country": "NL",
+      "type": "lcc"
+    },
+    "TB": {
+      "ar": "تي يو آي فلاي بلجيكا",
+      "en": "TUI fly Belgium",
+      "country": "BE",
+      "type": "lcc"
+    },
+    "X3": {
+      "ar": "تي يو آي فلاي ألمانيا",
+      "en": "TUI fly Germany",
+      "country": "DE",
+      "type": "lcc"
+    },
+    "BY": {
+      "ar": "تي يو آي إيروايز",
+      "en": "TUI Airways",
+      "country": "GB",
+      "type": "lcc"
+    },
+    "DE": {
+      "ar": "كوندور",
+      "en": "Condor",
+      "country": "DE",
+      "type": "lcc"
+    },
+    "EN": {
+      "ar": "إير دولوميتي",
+      "en": "Air Dolomiti",
+      "country": "IT",
+      "type": "full"
+    },
+    "IG": {
+      "ar": "ميريديانا",
+      "en": "Neos Air",
+      "country": "IT",
+      "type": "lcc"
+    },
+    "NO": {
+      "ar": "نيوس إير",
+      "en": "Neos",
+      "country": "IT",
+      "type": "lcc"
+    },
+    "AP": {
+      "ar": "إير وان",
+      "en": "Air One",
+      "country": "IT",
+      "type": "lcc"
+    },
+    "VO2": {
+      "ar": "فولاريس",
+      "en": "Volaris Costa Rica",
+      "country": "CR",
+      "type": "lcc"
+    },
+    "9K": {
+      "ar": "كيب إير",
+      "en": "Cape Air",
+      "country": "US",
+      "type": "lcc"
+    },
+    "C5": {
+      "ar": "كومير إير",
+      "en": "CommutAir",
+      "country": "US",
+      "type": "lcc"
+    },
+    "MX": {
+      "ar": "ميكسيكانا",
+      "en": "Mexicana",
+      "country": "MX",
+      "type": "full"
+    },
+    "Y4": {
+      "ar": "فولاريس",
+      "en": "Volaris",
+      "country": "MX",
+      "type": "lcc"
+    },
+    "VB": {
+      "ar": "فيفاأيروبوس",
+      "en": "VivaAerobus",
+      "country": "MX",
+      "type": "lcc"
+    },
+    "7G": {
+      "ar": "ستار فلاير",
+      "en": "StarFlyer",
+      "country": "JP",
+      "type": "lcc"
+    },
+    "H1": {
+      "ar": "هوك ابي إير",
+      "en": "APJ Air",
+      "country": "JP",
+      "type": "lcc"
+    },
+    "JW": {
+      "ar": "فانيلا إير",
+      "en": "Vanilla Air",
+      "country": "JP",
+      "type": "lcc"
+    },
+    "IP": {
+      "ar": "إير إيرانيا",
+      "en": "Atlasglobal",
+      "country": "TR",
+      "type": "lcc"
+    },
+    "KK": {
+      "ar": "أتلاس جلوبال",
+      "en": "Atlasglobal",
+      "country": "TR",
+      "type": "lcc"
+    },
+    "H9": {
+      "ar": "هيليوس إيروايز",
+      "en": "Helios Airways",
+      "country": "CY",
+      "type": "lcc"
+    },
+    "ZA": {
+      "ar": "سكاي أنغكور",
+      "en": "SkyAngkor Airlines",
+      "country": "KH",
+      "type": "lcc"
+    },
+    "K6": {
+      "ar": "كامبودجيا إيرلاينز",
+      "en": "Cambodia Airways",
+      "country": "KH",
+      "type": "full"
+    },
+    "QV": {
+      "ar": "لاو إيرلاينز",
+      "en": "Lao Airlines",
+      "country": "LA",
+      "type": "full"
+    },
+    "8M": {
+      "ar": "ميانمار إيروايز",
+      "en": "Myanmar Airways International",
+      "country": "MM",
+      "type": "full"
+    },
+    "K7": {
+      "ar": "إير كريبيا",
+      "en": "Kribia Airlines",
+      "country": "MR",
+      "type": "lcc"
+    },
+    "2J": {
+      "ar": "إير إيفوار",
+      "en": "Air Ivoire",
+      "country": "CI",
+      "type": "full"
+    },
+    "HF": {
+      "ar": "إير كوت ديفوار",
+      "en": "Air Cote d'Ivoire",
+      "country": "CI",
+      "type": "full"
+    },
+    "7Y": {
+      "ar": "ميد أير",
+      "en": "Mid Airlines",
+      "country": "SD",
+      "type": "lcc"
+    },
+    "FN": {
+      "ar": "فاستجيت",
+      "en": "Fastjet",
+      "country": "TZ",
+      "type": "lcc"
+    },
+    "P0": {
+      "ar": "كوريينتس إير",
+      "en": "Proflight Zambia",
+      "country": "ZM",
+      "type": "lcc"
+    },
+    "H6": {
+      "ar": "هورايزون إير",
+      "en": "Horizon Air",
+      "country": "US",
+      "type": "lcc"
+    },
+    "OO": {
+      "ar": "سكاي ويست",
+      "en": "SkyWest Airlines",
+      "country": "US",
+      "type": "lcc"
+    },
+    "MQ": {
+      "ar": "إنفياي",
+      "en": "Envoy Air",
+      "country": "US",
+      "type": "lcc"
+    },
+    "OH": {
+      "ar": "بيبسايد إير",
+      "en": "PSA Airlines",
+      "country": "US",
+      "type": "lcc"
+    },
+    "YX": {
+      "ar": "ريبابليك إير",
+      "en": "Republic Airways",
+      "country": "US",
+      "type": "lcc"
+    },
+    "PT": {
+      "ar": "ويسكونسين إير",
+      "en": "Piedmont Airlines",
+      "country": "US",
+      "type": "lcc"
+    },
+    "3K": {
+      "ar": "جيت ستار إيشيا",
+      "en": "Jetstar Asia",
+      "country": "SG",
+      "type": "lcc"
+    },
+    "GK2": {
+      "ar": "جيت ستار باسيفيك",
+      "en": "Jetstar Pacific",
+      "country": "VN",
+      "type": "lcc"
+    },
+    "BF": {
+      "ar": "إير فرانس فرنسا",
+      "en": "French Bee",
+      "country": "FR",
+      "type": "lcc"
+    },
+    "SS": {
+      "ar": "كورسير إيرلاينز",
+      "en": "Corsair",
+      "country": "FR",
+      "type": "lcc"
+    },
+    "5O": {
+      "ar": "أوروبا إيربيس",
+      "en": "ASL Airlines France",
+      "country": "FR",
+      "type": "lcc"
+    },
+    "LI": {
+      "ar": "لياتا",
+      "en": "LIAT",
+      "country": "AG",
+      "type": "lcc"
+    },
+    "BW": {
+      "ar": "كاريبيان إيرلاينز",
+      "en": "Caribbean Airlines",
+      "country": "TT",
+      "type": "full"
+    },
+    "9Y": {
+      "ar": "إير كاريبيس",
+      "en": "Air Caraibes",
+      "country": "GP",
+      "type": "lcc"
+    },
+    "JY": {
+      "ar": "إير تيرا جيت",
+      "en": "interCaribbean Airways",
+      "country": "TC",
+      "type": "lcc"
+    },
+    "P4": {
+      "ar": "بيدزووو إيرلاينز",
+      "en": "Belair Airlines",
+      "country": "CH",
+      "type": "lcc"
+    },
+    "5Z": {
+      "ar": "كيميكس إير",
+      "en": "Cemair",
+      "country": "ZA",
+      "type": "lcc"
+    },
+    "FA": {
+      "ar": "فلاي ساجكو",
+      "en": "FlySafair",
+      "country": "ZA",
+      "type": "lcc"
+    },
+    "4Z": {
+      "ar": "إير لينك",
+      "en": "Airlink",
+      "country": "ZA",
+      "type": "lcc"
+    },
+    "JE": {
+      "ar": "ماناس إير",
+      "en": "Mango Airlines",
+      "country": "ZA",
+      "type": "lcc"
+    },
+    "LR": {
+      "ar": "لاكسا",
+      "en": "LACSA",
+      "country": "CR",
+      "type": "full"
+    },
+    "5U": {
+      "ar": "لاد إير",
+      "en": "LADS",
+      "country": "AO",
+      "type": "lcc"
+    },
+    "DT": {
+      "ar": "تافاغ إيرلاينز",
+      "en": "TAAG Angola Airlines",
+      "country": "AO",
+      "type": "full"
+    },
+    "C2": {
+      "ar": "سيبلان",
+      "en": "Ceiba Intercontinental",
+      "country": "GQ",
       "type": "full"
     }
   },
