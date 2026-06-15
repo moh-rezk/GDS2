@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-14",
+  "lastUpdated": "2026-06-15",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -4278,7 +4278,7 @@
       "type": "lcc"
     },
     "VY": {
-      "ar": "فيولينغ",
+      "ar": "فويلنج",
       "en": "Vueling",
       "country": "ES",
       "type": "lcc"
