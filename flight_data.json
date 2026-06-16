@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-15",
+  "lastUpdated": "2026-06-16",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -4518,7 +4518,7 @@
       "type": "full"
     },
     "9P": {
-      "ar": "Fly Jinnah",
+      "ar": "فلاى جنه",
       "en": "Fly Jinnah",
       "country": "PK",
       "type": "full"
