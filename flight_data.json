@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-16",
+  "lastUpdated": "2026-06-23",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3572,6 +3572,13 @@
       "city_ar": "هونولولو",
       "city_en": "Honolulu",
       "country": "US"
+    },
+    "BSZ": {
+      "ar": "بيشكيك",
+      "en": "Bishkek",
+      "city_ar": "بيشكيك",
+      "city_en": "Bishkek",
+      "country": "KY"
     }
   },
   "airlines": {
