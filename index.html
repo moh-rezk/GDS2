@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlTag">
 <head>
@@ -1607,7 +1606,8 @@ async function onMaskInput() {
   }
 }
 
-function onSegmentInput() {
+async function onSegmentInput() {
+  await flightDataReady;
   const t=document.getElementById('rawSeg').value.trim();
   const segs=t.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment);
   const valid=segs.filter(Boolean);
@@ -1616,7 +1616,9 @@ function onSegmentInput() {
     const sc=getAirlineCodeFromSegment(t);
     if (sc&&!_maskAirlineCode) _maskAirlineCode=sc;
     if (sc) updateNoShowBanner(sc);
-    if (!_maskFlightType) _maskFlightType=detectFlightType(valid);
+    /* Segment is the most reliable source for flight type — always overrides
+       any (possibly incorrect) mask-based guess once a valid segment exists. */
+    _maskFlightType=detectFlightType(valid);
     updateMaskDetectBadge(_maskAirlineCode,_maskFlightType);
     if (_maskAirlineCode&&_maskFlightType) {
       document.getElementById('flightStepPrompt').style.display='none';
@@ -1629,7 +1631,8 @@ function onSegmentInput() {
   }
 }
 
-function onSegmentPostInput() {
+async function onSegmentPostInput() {
+  await flightDataReady;
   const t=document.getElementById('rawSegPost').value.trim();
   renderSegPreview(t.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment),'segPreviewPost');
   processAll();
@@ -1826,7 +1829,7 @@ function openPaxModal(){
   const cm=aMask.match(/PENALTY\s+([A-Z]{3})\s+/i);
   const detCur=cm?cm[1].toUpperCase():'SAR';
   const SAUDI_AIRLINES = new Set(['SV','F3','XY']);
-  let detectedType = _maskFlightType || detectFlightType(segs);
+  let detectedType = detectFlightType(segs) || _maskFlightType;
   if (!detectedType && detCur === 'SAR' && code && SAUDI_AIRLINES.has(code)) {
     detectedType = 'domestic';
   }
@@ -1911,13 +1914,16 @@ let _selectedFlightType = null, _maskAirlineCode = null, _maskFlightType = null;
 let _parsedPaxNames = [];
 
 const fareRoundingRules = {
-  PKR: 10, INR: 10, JPY: 50, EGP: 5, SAR: 1, AED: 10,
+  PKR: 10, INR: 10, JPY: 50, EGP: 5, SAR: 0.01, AED: 10,
   QAR: 10, USD: 1, EUR: 1, GBP: 1, KWD: 0.001, BHD: 0.001, OMR: 0.001, JOD: 0.001,
 };
 
 function roundAsFare(amount, currency) {
   if(amount === null || amount === undefined || isNaN(amount)) return 0;
   const unit = fareRoundingRules[currency] || 1;
+  // Sub-unit currencies (KWD/BHD/OMR = 0.001): use round to preserve decimal precision.
+  // Whole-unit currencies (SAR/1, AED/10, QAR/10…): use ceil — GDS rounds fares UP.
+  if (unit < 1) return Math.round(amount / unit) * unit;
   return Math.ceil(amount / unit) * unit;
 }
 
@@ -2324,26 +2330,21 @@ function renderOutput(){
   const fdPerPax   = totalPax > 0 ? roundAsFare(d.totalFD / totalPax, fdCur) : 0;
   const mosPerPax  = pPaxForMos > 0 ? roundAsFare(d.totalMos / pPaxForMos, pocCur) : 0;
 
-  const tA = fmtAmt(d.indA * d.cA, pocCur);
-  const tC = fmtAmt(d.indC * d.cC, pocCur);
-  const tI = fmtAmt(d.indI * d.cI, pocCur);
+  const tA     = fmtAmt(d.indA * d.cA, pocCur);
+  const tC     = fmtAmt(d.indC * d.cC, pocCur);
+  const tI     = fmtAmt(d.indI * d.cI, pocCur);
+  const tAper  = fmtAmt(d.indA, pocCur);   // per-pax (for single pax display)
+  const tCper  = fmtAmt(d.indC, pocCur);
+  const tIper  = fmtAmt(d.indI, pocCur);
 
   const showPerPaxBlock = totalPax > 1;
 
-  /* ── Per-pax breakdown blocks — now safe because CUR_AR vars are defined above ── */
+  /* ── Per-pax line: single summary line for both domestic & international ── */
   const perPaxBlockAr = showPerPaxBlock
-    ? `── التفصيل للفرد الواحد ──\n` +
-      `غرامة للمسافر: ${fmtAmt(pePerPax, peCur)} ${peCurAr}\n` +
-      `فارق السعر للمسافر: ${fmtAmt(fdPerPax, fdCur)} ${fdCurAr}\n` +
-      (pPaxForMos > 0 ? `رسوم المسافر للفرد: ${fmtAmt(mosPerPax, pocCur)} ${curAr}\n` : '') +
-      `إجمالي للفرد: ${fmtAmt(d.pPer, pocCur)} ${curAr}\n\n`
+    ? `رسوم التعديل للفرد الواحد: ${fmtAmt(d.pPer, pocCur)} ${curAr}\n\n`
     : '';
   const perPaxBlockEn = showPerPaxBlock
-    ? `── Per Pax Breakdown ──\n` +
-      `Penalty per pax: ${fmtAmt(pePerPax, peCur)} ${peCur}\n` +
-      `Fare diff per pax: ${fmtAmt(fdPerPax, fdCur)} ${fdCur}\n` +
-      (pPaxForMos > 0 ? `Almosafer fee per pax: ${fmtAmt(mosPerPax, pocCur)} ${pocCur}\n` : '') +
-      `Total per pax: ${fmtAmt(d.pPer, pocCur)} ${pocCur}\n\n`
+    ? `Amendment fee per pax: ${fmtAmt(d.pPer, pocCur)} ${pocCur}\n\n`
     : '';
 
   const mosFeeTextAr = d.mosCapped
@@ -2356,26 +2357,44 @@ function renderOutput(){
     ? `Almosafer fees: ${fmtAmt(d.totalMos, pocCur)} ${pocCur} (capped at 4 passengers).`
     : `Almosafer fees: ${fmtAmt(d.totalMos, pocCur)} ${pocCur}`;
 
+  /* ── Segment translation header ── */
+  const _rawSegRO = (document.getElementById('rawSegPost')?.value.trim()) || document.getElementById('rawSeg')?.value.trim() || '';
+  const _segsRO   = _rawSegRO.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment).filter(Boolean);
+  const flHeaderAr = _segsRO.length
+    ? _segsRO.map((s,i) => (_segsRO.length>1 ? `✈️ الرحلة ${i+1}\n` : '✈️ ') + buildFlightTextAr(s)).join('\n\n') + '\n\n'
+    : '';
+  const flHeaderEn = _segsRO.length
+    ? _segsRO.map((s,i) => (_segsRO.length>1 ? `✈️ Flight ${i+1}\n` : '✈️ ') + buildFlightTextEn(s)).join('\n\n') + '\n\n'
+    : '';
+  const paxHeaderAr = (() => { const p=[]; if(d.cA>0)p.push(`بالغ ×${d.cA}`); if(d.cC>0)p.push(`طفل ×${d.cC}`); if(d.cI>0)p.push(`رضيع ×${d.cI}`); return `عدد المسافرين: ${p.join(' | ')}\n\n`; })();
+  const paxHeaderEn = (() => { const p=[]; if(d.cA>0)p.push(`Adult ×${d.cA}`); if(d.cC>0)p.push(`Child ×${d.cC}`); if(d.cI>0)p.push(`Infant ×${d.cI}`); return `Passengers: ${p.join(' | ')}\n\n`; })();
+
   const msgAr =
+    flHeaderAr +
+    paxHeaderAr +
     `رسوم التعديل لشركة الطيران: ${fmtAmt(d.tP, peCur)} ${peCurAr}.\n` +
     `${mosFeeTextAr}\n\n` +
     `فارق السعر: ${fmtAmt(d.totalFD, fdCur)} ${fdCurAr}.\n\n` +
     perPaxBlockAr +
-    `إجمالي الرسوم للبالغ: ${tA} ${curAr}.\n` +
-    (d.cC > 0 ? `إجمالي الرسوم للطفل: ${tC} ${curAr}.\n` : '') +
-    (d.cI > 0 ? `إجمالي الرسوم للرضيع: ${tI} ${curAr}.\n` : '') +
+
+    (d.cA > 0 ? `إجمالي الرسوم للبالغ: ${tAper} ${curAr}.\n` : '') +
+    (d.cC > 0 ? `إجمالي الرسوم للطفل: ${tCper} ${curAr}.\n` : '') +
+    (d.cI > 0 ? `إجمالي الرسوم للرضيع: ${tIper} ${curAr}.\n` : '') +
     `\n` +
     `إجمالي مبلغ التعديل المطلوب: ${fmtAmt(d.grand, pocCur)} ${curAr}.\n\n` +
     `مع العلم أن السعر والإمكانية غير ثابتين وأن رسوم شركة الطيران صالحة حتى ${hrsAr} قبل موعد الإقلاع.`;
 
   const msgEn =
+    flHeaderEn +
+    paxHeaderEn +
     `Airline Amendment fees: ${fmtAmt(d.tP, peCur)} ${peCur}\n` +
     `${mosFeeTextEn}\n` +
     `Fare difference: ${fmtAmt(d.totalFD, fdCur)} ${fdCur}\n\n` +
     perPaxBlockEn +
-    `Total fees per adult: ${tA} ${pocCur}\n` +
-    (d.cC > 0 ? `Total fees per child: ${tC} ${pocCur}\n` : '') +
-    (d.cI > 0 ? `Total fees for the infant: ${tI} ${pocCur}\n` : '') +
+
+    (d.cA > 0 ? `Total fees per adult: ${tAper} ${pocCur}.\n` : '') +
+    (d.cC > 0 ? `Total fees per child: ${tCper} ${pocCur}.\n` : '') +
+    (d.cI > 0 ? `Total fees per infant: ${tIper} ${pocCur}.\n` : '') +
     `\n` +
     `Total amendment amount: ${fmtAmt(d.grand, pocCur)} ${pocCur}.\n\n` +
     `Knowing that the price and availability are not guaranteed, and the airline amendment fees are valid up to ${hrsEn} before the departure time.`;
@@ -2510,8 +2529,22 @@ function processAll(){
     if(!num) return v;
     return lang==='ar' ? `${num} كيلوجرام` : `${num} KG`;
   }
-  document.getElementById('confirmAr').innerText=`للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\n${paxArLabel}\n\n${flAr}\n\nالأمتعة: يد ${normBag(bH,'ar')} | شحن ${normBag(bC,'ar')}\nإجمالي المطلوب: ${_pfmt(d.grand)} ${curAr}\n\n${note}`;
-  document.getElementById('confirmEn').innerText=`Just to confirm, this is the requested flight, correct?\n\n${paxEnLabel}\n\n${flEn}\n\nBaggage: Hand ${normBag(bH,'en')} | Checked ${normBag(bC,'en')}\nTotal Fees: ${_pfmt(d.grand)} ${d.currency}\n\n${noteEn}`;
+  const paxCountAr = (() => {
+    const parts = [];
+    if (d.cA > 0) parts.push(`بالغ ×${d.cA}`);
+    if (d.cC > 0) parts.push(`طفل ×${d.cC}`);
+    if (d.cI > 0) parts.push(`رضيع ×${d.cI}`);
+    return `عدد المسافرين: ${parts.join(' | ')}`;
+  })();
+  const paxCountEn = (() => {
+    const parts = [];
+    if (d.cA > 0) parts.push(`Adult ×${d.cA}`);
+    if (d.cC > 0) parts.push(`Child ×${d.cC}`);
+    if (d.cI > 0) parts.push(`Infant ×${d.cI}`);
+    return `Passengers: ${parts.join(' | ')}`;
+  })();
+  document.getElementById('confirmAr').innerText=`للتأكيد فقط، هذه هى الرحلة المطلوبة صحيح؟\n\n${paxArLabel}\n${paxCountAr}\n\n${flAr}\n\nالأمتعة: يد ${normBag(bH,'ar')} | شحن ${normBag(bC,'ar')}\nإجمالي المطلوب: ${_pfmt(d.grand)} ${curAr}\n\n${note}`;
+  document.getElementById('confirmEn').innerText=`Just to confirm, this is the requested flight, correct?\n\n${paxEnLabel}\n${paxCountEn}\n\n${flEn}\n\nBaggage: Hand ${normBag(bH,'en')} | Checked ${normBag(bC,'en')}\nTotal Fees: ${_pfmt(d.grand)} ${d.currency}\n\n${noteEn}`;
 }
 
 function copyGdsNote(){
@@ -3094,5 +3127,3 @@ function validatePostAccept(){
 </script>
 </body>
 </html>
-
-
