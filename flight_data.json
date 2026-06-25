@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-23",
+  "lastUpdated": "2026-06-25",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -4057,7 +4057,7 @@
       "type": "full"
     },
     "UL": {
-      "ar": "سيريلانكان",
+      "ar": "الخطوط الجوية السريلانكية",
       "en": "SriLankan Airlines",
       "country": "LK",
       "type": "full"
