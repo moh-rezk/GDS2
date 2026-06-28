@@ -1,6 +1,6 @@
 {
-  "version": "3.0.0",
-  "lastUpdated": "2026-06-28",
+  "version": "3.0.1",
+  "lastUpdated": "2026-06-29",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -1872,13 +1872,6 @@
       "city_en": "Kano",
       "country": "NG"
     },
-    "CMN2": {
-      "ar": "دوالا",
-      "en": "Douala",
-      "city_ar": "دوالا",
-      "city_en": "Douala",
-      "country": "CM"
-    },
     "DLA": {
       "ar": "دوالا",
       "en": "Douala",
@@ -2614,13 +2607,6 @@
       "city_en": "Bari",
       "country": "IT"
     },
-    "AMS2": {
-      "ar": "روتردام",
-      "en": "Rotterdam",
-      "city_ar": "روتردام",
-      "city_en": "Rotterdam",
-      "country": "NL"
-    },
     "RTM": {
       "ar": "روتردام",
       "en": "Rotterdam",
@@ -3104,13 +3090,6 @@
       "city_en": "Puerto Vallarta",
       "country": "MX"
     },
-    "MRS2": {
-      "ar": "مازاتلان",
-      "en": "Mazatlan",
-      "city_ar": "مازاتلان",
-      "city_en": "Mazatlan",
-      "country": "MX"
-    },
     "MZT": {
       "ar": "مازاتلان",
       "en": "Mazatlan",
@@ -3284,13 +3263,6 @@
       "en": "Porto Alegre",
       "city_ar": "بورتو أليغري",
       "city_en": "Porto Alegre",
-      "country": "BR"
-    },
-    "MAN2": {
-      "ar": "ماناوس",
-      "en": "Manaus",
-      "city_ar": "ماناوس",
-      "city_en": "Manaus",
       "country": "BR"
     },
     "MAO": {
@@ -5213,6 +5185,12 @@
       "en": "Ceiba Intercontinental",
       "country": "GQ",
       "type": "full"
+    },
+    "J5": {
+      "ar": "العربية أبوظبي",
+      "en": "Air Arabia AUH",
+      "country": "AE",
+      "type": "lcc"
     }
   },
   "cityToIATA": {
@@ -5498,12 +5476,12 @@
     "RX": "6"
   },
   "baggage": {
-    "version": "1.0.0",
-    "lastUpdated": "2026-05-31",
+    "version": "1.0.1",
+    "lastUpdated": "2026-06-29",
     "description": "AlMosafer Services — Airline No-Show & Baggage Window Data",
     "airlines": {
       "SV": {
-        "name": "Saudi Arabian Airlines",
+        "name": "Saudia",
         "nameAr": "الخطوط السعودية",
         "baggageHours": 6
       },
@@ -5603,7 +5581,7 @@
         "baggageHours": 8
       },
       "UJ": {
-        "name": "AlMasria",
+        "name": "AlMasria Universal",
         "nameAr": "المصرية العالمية",
         "baggageHours": 24
       },
@@ -5711,6 +5689,11 @@
         "name": "Unknown Airline",
         "nameAr": "شركة طيران",
         "baggageHours": 24
+      },
+      "VY": {
+        "name": "Vueling",
+        "nameAr": "فويلنج",
+        "baggageHours": 2
       }
     },
     "airports": {
