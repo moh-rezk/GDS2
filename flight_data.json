@@ -1,6 +1,6 @@
 {
   "version": "3.0.0",
-  "lastUpdated": "2026-06-25",
+  "lastUpdated": "2026-06-28",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -88,10 +88,10 @@
       "country": "SA"
     },
     "RAE": {
-      "ar": "رفحاء",
-      "en": "Rafha",
-      "city_ar": "رفحاء",
-      "city_en": "Rafha",
+      "ar": "عرعر",
+      "en": "Arar",
+      "city_ar": "عرعر",
+      "city_en": "Arar",
       "country": "SA"
     },
     "WAE": {
