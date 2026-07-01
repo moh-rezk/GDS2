@@ -3551,6 +3551,13 @@
       "city_ar": "بيشكيك",
       "city_en": "Bishkek",
       "country": "KY"
+    },
+    "HAS": {
+      "ar": "حائل",
+      "en": "Hail",
+      "city_ar": "حائل",
+      "city_en": "Hail",
+      "country": "SA"
     }
   },
   "airlines": {
