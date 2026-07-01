@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-06-29",
+  "lastUpdated": "2026-07-01",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -5191,6 +5191,12 @@
       "en": "Air Arabia AUH",
       "country": "AE",
       "type": "lcc"
+    },
+    "J4": {
+      "ar": "خطوط بدر الجوية",
+      "en": "BADR AIRLINES",
+      "country": "SU",
+      "type": "full"
     }
   },
   "cityToIATA": {
