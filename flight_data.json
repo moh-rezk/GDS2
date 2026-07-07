@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-07-06",
+  "lastUpdated": "2026-07-07",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3558,6 +3558,13 @@
       "city_ar": "حائل",
       "city_en": "Hail",
       "country": "SA"
+    },
+    "DBB": {
+      "ar": "الضبعه",
+      "en": "Dabaa",
+      "city_ar": "الضبعه",
+      "city_en": "Dabaa",
+      "country": "EG"
     }
   },
   "airlines": {
