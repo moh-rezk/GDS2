@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-07-07",
+  "lastUpdated": "2026-07-11",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -5442,7 +5442,8 @@
     "TUI",
     "ULH",
     "URY",
-    "HAS"
+    "HAS",
+    "AQI"
   ],
   "noShowRules": {
     "A3": "4",
