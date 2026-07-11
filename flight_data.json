@@ -3565,6 +3565,13 @@
       "city_ar": "الضبعه",
       "city_en": "Dabaa",
       "country": "EG"
+    },
+    "AQI": {
+      "ar": "القيصومة",
+      "en": "Qaisumah",
+      "city_ar": "القيصومة",
+      "city_en": "Qaisumah",
+      "country": "SA"
     }
   },
   "airlines": {
