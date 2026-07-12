@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-07-11",
+  "lastUpdated": "2026-07-12",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -5467,7 +5467,7 @@
     "CX": "24",
     "DL": "Check Rules",
     "MS": "24",
-    "EK": "1",
+    "EK": "3",
     "ET": "24",
     "EY": "4",
     "FZ": "24",
