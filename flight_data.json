@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-07-12",
+  "lastUpdated": "2026-07-14",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3572,6 +3572,13 @@
       "city_ar": "القيصومة",
       "city_en": "Qaisumah",
       "country": "SA"
+    },
+    "BUS": {
+      "ar": "باتومي",
+      "en": "Batumi",
+      "city_ar": "باتومي",
+      "city_en": "Batumi",
+      "country": "GE"
     }
   },
   "airlines": {
