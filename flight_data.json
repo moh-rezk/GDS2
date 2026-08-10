@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-07-18",
+  "lastUpdated": "2026-08-10",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3585,6 +3585,13 @@
       "en": "Asyut",
       "city_ar": "أسيوط",
       "city_en": "Asyut",
+      "country": "EG"
+    },
+    "ALY": {
+      "ar": "مطار النزهة",
+      "en": "El Nouzha Airport",
+      "city_ar": "مطار النزهة",
+      "city_en": "El Nouzha Airport",
       "country": "EG"
     }
   },
