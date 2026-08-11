@@ -3586,6 +3586,13 @@
       "city_ar": "مطار النزهة",
       "city_en": "El Nouzha Airport",
       "country": "EG"
+    },
+    "RAE": {
+      "ar": "مطار عرعر",
+      "en": "Arar",
+      "city_ar": "مطار عرعر",
+      "city_en": "Arar",
+      "country": "SA"
     }
   },
   "airlines": {
