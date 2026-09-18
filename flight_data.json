@@ -5477,7 +5477,8 @@
     "URY",
     "HAS",
     "AQI",
-    "RAE"
+    "RAE",
+    "RSI"
   ],
   "noShowRules": {
     "A3": "4",
