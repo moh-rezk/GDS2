@@ -3593,6 +3593,13 @@
       "city_ar": "مطار عرعر",
       "city_en": "Arar",
       "country": "SA"
+    },
+    "RSI": {
+      "ar": "حنك",
+      "en": "Hanak",
+      "city_ar": "حنك",
+      "city_en": "Hanak",
+      "country": "SA"
     }
   },
   "airlines": {
