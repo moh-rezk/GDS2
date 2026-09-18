@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl" id="htmlTag">
 <head>
@@ -2361,10 +2360,10 @@ function renderOutput(){
   const _rawSegRO = (document.getElementById('rawSegPost')?.value.trim()) || document.getElementById('rawSeg')?.value.trim() || '';
   const _segsRO   = _rawSegRO.split('\n').filter(l=>l.trim()).map(parseAmadeusSegment).filter(Boolean);
   const flHeaderAr = _segsRO.length
-    ? _segsRO.map((s,i) => (_segsRO.length>1 ? `✈️ الرحلة ${i+1}\n` : '✈️ ') + buildFlightTextAr(s)).join('\n\n') + '\n\n'
+    ? _segsRO.map((s,i) => (_segsRO.length>1 ? `الرحلة ${i+1}\n` : '') + buildFlightTextAr(s)).join('\n\n') + '\n\n'
     : '';
   const flHeaderEn = _segsRO.length
-    ? _segsRO.map((s,i) => (_segsRO.length>1 ? `✈️ Flight ${i+1}\n` : '✈️ ') + buildFlightTextEn(s)).join('\n\n') + '\n\n'
+    ? _segsRO.map((s,i) => (_segsRO.length>1 ? `Flight ${i+1}\n` : '') + buildFlightTextEn(s)).join('\n\n') + '\n\n'
     : '';
   const paxHeaderAr = (() => { const p=[]; if(d.cA>0)p.push(`بالغ ×${d.cA}`); if(d.cC>0)p.push(`طفل ×${d.cC}`); if(d.cI>0)p.push(`رضيع ×${d.cI}`); return `عدد المسافرين: ${p.join(' | ')}\n\n`; })();
   const paxHeaderEn = (() => { const p=[]; if(d.cA>0)p.push(`Adult ×${d.cA}`); if(d.cC>0)p.push(`Child ×${d.cC}`); if(d.cI>0)p.push(`Infant ×${d.cI}`); return `Passengers: ${p.join(' | ')}\n\n`; })();
@@ -2382,7 +2381,8 @@ function renderOutput(){
     (d.cI > 0 ? `إجمالي الرسوم للرضيع: ${tIper} ${curAr}.\n` : '') +
     `\n` +
     `إجمالي مبلغ التعديل المطلوب: ${fmtAmt(d.grand, pocCur)} ${curAr}.\n\n` +
-    `مع العلم أن السعر والإمكانية غير ثابتين وأن رسوم شركة الطيران صالحة حتى ${hrsAr} قبل موعد الإقلاع.`;
+    `مع العلم أن السعر والإمكانية غير ثابتين وأن رسوم شركة الطيران صالحة حتى ${hrsAr} قبل موعد الإقلاع.\n\n` +
+    `هل ترغب في إرسال رابط الدفع الآن لإتمام العملية؟(يرجى العلم أن صلاحية الرابط 10 دقائق فقط).`;
 
   const msgEn =
     flHeaderEn +
@@ -2397,7 +2397,8 @@ function renderOutput(){
     (d.cI > 0 ? `Total fees per infant: ${tIper} ${pocCur}.\n` : '') +
     `\n` +
     `Total amendment amount: ${fmtAmt(d.grand, pocCur)} ${pocCur}.\n\n` +
-    `Knowing that the price and availability are not guaranteed, and the airline amendment fees are valid up to ${hrsEn} before the departure time.`;
+    `Knowing that the price and availability are not guaranteed, and the airline amendment fees are valid up to ${hrsEn} before the departure time.\n\n` +
+    `Would you like us to send the payment link now to complete the process?(Please note that the link is valid for 10 minutes only).`;
 
   document.getElementById('msgPlaceholder').style.display='none';
   document.getElementById('msgOutputSplit').style.display='block';
