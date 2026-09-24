@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-09-19",
+  "lastUpdated": "2026-09-24",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3600,6 +3600,13 @@
       "city_ar": "حنك",
       "city_en": "Hanak",
       "country": "SA"
+    },
+    "HAJ": {
+      "ar": "هانوفر",
+      "en": "Hannover",
+      "city_ar": "هانوفر",
+      "city_en": "Hannover",
+      "country": "GE"
     }
   },
   "airlines": {
