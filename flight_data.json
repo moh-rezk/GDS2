@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-09-24",
+  "lastUpdated": "2026-09-26",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -5258,6 +5258,12 @@
       "ar": "أجيت",
       "en": "ajet",
       "country": "TK",
+      "type": "full"
+    },
+    "4P": {
+      "ar": "طيران العربيه",
+      "en": "Air Arabia",
+      "country": "SA",
       "type": "full"
     }
   },
