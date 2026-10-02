@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-09-30",
+  "lastUpdated": "2026-10-02",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -267,13 +267,6 @@
       "en": "Cairo",
       "city_ar": "القاهرة",
       "city_en": "Cairo",
-      "country": "EG"
-    },
-    "HBE": {
-      "ar": "الإسكندرية",
-      "en": "Alexandria",
-      "city_ar": "الإسكندرية",
-      "city_en": "Alexandria",
       "country": "EG"
     },
     "HRG": {
