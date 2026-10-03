@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-10-02",
+  "lastUpdated": "2026-10-03",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3600,6 +3600,13 @@
       "city_ar": "هانوفر",
       "city_en": "Hannover",
       "country": "GE"
+    },
+    "HBE": {
+      "ar": "برج العرب",
+      "en": "Borg El Arab",
+      "city_ar": "برج العرب",
+      "city_en": "Borg El Arab",
+      "country": "EG"
     }
   },
   "airlines": {
