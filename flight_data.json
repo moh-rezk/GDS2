@@ -1,6 +1,6 @@
 {
   "version": "3.0.1",
-  "lastUpdated": "2026-10-03",
+  "lastUpdated": "2026-10-06",
   "description": "Merged database: GDS policy base + LCCC filter + Baggage fees + Extended airports/airlines — Al-Mosafer",
   "airports": {
     "RUH": {
@@ -3607,6 +3607,13 @@
       "city_ar": "برج العرب",
       "city_en": "Borg El Arab",
       "country": "EG"
+    },
+    "LYP": {
+      "ar": "مطار فيصل آباد",
+      "en": "Faisalabad Airport",
+      "city_ar": "مطار فيصل آباد",
+      "city_en": "Faisalabad Airport",
+      "country": "PK"
     }
   },
   "airlines": {
